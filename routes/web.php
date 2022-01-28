@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('welcome',[ColorsController::class,'welcome']);
+//Route::get('welcome',[ColorsController::class,'welcome']);
 
 // Route::get('/welcome', [App\Http\Controllers\ColorsController::class, 'welcomes'])->name('welcomes');
 

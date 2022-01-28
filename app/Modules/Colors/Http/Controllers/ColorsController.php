@@ -15,59 +15,106 @@ class ColorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function welcome()
+    public function add()
     {
-        return view("Colors::new");
+        return view("Colors::add");
     }
+    public function displaycolor()
+    {
+        $users = Colors::join('users', 'users.id', '=', 'colors.user_id')->where('status',array('Y'))-> orWhere('status',array('N'))
+               ->get(['colors.*', 'users.username']);
+               return view('Colors::welcome',['colors'=>$users]);
+         //$users = User::join('posts', 'users.id', '=', 'posts.user_id')
+            //   ->get(['users.*', 'posts.descrption']);
+
+       // $sql=colors::select users.name as name,colors.*  from colors join users on users.id=colors.user_id;
+       // $data=colors::all();
+       // return compact('users');
+    }
+    //add data
+    public function getdata(Request $request){
+
+        $colors =new colors;
+
+       $id = Auth::id();
+        $colors->name=$request->name;
+        $colors->user_id=$id;
+        $colors->status=$request->status;
+        $colors-> save();
+        return redirect('displaycolor');
+       // return redirect('Colors::welcome');
+      // $data=colors::all();
+       // $data = Colors::where('status',array('N','Y'))->get();
+       // return view('Colors::welcome',['colors'=>$data]);
+
+
+      // return redirect("Colors::welcome");
+
+   }
+//edit colors
+   public function edit($id)
+   {
+       $colors = colors::find($id);
+       return view('Colors::edit', compact('colors'));
+   }
+//upadte color
+   public function update(Request $request,$id)
+   {
+       $Aid = Auth::id();
+       $colors=colors::find($id);
+       $colors->user_id=$Aid;
+       $colors->name=$request->name;
+       $colors->update();
+       return redirect('displaycolor');
+
+      //return redirect($url)->with('success', 'Data saved successfully!');
+   }
+///change color status
     public function changeStatus(Request $r)
     {
+        $colors = new colors;
+        $id = Auth::id();
+        $colors->user_id=$id;
         $colors = Colors::find($r->id);
         $colors->status = $r->status;
         $colors->save();
         return response()->json(['success'=>'Status change successfully.']);
     }
-
-
-    public function getdata(Request $request){
-
-         $colors =new colors;
-
-        $id = Auth::id();
-         $colors->name=$request->name;
-         $colors->user_id=$id;
-         $colors->status=$request->status;
-         $colors-> save();
-        // return redirect('Colors::welcome');
-        $data=colors::all();
-    	return view('Colors::welcome',['colors'=>$data]);
-       // return redirect("Colors::welcome");
-
+    // public function trash(){
+    //     return view("Colors::trash");
+    // }
+    //display trash list
+    public function trashshow(){
+        $colors = Colors::join('users', 'users.id', '=', 'colors.user_id')->where('status',array('T'))->get(['colors.*', 'users.username']);
+        // $colors = Colors::where('status',array('T'))->get();
+        return view('Colors::trash',['colors'=>$colors]);
     }
-    public function displaycolor()
+//update status T
+    public function movetotrash(Request $r)
     {
+         $update = Colors::find($r->id);
+        $update->status='T';
+        $update->save();
+        return Colors::all();
+}
 
-
-        $data=colors::all();
-    	return view('Colors::welcome',['colors'=>$data]);
-    }
-
-    public function edit($id)
+    // restore
+    public function restore(Request $r)
     {
-        $colors = colors::find($id);
-        return view('Colors::edit', compact('colors'));
+        $update = Colors::find($r->id);
+        $update->status='Y';
+        $update->save();
+        return colors::all();
     }
 
-    public function update(Request $request,$id)
-    {
-        $id = Auth::id();
-        $colors=colors::find($id);
-        $colors->user_id=$id;
-        $colors->name=$request->name;
-        $colors->update();
-        return redirect('displaycolor');
 
-       //return redirect($url)->with('success', 'Data saved successfully!');
-    }
+    //  public function displaydata()
+    //  {
+    //     $data = Colors::where('status',array('Y'))-> orWhere('status',array('N'))->get();
+    //     return view('Colors::welcome',['colors'=>$data]);
+    //     //return compact('data');
+
+    //  }
     // public function delete($id)
     // {
     //     $record= Colors::find($id)->delete();

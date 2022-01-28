@@ -1,44 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css')}}">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css')}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}">
-  <!-- summernote -->
-  <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css')}}">
-
+   @include('admin.css')
 </head>
 <body class="hold-transition sidebar-mini">
     @include('admin.header')
     @include('admin.sidebar')
     <div class="wrapper">
         <div class="content-wrapper">
-             <div class="d-flex justify-content-center m-5 pb-5">
-    <div class="col-md-8">
+            <div class="content-header">
+                <div class="container-fluid">
+                  <div class="row mb-1">
+                    <div class="col-sm-6">
+                      <h1 class="m-0">Add Colors</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                      <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active"><a href="{{url('home')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('displaycolor')}}">Color</a></li>
+                        <li class="breadcrumb-item active">Add</li>
+                      </ol>
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+              </div>
+             <div class="d-flex justify-content-center">
+    <div class="col-md-12">
         <!-- general form elements -->
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Add Colors</h3>
+          </div>
+          <div class="text-center mt-0 mb-0 p-1">
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -65,11 +60,7 @@
                 <label class="form-check-label" for="flexRadioDefault2">
                  N
                 </label>
-                &nbsp; &nbsp; &nbsp; &nbsp;
-                <input class="form-check-input" type="radio"name="status"  value="T">
-                <label class="form-check-label" for="flexRadioDefault2">
-                 T
-                </label>
+
               </div>
             </div>
             <!-- /.card-body -->
