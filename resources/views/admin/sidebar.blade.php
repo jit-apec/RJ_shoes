@@ -74,6 +74,35 @@
                             </li>
 
                  </ul>
+                 <ul class="nav ">
+                    <li class="nav-item">
+                   {{-- <a href="" class="nav-link ">
+                   <i class="fas fa-palette nav-icon"></i>
+                   <p>Colors</p>
+                   </a> --}}
+                   <a href="#" class="nav-link">
+                       <i class="fas fa-palette nav-icon"></i>
+                       <p>
+                       Brand
+                       <i class="fas fa-angle-left right"></i>
+
+                       </p>
+                   </a>
+                       <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                           <a href="{{url('display')}}" class="nav-link">
+                               <i class="far fa-circle nav-icon"></i>
+                               <p>Add Color</p>
+                           </a>
+                           </li>
+                           <li class="nav-item">
+                           <a href="{{url('displaycolor')}}" class="nav-link">
+                               <i class="far fa-circle nav-icon"></i>
+                               <p>Colors</p>
+                           </a>
+                           </li>
+
+                </ul>
                  <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">

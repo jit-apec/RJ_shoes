@@ -25,7 +25,7 @@
                 </div><!-- /.container-fluid -->
               </div>
              <div class="d-flex justify-content-center">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <!-- general form elements -->
         <div class="card card-primary">
           <div class="card-header">

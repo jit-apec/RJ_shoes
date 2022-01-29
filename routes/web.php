@@ -1,6 +1,7 @@
 <?php
 use App\Modules\Colors\Http\Controllers\ColorsController;
 use Illuminate\Support\Facades\Route;
+//use App\Modules\Brand\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,5 @@ Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->nam
 
 //Route::get('welcome',[ColorsController::class,'welcome']);
 
-// Route::get('/welcome', [App\Http\Controllers\ColorsController::class, 'welcomes'])->name('welcomes');
+//  Route::get('/welcome', [App\Modules\Brand\Http\Controllers\BrandController::class, 'welcomes'])->name('welcomes');
 

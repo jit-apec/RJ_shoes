@@ -105,7 +105,7 @@
                 <thead>
                     <tr>
 
-                        <th> id </th>
+                        <th class="text-center"> id </th>
                         <th>User Name</th>
                         <th>Color Name</th>
                         <th>Status</th>
@@ -116,11 +116,14 @@
                 </thead>
                 <tbody>
                     {{-- {{$data}} --}}
+                   {{-- {{ $count=0;}} --}}
+                     @php  $count=0; @endphp
                      @foreach ($colors as $col)
+
                     <tr>
 
+                            <td class="text-center">{{$count+=1}}</td>
 
-                            <td>{{$col->id}}</td>
                             <td>{{$col->username}}</td>
 
                             <td>{{$col->name}}</td>
@@ -156,6 +159,7 @@
                             </td> --}}
 
                      </tr>
+
                     @endforeach
                 </tbody>
             </table>
