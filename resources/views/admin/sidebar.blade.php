@@ -90,15 +90,15 @@
                    </a>
                        <ul class="nav nav-treeview">
                            <li class="nav-item">
-                           <a href="{{url('display')}}" class="nav-link">
+                           <a href="{{url('addBrands')}}" class="nav-link">
                                <i class="far fa-circle nav-icon"></i>
-                               <p>Add Color</p>
+                               <p>Add Brand</p>
                            </a>
                            </li>
                            <li class="nav-item">
-                           <a href="{{url('displaycolor')}}" class="nav-link">
+                           <a href="{{url('display')}}" class="nav-link">
                                <i class="far fa-circle nav-icon"></i>
-                               <p>Colors</p>
+                               <p>Brand</p>
                            </a>
                            </li>
 
