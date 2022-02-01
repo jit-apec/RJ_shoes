@@ -37,7 +37,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form method="POST" action="addcolor">
+          <form method="POST" action="addcolor" id="addcolor">
               @csrf
 
 
@@ -45,6 +45,11 @@
               <div class="form-group">
                 <label for="name">Color Name</label>
                 <input type="text" class="form-control" name="name" placeholder="Enter color">
+                {{-- <input type="text" id="name"  id="colorname" onkeyup="myFunction()"> --}}
+                @error('name')
+                <p style="color:red">{{ $message }} </p>
+                 @enderror
+                <h5 id="colorcheck"></h5>
               </div>
 
               <label> Status</label>
@@ -73,39 +78,63 @@
     </div>
 </div>
 </div>
-    <!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- ChartJS -->
-<script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-<!-- Sparkline -->
-<script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker -->
-<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-<!-- Summernote -->
-<script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
-<!-- overlayScrollbars -->
-<script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+ @include('admin.jquery')
 </body>
+<script type="text/javascript">
+    $(document).ready(function(){
+          $('#colorcheck').hide();
+          var color_err = true;
+          $('#colorname').keyup(function(){
+                 colorname_check();
+    });
+    function colorname_check(){
+    var color_val = $('#colorname').val();
+
+
+    if(color_val.length ==''){
+    //    console.log("hello");
+        $('#colorcheck').show();
+        $('#colorcheck').html("** fill this filled");
+        $('#colorcheck').focus();
+        $('#colorcheck').css("color","red");
+        color_err = false;
+        return false;
+    }
+    else
+    {
+       $('#colorcheck').hide();
+    }
+    var regex = /^[A-Za-z]+$/;
+    if(!color_val.match(regex))
+    {
+        $('#colorcheck').show();
+        $('#colorcheck').html("** Please input alphabet characters only");
+        $('#colorcheck').focus();
+        $('#colorcheck').css("color","red");
+        color_err = false;
+        return false;
+
+
+    }
+    else
+    {
+        $('#colorcheck').hide();
+    }
+    if((color_val.length <3) ||(color_val.length >10)){
+
+        $('#colorcheck').show();
+        $('#colorcheck').html("** color name legth must be between 3 and 10");
+        $('#colorcheck').focus();
+        $('#colorcheck').css("color","red");
+        color_err = false;
+        return false;
+    }
+    else
+    {
+         $('#colorcheck').hide();
+    }
+    }
+     });
+
+</script>
 </html>
