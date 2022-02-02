@@ -32,6 +32,10 @@
           <div class="card-header">
             <h3 class="card-title">Edit Colors</h3>
           </div>
+          <div class="text-center mt-2 mb-2 p-1">
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+
+          </div>
           <!-- /.card-header -->
           <!-- form start -->
           <form method="POST" action="{{url('edit/'.$colors->id)}}" >
@@ -41,7 +45,11 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="name">Color Name</label>
-                <input type="text" class="form-control" name="name" value="{{$colors->name}}" placeholder="Enter color">
+                <input type="text" class="form-control" name="name" id="colorname"   value="{{$colors->name}}" placeholder="Enter color">
+                @error('name')
+                <p style="color:red">{{ $message }} </p>
+                 @enderror
+                <h5 id="colorcheck"></h5>
               </div>
 
             </div>
@@ -58,5 +66,63 @@
 @include('admin.footer')
 </body>
 @include('admin.jquery')
+<script type="text/javascript">
+    $(document).ready(function(){
+          $('#colorcheck').hide();
+          var color_err = true;
+          $('#colorname').keyup(function(){
+                 colorname_check();
+    });
+    function colorname_check(){
+    var color_val = $('#colorname').val();
+
+
+    if(color_val.length ==''){
+    //    console.log("hello");
+        $('#colorcheck').show();
+        $('#colorcheck').html("** fill this filled");
+        $('#colorcheck').focus();
+        $('#colorcheck').css("color","red");
+        color_err = false;
+        return false;
+    }
+    else
+    {
+       $('#colorcheck').hide();
+    }
+    var regex = /^[A-Za-z]+$/;
+    if(!color_val.match(regex))
+    {
+        $('#colorcheck').show();
+        $('#colorcheck').html("** Please input alphabet characters only");
+        $('#colorcheck').focus();
+        $('#colorcheck').css("color","red");
+        color_err = false;
+        return false;
+
+
+    }
+    else
+    {
+        $('#colorcheck').hide();
+    }
+    if((color_val.length <3) ||(color_val.length >10)){
+
+        $('#colorcheck').show();
+        $('#colorcheck').html("** color name legth must be between 3 and 10");
+        $('#colorcheck').focus();
+        $('#colorcheck').css("color","red");
+        color_err = false;
+        return false;
+    }
+    else
+    {
+         $('#colorcheck').hide();
+    }
+    }
+     });
+
+</script>
+
 </html>
 

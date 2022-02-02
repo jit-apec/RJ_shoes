@@ -25,3 +25,4 @@ Route::get('trash',[ColorsController::class,'trashshow']);
 //Route::get('displaycolor',[ColorsController::class,'displaydata']);
 Route::get('movetotrash',[ColorsController::class,'movetotrash']);
 
+Route::get('check_availability',[ColorsController::class,'check_availability']);

@@ -44,11 +44,15 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="name">Color Name</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter color">
+                {{-- <input type="text" class="form-control" id="colorname" onfocusout="check_name()" name="name" placeholder="Enter color"> --}}
+                <input type="text" class="form-control" id="colorname" onfocusout="check_name()" name="name">
+
+                {{-- <input type="text" onfocusout="check_name()" id="colorname"> --}}
                 {{-- <input type="text" id="name"  id="colorname" onkeyup="myFunction()"> --}}
                 @error('name')
                 <p style="color:red">{{ $message }} </p>
                  @enderror
+                 <span id="user-availability-status1" style="font-size:12px;"></span>
                 <h5 id="colorcheck"></h5>
               </div>
 
@@ -79,7 +83,41 @@
 </div>
 </div>
  @include('admin.jquery')
-</body>
+ </body>
+ <script>
+    function decryptfun() {
+      var pass = "hjubjbjhdgyuwj";
+      var encrtoken = "abcdefghijklmn";
+
+      //var p = lib.decrypt(encrtoken, atob(pass)); //USE THIS IN YOUR CASE
+      var p = "test"; //just for example
+      alert(p);
+    }
+  </script>
+<script >
+
+    function check_name() {
+            consol.log("1");
+			$("#loaderIcon").show();
+			jQuery.ajax({
+			url: "check_availability",
+			data:'name='+$("#colorname").val(),
+			type: "POST",
+			success:function(data){
+			$("#user-availability-status1").html(data);
+			 $("#loaderIcon").hide();
+			},
+			error:function (){}
+			});
+			}
+
+
+
+ }
+</script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function(){
           $('#colorcheck').hide();

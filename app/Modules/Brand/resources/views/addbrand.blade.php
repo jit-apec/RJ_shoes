@@ -44,7 +44,11 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="name">Brand Name</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter Brand">
+                <input type="text" class="form-control" name="name" id="brandname" placeholder="Enter Brand">
+                @error('name')
+                <p style="color:red">{{ $message }} </p>
+                 @enderror
+                <h5 id="namecheck"></h5>
               </div>
 
               <label> Status</label>
@@ -73,39 +77,63 @@
     </div>
 </div>
 </div>
-    <!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
+@include('admin.jquery')</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+          $('#namecheck').hide();
+          var color_err = true;
+          $('#brandname').keyup(function(){
+                 brandname_check();
+    });
+    function brandname_check(){
+    var color_val = $('#brandname').val();
+
+
+    if(color_val.length ==''){
+    //    console.log("hello");
+        $('#namecheck').show();
+        $('#namecheck').html("** fill this filled");
+        $('#namecheck').focus();
+        $('#namecheck').css("color","red");
+        color_err = false;
+        return false;
+    }
+    else
+    {
+       $('#namecheck').hide();
+    }
+    var regex = /^[A-Za-z]+$/;
+    if(!color_val.match(regex))
+    {
+        $('#namecheck').show();
+        $('#namecheck').html("** Please input alphabet characters only");
+        $('#namecheck').focus();
+        $('#namecheck').css("color","red");
+        color_err = false;
+        return false;
+
+
+    }
+    else
+    {
+        $('#namecheck').hide();
+    }
+    if((color_val.length <3) ||(color_val.length >10)){
+
+        $('#namecheck').show();
+        $('#namecheck').html("** color name legth must be between 3 and 10");
+        $('#namecheck').focus();
+        $('#namecheck').css("color","red");
+        color_err = false;
+        return false;
+    }
+    else
+    {
+         $('#namecheck').hide();
+    }
+    }
+     });
+
 </script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- ChartJS -->
-<script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-<!-- Sparkline -->
-<script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker -->
-<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-<!-- Summernote -->
-<script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
-<!-- overlayScrollbars -->
-<script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
-</body>
+
 </html>

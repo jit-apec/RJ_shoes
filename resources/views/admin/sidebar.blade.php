@@ -81,9 +81,9 @@
                    <p>Colors</p>
                    </a> --}}
                    <a href="#" class="nav-link">
-                       <i class="fas fa-palette nav-icon"></i>
+                       <i class="fa fa-list-alt nav-icon"></i>
                        <p>
-                       Brand
+                       Category
                        <i class="fas fa-angle-left right"></i>
 
                        </p>

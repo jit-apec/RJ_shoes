@@ -67,7 +67,7 @@
                           <div class="card-body">
                             <div class="form-group">
                               <label for="name">Color Name</label>
-                              <input type="text" class="form-control" id="name" name="name" placeholder="Enter color">
+                              <input type="text" class="form-control" name="name" placeholder="Enter color">
                             </div>
 
 
@@ -149,18 +149,66 @@
                             <a href="javascript:void(0);" onclick="delete_Question({{$col->id}})" class="fas fa-trash-alt"></a>
                                 {{-- <button type="button" value="{{$col->id}}" class="delete_color fas fa-trash-alt" onclick="delet_color()"></button> --}}
                             </td>
+
+                            {{-- <td>
+                                <input data-id="{{$col->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $col->status ? 'checked' : '' }}>
+                             </td> --}}
+                            {{-- <td class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" >
+                                <label class="custom-control-label" for="customSwitches"></label>
+                            </td> --}}
+
                      </tr>
 
                     @endforeach
                 </tbody>
             </table>
+        {{-- @foreach ($colors as col )
+                        {{$col->name}}
+                    @endforeach --}}
+          <!-- form start -->
+
           </div>
         </div>
     </div>
 </div>
 {{-- @endsection --}}
 @include('admin.footer')
-@include('admin.jquery')
+</div>
+     <!-- jQuery -->
+{{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+<!-- Sparkline -->
+<script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
+<!-- JQVMap -->
+{{-- <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script> --}}
+<!-- jQuery Knob Chart -->
+<script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<!-- daterangepicker -->
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- Summernote -->
+<script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready( function () {
@@ -199,10 +247,35 @@ function delete_Question(id){
           });
       })
     })
-
-    $(document).ready(function() {
-        
-    })
   </script>
+
+{{-- <script>
+    $(function() {
+      $('.toggle-class').change(function() {
+          var status = $(this).prop('checked') == true ? Y : N;
+          var color_id = $(this).data('id');
+          alert(color_id);
+          alert(status);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: '/changeStatus',
+              data: {'status': status, 'color_id':color_id},
+              success: function(data){
+                console.log('success')
+              }
+          });
+      });
+    });
+    $(document).ready(function(){
+
+        $('.toggle-btn').click(function() {
+          $(this).toggleClass('active').siblings().removeClass('active');
+        });
+
+    });
+
+     </script> --}}
+
 </body>
 </html>

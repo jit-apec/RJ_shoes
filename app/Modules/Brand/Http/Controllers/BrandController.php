@@ -31,6 +31,8 @@ class BrandController extends Controller
     }
     //to add data
     public function adddata(Request $req){
+        $req->validate(['name'=>'required|alpha|min:3|unique:brands|max:10|regex:/^\S*$/u'
+    ]);
         $brand = new Brand();
         $id=Auth::id();
         $brand->name=$req->name;
@@ -46,6 +48,8 @@ class BrandController extends Controller
     }
     //update Brand record
     public function update(Request $req, $id) {
+        $req->validate(['name'=>'required|alpha|min:3|unique:brands|max:10|regex:/^\S*$/u'
+    ]);
         $Aid=Auth::id();
         $brand=brand::find($id);
         $brand->user_id=$Aid;

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Modules\Colors\Models\colors;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use App\Modules\Colors\Http\Controllers\Input;
 class ColorsController extends Controller
 {
 
@@ -62,6 +63,8 @@ class ColorsController extends Controller
 //upadte color
    public function update(Request $request,$id)
    {
+    $request->validate(['name'=>'required|alpha|min:3|unique:colors|max:10|regex:/^\S*$/u'
+]);
        $Aid = Auth::id();
        $colors=colors::find($id);
        $colors->user_id=$Aid;
@@ -123,5 +126,19 @@ class ColorsController extends Controller
     //     if ($record)
     // }
 
+    public function check_availability(Request $r){
+
+    //  Colors::where('name',array($r->name));
+    //    return  Colors::all();
+
+       if (Colors::where('name', '=', Colors::get('name'))->exists()) {
+        return response()->json(['success'=>'available']);
+      }
+      else
+      {
+        return response()->json(['success'=>'hi']);
+      }
+
+    }
 
 }
