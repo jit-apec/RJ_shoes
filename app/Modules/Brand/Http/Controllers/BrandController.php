@@ -51,8 +51,10 @@ class BrandController extends Controller
         $req->validate(['name'=>'required|alpha|min:3|unique:brands|max:10|regex:/^\S*$/u'
     ]);
         $Aid=Auth::id();
+        dd($Aid);
         $brand=brand::find($id);
         $brand->user_id=$Aid;
+
         $brand->name=$req->name;
         $brand->update();
         return redirect('display');

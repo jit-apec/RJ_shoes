@@ -62,13 +62,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                             <a href="{{url('add')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class=" fa fa-plus-square nav-icon"></i>
                                 <p>Add Color</p>
                             </a>
                             </li>
                             <li class="nav-item">
                             <a href="{{url('displaycolor')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa fa-list nav-icon"></i>
                                 <p>Colors</p>
                             </a>
                             </li>
@@ -76,11 +76,7 @@
                  </ul>
                  <ul class="nav ">
                     <li class="nav-item">
-                   {{-- <a href="" class="nav-link ">
-                   <i class="fas fa-palette nav-icon"></i>
-                   <p>Colors</p>
-                   </a> --}}
-                   <a href="#" class="nav-link">
+                     <a href="#" class="nav-link">
                        <i class="fa fa-list-alt nav-icon"></i>
                        <p>
                        Category
@@ -91,14 +87,40 @@
                        <ul class="nav nav-treeview">
                            <li class="nav-item">
                            <a href="{{url('addBrands')}}" class="nav-link">
-                               <i class="far fa-circle nav-icon"></i>
+                               <i class="fa fa-plus-square nav-icon"></i>
                                <p>Add Brand</p>
                            </a>
                            </li>
                            <li class="nav-item">
                            <a href="{{url('display')}}" class="nav-link">
-                               <i class="far fa-circle nav-icon"></i>
+                            <i class="fa fa-list nav-icon"></i>
                                <p>Brand</p>
+                           </a>
+                           </li>
+
+                </ul>
+                <ul class="nav ">
+                    <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="fas fa-shoe-prints nav-icon"></i>
+                       <p>
+                       Products
+                       <i class="fas fa-angle-left right"></i>
+
+                       </p>
+                   </a>
+                       <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                           <a href="{{url('addproducts')}}" class="nav-link">
+                               <i class="fa fa-plus-square nav-icon"></i>
+                               <p>Add products</p>
+                           </a>
+                           </li>
+                           <li class="nav-item">
+                           <a href="{{url('productdisplay')}}" class="nav-link">
+                               {{-- <i class="far fa-list-alt nav-icon"></i> --}}
+                               <i class="fa fa-list nav-icon"></i>
+                               <p>products</p>
                            </a>
                            </li>
 

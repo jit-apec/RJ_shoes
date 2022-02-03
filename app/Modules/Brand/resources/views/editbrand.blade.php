@@ -13,7 +13,7 @@
                 <div class="container-fluid">
                   <div class="row mb-2">
                     <div class="col-sm-6">
-                      <h1 class="m-0">Edit Brand</h1>
+
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
@@ -38,7 +38,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form method="POST" action="{{url('edit/'.$brand->id)}}" >
+          <form method="POST" action="{{url('editbrand/'.$brand->id)}}" >
               @csrf
             {{-- @method('PUT') --}}
 
