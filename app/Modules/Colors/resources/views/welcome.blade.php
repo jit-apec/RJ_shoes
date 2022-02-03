@@ -29,7 +29,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active"><a href="{{url('home')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item">Color</li>
                       </ol>
                     </div><!-- /.col -->
@@ -47,7 +47,7 @@
             <a class="btn btn-success bg-gradient-success  btn-sm float-right " data-toggle="modal" data-target="#myModal">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
 
             <a class="btn btn-danger bg-gradient-danger float-right btn-sm"
-             href="{{ url('trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
+             href="{{ url('/color/trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
           </div>
 
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addcolors" aria-hidden="true">
@@ -60,7 +60,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="addcolor">
+                        <form method="POST" action="/color/addcolor">
                             @csrf
 
 
@@ -71,21 +71,7 @@
                             </div>
 
 
-                            <label> Status</label>
-                            <div class="form-check">
 
-
-                              <input class="form-check-input" type="radio" name="status"  value="Y" checked>
-                              <label class="form-check-label" for="flexRadioDefault1">
-                                Y
-                              </label>
-                              &nbsp; &nbsp; &nbsp; &nbsp;
-                              <input class="form-check-input" type="radio" name="status"  value="N">
-                              <label class="form-check-label" for="flexRadioDefault2">
-                               N
-                              </label>
-
-                            </div>
                           </div>
                           <!-- /.card-body -->
 
@@ -104,7 +90,6 @@
             <table id="myTable" class="display">
                 <thead>
                     <tr>
-
                         <th class="text-center"> id </th>
                         <th>User Name</th>
                         <th>Color Name</th>
@@ -144,7 +129,7 @@
                             <td>{{$col->updated_at}}</td> --}}
                             <td>
 
-                            <a href="{{url('edit/'.$col->id)}}" class="fas fa-pencil-alt"></a>
+                            <a href="{{url('/color/edit/'.$col->id)}}" class="fas fa-pencil-alt"></a>
                                 {{-- <button type="button" class=""></button> --}}
                             <a href="javascript:void(0);" onclick="delete_Question({{$col->id}})" class="fas fa-trash-alt"></a>
                                 {{-- <button type="button" value="{{$col->id}}" class="delete_color fas fa-trash-alt" onclick="delet_color()"></button> --}}
@@ -218,7 +203,7 @@
 function delete_Question(id){
         if(confirm('are your sure do you want to delete !!!! ?')){
         jQuery.ajax({
-            url:'movetotrash',
+            url:'/color/movetotrash',
             type:'GET',
             data:{'id':id},
             success:function(result){
@@ -239,7 +224,7 @@ function delete_Question(id){
           $.ajax({
               type: "GET",
               dataType: "json",
-              url: '/changeStatus',
+              url: '/color/changeStatus',
               data: {'status': status, 'id': id},
               success: function(data){
                console.log(data.success)

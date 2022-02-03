@@ -17,8 +17,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('display')}}">Color</a></li>
+                        <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/brand/display')}}">Color</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                       </ol>
                     </div><!-- /.col -->
@@ -33,12 +33,12 @@
             <h3 class="card-title">Edit Brand</h3>
           </div>
           <div class="text-center mt-0 mb-0 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/brand/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form method="POST" action="{{url('editbrand/'.$brand->id)}}" >
+          <form method="POST" action="{{url('/brand/editbrand/'.$brand->id)}}" >
               @csrf
             {{-- @method('PUT') --}}
 

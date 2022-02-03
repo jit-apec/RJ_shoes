@@ -16,8 +16,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('display')}}">Brand</a></li>
+                        <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/brand/display')}}">Brand</a></li>
                         <li class="breadcrumb-item active">Add</li>
                       </ol>
                     </div><!-- /.col -->
@@ -32,7 +32,7 @@
             <h3 class="card-title">Add Brand</h3>
           </div>
           <div class="text-center mt-0 mb-0 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/brand/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
           </div>
           <!-- /.card-header -->
@@ -49,22 +49,6 @@
                 <p style="color:red">{{ $message }} </p>
                  @enderror
                 <h5 id="namecheck"></h5>
-              </div>
-
-              <label> Status</label>
-              <div class="form-check">
-
-
-                <input class="form-check-input" type="radio" name="status"  value="Y" checked>
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Y
-                </label>
-                &nbsp; &nbsp; &nbsp; &nbsp;
-                <input class="form-check-input" type="radio" name="status"  value="N">
-                <label class="form-check-label" for="flexRadioDefault2">
-                 N
-                </label>
-
               </div>
             </div>
             <!-- /.card-body -->

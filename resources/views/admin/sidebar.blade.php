@@ -6,9 +6,7 @@
     </a>
 
 
- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-     @csrf
- </form>
+
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -41,7 +39,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-                <a href="{{url('home')}}" class="nav-link ">
+                <a href="{{url('/admin/dashboard')}}" class="nav-link ">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>Dashboard</p>
                 </a>
@@ -61,13 +59,13 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                            <a href="{{url('add')}}" class="nav-link">
+                            <a href="{{url('/color/add')}}" class="nav-link">
                                 <i class=" fa fa-plus-square nav-icon"></i>
                                 <p>Add Color</p>
                             </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{url('displaycolor')}}" class="nav-link">
+                            <a href="{{url('/color/displaycolor')}}" class="nav-link">
                                 <i class="fa fa-list nav-icon"></i>
                                 <p>Colors</p>
                             </a>
@@ -86,13 +84,13 @@
                    </a>
                        <ul class="nav nav-treeview">
                            <li class="nav-item">
-                           <a href="{{url('addBrands')}}" class="nav-link">
+                           <a href="{{url('/brand/addBrands')}}" class="nav-link">
                                <i class="fa fa-plus-square nav-icon"></i>
                                <p>Add Brand</p>
                            </a>
                            </li>
                            <li class="nav-item">
-                           <a href="{{url('display')}}" class="nav-link">
+                           <a href="{{url('/brand/display')}}" class="nav-link">
                             <i class="fa fa-list nav-icon"></i>
                                <p>Brand</p>
                            </a>
@@ -131,6 +129,9 @@
                 <i class="fa fa-power-off nav-icon" aria-hidden="true">  Logout</i>
 
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
 
             </li>
         </ul>

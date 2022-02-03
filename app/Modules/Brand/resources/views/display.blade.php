@@ -29,7 +29,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active"><a href="{{url('home')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item">Brand</li>
                       </ol>
                     </div><!-- /.col -->
@@ -47,7 +47,7 @@
             <a class="btn btn-success bg-gradient-success  btn-sm float-right " data-toggle="modal" data-target="#myModal">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
 
             <a class="btn btn-danger bg-gradient-danger float-right btn-sm"
-             href="{{ url('trashbrand') }}" role="button">Trash &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
+             href="{{ url('/brand/trashbrand') }}" role="button">Trash &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
           </div>
 
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addbrand" aria-hidden="true">
@@ -69,28 +69,8 @@
                               <label for="name">Brand Name</label>
                               <input type="text" class="form-control" id="name" name="name" placeholder="Enter Brand">
                             </div>
-
-
-                            <label> Status</label>
-                            <div class="form-check">
-
-
-                              <input class="form-check-input" type="radio" name="status"  value="Y" checked>
-                              <label class="form-check-label" for="flexRadioDefault1">
-                                Y
-                              </label>
-                              &nbsp; &nbsp; &nbsp; &nbsp;
-                              <input class="form-check-input" type="radio" name="status"  value="N">
-                              <label class="form-check-label" for="flexRadioDefault2">
-                               N
-                              </label>
-
-                            </div>
                           </div>
                           <!-- /.card-body -->
-
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -137,7 +117,7 @@
                             <td>{{$col->updated_at}}</td> --}}
                             <td>
 
-                            <a href="{{url('editbrand',$brand->id)}}" class="fas fa-pencil-alt"></a>
+                            <a href="{{url('/brand/editbrand',$brand->id)}}" class="fas fa-pencil-alt"></a>
                             <a href="javascript:void(0);" onclick="move_to_brand({{$brand->id}})" class="fas fa-trash-alt"></a>
                             </td>
                      </tr>
@@ -195,7 +175,7 @@
 function move_to_brand(id){
         if(confirm('are your sure do you want to delete !!!! ?')){
         jQuery.ajax({
-            url:'movetrash',
+            url:'/brand/movetrash',
             type:'GET',
             data:{'id':id},
             success:function(result){
@@ -216,7 +196,7 @@ function move_to_brand(id){
           $.ajax({
               type: "GET",
               dataType: "json",
-              url: 'changebrandstatus',
+              url: '/brand/changebrandstatus',
               data: {'status': status, 'id': id},
               success: function(data){
                console.log(data.success)

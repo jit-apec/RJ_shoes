@@ -42,9 +42,8 @@ class ColorsController extends Controller
        $id = Auth::id();
         $colors->name=$request->name;
         $colors->user_id=$id;
-        $colors->status=$request->status;
         $colors-> save();
-        return redirect('displaycolor');
+        return redirect('/color/displaycolor');
        // return redirect('Colors::welcome');
       // $data=colors::all();
        // $data = Colors::where('status',array('N','Y'))->get();
@@ -63,14 +62,14 @@ class ColorsController extends Controller
 //upadte color
    public function update(Request $request,$id)
    {
-    $request->validate(['name'=>'required|alpha|min:3|unique:colors|max:10|regex:/^\S*$/u'
+    $request->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u'
 ]);
        $Aid = Auth::id();
        $colors=colors::find($id);
        $colors->user_id=$Aid;
        $colors->name=$request->name;
        $colors->update();
-       return redirect('displaycolor');
+       return redirect('/color/displaycolor');
 
       //return redirect($url)->with('success', 'Data saved successfully!');
    }
@@ -98,6 +97,7 @@ class ColorsController extends Controller
     public function movetotrash(Request $r)
     {
          $update = Colors::find($r->id);
+        // dd($update);
         $update->status='T';
         $update->save();
         return Colors::all();

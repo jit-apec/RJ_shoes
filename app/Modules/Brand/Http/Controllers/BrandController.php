@@ -29,7 +29,6 @@ class BrandController extends Controller
     public function addBrands(){
         return view("Brand::addbrand");
     }
-    //to add data
     public function adddata(Request $req){
         $req->validate(['name'=>'required|alpha|min:3|unique:brands|max:10|regex:/^\S*$/u'
     ]);
@@ -37,9 +36,8 @@ class BrandController extends Controller
         $id=Auth::id();
         $brand->name=$req->name;
         $brand->user_id=$id;
-        $brand->status=$req->status;
         $brand->save();
-        return redirect('display');
+        return redirect('/brand/display');
     }
     //get record in edit page
     public function edit($id) {
@@ -48,16 +46,15 @@ class BrandController extends Controller
     }
     //update Brand record
     public function update(Request $req, $id) {
-        $req->validate(['name'=>'required|alpha|min:3|unique:brands|max:10|regex:/^\S*$/u'
+        $req->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u'
     ]);
         $Aid=Auth::id();
-        dd($Aid);
+        // dd($Aid);
         $brand=brand::find($id);
         $brand->user_id=$Aid;
-
         $brand->name=$req->name;
         $brand->update();
-        return redirect('display');
+        return redirect('/brand/display');
     }
     //display trash record
     public function trashlist() {

@@ -16,8 +16,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('displaycolor')}}">Color</a></li>
+                        <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/color/displaycolor')}}">Color</a></li>
                         <li class="breadcrumb-item active">Add</li>
                       </ol>
                     </div><!-- /.col -->
@@ -32,7 +32,7 @@
             <h3 class="card-title">Add Colors</h3>
           </div>
           <div class="text-center mt-0 mb-0 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/color/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
           </div>
           <!-- /.card-header -->
@@ -56,21 +56,7 @@
                 <h5 id="colorcheck"></h5>
               </div>
 
-              <label> Status</label>
-              <div class="form-check">
 
-
-                <input class="form-check-input" type="radio" name="status"  value="Y" checked>
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Y
-                </label>
-                &nbsp; &nbsp; &nbsp; &nbsp;
-                <input class="form-check-input" type="radio" name="status"  value="N">
-                <label class="form-check-label" for="flexRadioDefault2">
-                 N
-                </label>
-
-              </div>
             </div>
             <!-- /.card-body -->
 
@@ -84,7 +70,7 @@
 </div>
  @include('admin.jquery')
  </body>
- <script>
+ {{-- <script>
     function decryptfun() {
       var pass = "hjubjbjhdgyuwj";
       var encrtoken = "abcdefghijklmn";
@@ -93,7 +79,7 @@
       var p = "test"; //just for example
       alert(p);
     }
-  </script>
+  </script> --}}
 <script >
 
     function check_name() {
