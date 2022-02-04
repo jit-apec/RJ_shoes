@@ -17,7 +17,7 @@
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('/brand/display')}}">Brand</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/admin/brand/display')}}">Brand</a></li>
                         <li class="breadcrumb-item active">Add</li>
                       </ol>
                     </div><!-- /.col -->
@@ -32,7 +32,7 @@
             <h3 class="card-title">Add Brand</h3>
           </div>
           <div class="text-center mt-0 mb-0 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/brand/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/brand/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
           </div>
           <!-- /.card-header -->
@@ -45,10 +45,15 @@
               <div class="form-group">
                 <label for="name">Brand Name</label>
                 <input type="text" class="form-control" name="name" id="brandname" placeholder="Enter Brand">
+                <div>
+                @if (session()->has('status'))
+                <p style="color: green;font-size: 20px; font-weight: bold;" > {{session('status')}}</p>
+                 @endif
                 @error('name')
-                <p style="color:red">{{ $message }} </p>
+                <p style="color:red" align="right">{{ $message }} </p>
                  @enderror
                 <h5 id="namecheck"></h5>
+                </div>
               </div>
             </div>
             <!-- /.card-body -->
@@ -56,7 +61,9 @@
             <div class="card-footer " align="center">
               <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-          </form></div>
+          </form>
+
+        </div>
         </div>
     </div>
 </div>
@@ -76,7 +83,7 @@
     if(color_val.length ==''){
     //    console.log("hello");
         $('#namecheck').show();
-        $('#namecheck').html("** fill this filled");
+        $('#namecheck').html("fill this filled");
         $('#namecheck').focus();
         $('#namecheck').css("color","red");
         color_err = false;
@@ -90,7 +97,7 @@
     if(!color_val.match(regex))
     {
         $('#namecheck').show();
-        $('#namecheck').html("** Please input alphabet characters only");
+        $('#namecheck').html("Please input characters only");
         $('#namecheck').focus();
         $('#namecheck').css("color","red");
         color_err = false;
@@ -105,7 +112,7 @@
     if((color_val.length <3) ||(color_val.length >10)){
 
         $('#namecheck').show();
-        $('#namecheck').html("** color name legth must be between 3 and 10");
+        $('#namecheck').html(" color name legth must be between 3 and 10");
         $('#namecheck').focus();
         $('#namecheck').css("color","red");
         color_err = false;

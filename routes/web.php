@@ -20,8 +20,8 @@ Route::get('/admin/dashboard', function () {
 
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::post('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route::get('welcome',[ColorsController::class,'welcome']);
 

@@ -17,7 +17,7 @@
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('/color/displaycolor')}}">Color</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/admin/color/displaycolor')}}">Color</a></li>
                         <li class="breadcrumb-item active">Add</li>
                       </ol>
                     </div><!-- /.col -->
@@ -32,7 +32,7 @@
             <h3 class="card-title">Add Colors</h3>
           </div>
           <div class="text-center mt-0 mb-0 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/color/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/color/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
           </div>
           <!-- /.card-header -->
@@ -49,11 +49,15 @@
 
                 {{-- <input type="text" onfocusout="check_name()" id="colorname"> --}}
                 {{-- <input type="text" id="name"  id="colorname" onkeyup="myFunction()"> --}}
-                @error('name')
-                <p style="color:red">{{ $message }} </p>
-                 @enderror
-                 <span id="user-availability-status1" style="font-size:12px;"></span>
-                <h5 id="colorcheck"></h5>
+                <div>
+                    @if (session()->has('status'))
+                    <p style="color: green;font-size: 20px; font-weight: bold;" > {{session('status')}}</p>
+                     @endif
+                    @error('name')
+                    <p style="color:red" align="right">{{ $message }} </p>
+                     @enderror
+                    <h5 id="namecheck"></h5>
+                    </div>
               </div>
 
 

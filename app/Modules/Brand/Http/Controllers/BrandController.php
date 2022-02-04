@@ -37,7 +37,8 @@ class BrandController extends Controller
         $brand->name=$req->name;
         $brand->user_id=$id;
         $brand->save();
-        return redirect('/brand/display');
+        // return redirect('/admin/brand/display');
+        return back()->with('status', 'data add successfully');
     }
     //get record in edit page
     public function edit($id) {
@@ -54,7 +55,8 @@ class BrandController extends Controller
         $brand->user_id=$Aid;
         $brand->name=$req->name;
         $brand->update();
-        return redirect('/brand/display');
+        //return redirect('/admin/brand/display');
+        return back()->with('status', 'Data Update Successfully');
     }
     //display trash record
     public function trashlist() {

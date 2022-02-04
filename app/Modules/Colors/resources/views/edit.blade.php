@@ -18,7 +18,7 @@
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('/color/displaycolor')}}">Color</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/admin/color/displaycolor')}}">Color</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                       </ol>
                     </div><!-- /.col -->
@@ -33,12 +33,12 @@
             <h3 class="card-title">Edit Colors</h3>
           </div>
           <div class="text-center mt-2 mb-2 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/color/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/color/displaycolor')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form method="POST" action="{{url('/color/edit/'.$colors->id)}}" >
+          <form method="POST" action="{{url('/admin/color/edit/'.$colors->id)}}" >
               @csrf
             {{-- @method('PUT') --}}
 
@@ -46,10 +46,15 @@
               <div class="form-group">
                 <label for="name">Color Name</label>
                 <input type="text" class="form-control" name="name" id="colorname"   value="{{$colors->name}}" placeholder="Enter color">
+                <div>
+                    @if (session()->has('status'))
+                    <p style="color: green;font-size: 20px; font-weight: bold;" > {{session('status')}}</p>
+                     @endif
                 @error('name')
                 <p style="color:red">{{ $message }} </p>
                  @enderror
-                <h5 id="colorcheck"></h5>
+                <h5 id="namecheck"></h5>
+                </div>
               </div>
 
             </div>

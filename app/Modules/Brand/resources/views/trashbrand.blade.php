@@ -20,7 +20,7 @@
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('/brand/display')}}">Brand</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/admin/brand/display')}}">Brand</a></li>
                         <li class="breadcrumb-item active">Trash</li>
                       </ol>
                     </div><!-- /.col -->
@@ -35,7 +35,7 @@
             <h3 class="card-title">Trash Colors</h3>
           </div>
           <div class="text-center mt-2 mb-2 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/brand/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/brand/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
           </div>
 
@@ -123,7 +123,7 @@
 function restore_Brand(id){
         if(confirm('are your sure!! do  you want to Restore?')){
         jQuery.ajax({
-            url:'/brand/restorebrand',
+            url:'/admin/brand/restorebrand',
             type:'GET',
             data:{'id':id},
             success:function(result){

@@ -22,6 +22,9 @@ class ColorsController extends Controller
     }
     public function displaycolor()
     {
+        // $users = Colors::where('status',array('Y'))-> orWhere('status',array('N'))
+        // ->get();
+
         $users = Colors::join('users', 'users.id', '=', 'colors.user_id')->where('status',array('Y'))-> orWhere('status',array('N'))
                ->get(['colors.*', 'users.username']);
                return view('Colors::welcome',['colors'=>$users]);
@@ -43,7 +46,8 @@ class ColorsController extends Controller
         $colors->name=$request->name;
         $colors->user_id=$id;
         $colors-> save();
-        return redirect('/color/displaycolor');
+         return back()->with('status', 'data add successfully');
+      //  return redirect('/admin/color/displaycolor');
        // return redirect('Colors::welcome');
       // $data=colors::all();
        // $data = Colors::where('status',array('N','Y'))->get();
@@ -69,8 +73,8 @@ class ColorsController extends Controller
        $colors->user_id=$Aid;
        $colors->name=$request->name;
        $colors->update();
-       return redirect('/color/displaycolor');
-
+       //return redirect('/admin/color/displaycolor');
+       return back()->with('status', 'Data Update Successfully');
       //return redirect($url)->with('success', 'Data saved successfully!');
    }
 ///change color status

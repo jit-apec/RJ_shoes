@@ -47,7 +47,7 @@
             <a class="btn btn-success bg-gradient-success  btn-sm float-right " data-toggle="modal" data-target="#myModal">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
 
             <a class="btn btn-danger bg-gradient-danger float-right btn-sm"
-             href="{{ url('/color/trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
+             href="{{ url('/admin/color/trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
           </div>
 
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addcolors" aria-hidden="true">
@@ -60,7 +60,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="/color/addcolor">
+                        <form method="POST" action="/admin/color/addcolor">
                             @csrf
 
 
@@ -129,7 +129,7 @@
                             <td>{{$col->updated_at}}</td> --}}
                             <td>
 
-                            <a href="{{url('/color/edit/'.$col->id)}}" class="fas fa-pencil-alt"></a>
+                            <a href="{{url('/admin/color/edit/'.$col->id)}}" class="fas fa-pencil-alt"></a>
                                 {{-- <button type="button" class=""></button> --}}
                             <a href="javascript:void(0);" onclick="delete_Question({{$col->id}})" class="fas fa-trash-alt"></a>
                                 {{-- <button type="button" value="{{$col->id}}" class="delete_color fas fa-trash-alt" onclick="delet_color()"></button> --}}
@@ -203,7 +203,7 @@
 function delete_Question(id){
         if(confirm('are your sure do you want to delete !!!! ?')){
         jQuery.ajax({
-            url:'/color/movetotrash',
+            url:'/admin/color/movetotrash',
             type:'GET',
             data:{'id':id},
             success:function(result){
@@ -224,7 +224,7 @@ function delete_Question(id){
           $.ajax({
               type: "GET",
               dataType: "json",
-              url: '/color/changeStatus',
+              url: '/admin/color/changeStatus',
               data: {'status': status, 'id': id},
               success: function(data){
                console.log(data.success)

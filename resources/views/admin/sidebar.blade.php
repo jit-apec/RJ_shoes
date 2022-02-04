@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <img src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="Shoes Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Shoes Shop</span>
     </a>
 
 
@@ -38,7 +38,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+          <li class="nav-item ">
                 <a href="{{url('/admin/dashboard')}}" class="nav-link ">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>Dashboard</p>
@@ -57,82 +57,76 @@
 
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                        <a href="{{url('/admin/color/add')}}" class="nav-link">
+                            <i class=" fa fa-plus-square nav-icon"></i>
+                            <p>Add Color</p>
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                        <a href="{{url('/admin/color/displaycolor')}}" class="nav-link">
+                            <i class="fa fa-list nav-icon"></i>
+                            <p>Colors</p>
+                        </a>
+                        </li>
+                    </ul>
+                    <ul class="nav ">
+                        <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-list-alt nav-icon"></i>
+                            <p>Category<i class="fas fa-angle-left right"></i> </p>
+                        </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                            <a href="{{url('/color/add')}}" class="nav-link">
-                                <i class=" fa fa-plus-square nav-icon"></i>
-                                <p>Add Color</p>
+                            <a href="{{url('/admin/brand/addBrands')}}" class="nav-link">
+                                <i class="fa fa-plus-square nav-icon"></i>
+                                <p>Add Brand</p>
                             </a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{url('/color/displaycolor')}}" class="nav-link">
+                            <a href="{{url('/admin/brand/display')}}" class="nav-link">
                                 <i class="fa fa-list nav-icon"></i>
-                                <p>Colors</p>
+                                <p>Brand</p>
                             </a>
                             </li>
 
-                 </ul>
-                 <ul class="nav ">
-                    <li class="nav-item">
-                     <a href="#" class="nav-link">
-                       <i class="fa fa-list-alt nav-icon"></i>
-                       <p>
-                       Category
-                       <i class="fas fa-angle-left right"></i>
+                        </ul>
+                        <ul class="nav ">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shoe-prints nav-icon"></i>
+                                    <p>Products<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/product/addproducts')}}" class="nav-link">
+                                        <i class="fa fa-plus-square nav-icon"></i>
+                                        <p>Add products</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/product/display')}}" class="nav-link">
+                                        {{-- <i class="far fa-list-alt nav-icon"></i> --}}
+                                        <i class="fa fa-list nav-icon"></i>
+                                        <p>products</p>
+                                    </a>
+                                </li>
+                             </ul>
 
-                       </p>
-                   </a>
-                       <ul class="nav nav-treeview">
-                           <li class="nav-item">
-                           <a href="{{url('/brand/addBrands')}}" class="nav-link">
-                               <i class="fa fa-plus-square nav-icon"></i>
-                               <p>Add Brand</p>
-                           </a>
-                           </li>
-                           <li class="nav-item">
-                           <a href="{{url('/brand/display')}}" class="nav-link">
-                            <i class="fa fa-list nav-icon"></i>
-                               <p>Brand</p>
-                           </a>
-                           </li>
-
-                </ul>
-                <ul class="nav ">
-                    <li class="nav-item">
-                     <a href="#" class="nav-link">
-                        <i class="fas fa-shoe-prints nav-icon"></i>
-                       <p>
-                       Products
-                       <i class="fas fa-angle-left right"></i>
-
-                       </p>
-                   </a>
-                       <ul class="nav nav-treeview">
-                           <li class="nav-item">
-                           <a href="{{url('addproducts')}}" class="nav-link">
-                               <i class="fa fa-plus-square nav-icon"></i>
-                               <p>Add products</p>
-                           </a>
-                           </li>
-                           <li class="nav-item">
-                           <a href="{{url('productdisplay')}}" class="nav-link">
-                               {{-- <i class="far fa-list-alt nav-icon"></i> --}}
-                               <i class="fa fa-list nav-icon"></i>
-                               <p>products</p>
-                           </a>
-                           </li>
+                                <li>
+                                    <a  href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link ">
+                                        <i class="nav-icon fa fa-power-off"></i>
+                                        <p>Logout</p>
+                                    </a>
+                                 </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                        </ul>
 
                 </ul>
-                 <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();">
-                <i class="fa fa-power-off nav-icon" aria-hidden="true">  Logout</i>
-
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-
             </li>
         </ul>
       </nav>
