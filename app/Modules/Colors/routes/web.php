@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Modules\Colors\Http\Controllers\ColorsController;
+use Illuminate\Support\Facades\Auth;
 
+Route::get('profile', function () {
+    //this code is user to access denied  to unauthorize user and redirect to login page
+})->middleware('auth');
 
 Route::get('colors', 'ColorsController@welcome');
 Route::get('/admin/color/add',[ColorsController::class,'add']);
@@ -26,3 +30,5 @@ Route::get('/admin/color/trash',[ColorsController::class,'trashshow']);
 Route::get('/admin/color/movetotrash',[ColorsController::class,'movetotrash']);
 
 Route::get('check_availability',[ColorsController::class,'check_availability']);
+
+

@@ -4,3 +4,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('product', 'ProductController@welcome');
 Route::get('/admin/product/display',[ProductController::class,'display']);
+Route::get('/admin/product/addproduct',[ProductController::class,'addproduct']);

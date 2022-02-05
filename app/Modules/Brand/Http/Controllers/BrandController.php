@@ -8,7 +8,11 @@ use App\Modules\Brand\models\Brand;
 use Illuminate\Support\Facades\Auth;
 class BrandController extends Controller
 {
-
+    //this code check  unauthenticated users
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display the module welcome screen
      *
@@ -47,7 +51,7 @@ class BrandController extends Controller
     }
     //update Brand record
     public function update(Request $req, $id) {
-        $req->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u'
+        $req->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u|unique:brands,name,'.$id,
     ]);
         $Aid=Auth::id();
         // dd($Aid);

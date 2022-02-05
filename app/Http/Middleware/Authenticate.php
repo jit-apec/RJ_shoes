@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
+use App\Http\Middleware\View;
 class Authenticate extends Middleware
 {
     /**
@@ -12,18 +12,28 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-
     protected function redirectTo($request)
     {
-
         if (! $request->expectsJson()) {
             return route('login');
         }
-        elseif(!Auth::user())
-        {
-        return redirect('login'); // add your desire URL in redirect function
-        }
+        // elseif(!Auth::user())
+        // {
+        // return redirect('login'); // add your desire URL in redirect function
+        // }
+        // else
+        // {
+        //     return redirect('admin/dashboard');
+        // }
     }
+    //     if(Auth::check())
+    // {
+    //     return View::make('admin/dashboard');
+    // }
+
+    // return redirect::route('login')->withInput()->with('errmessage', 'Please Login to access restricted area.');
+
+
     // public function __construct(Guard $auth)
     // {
     //     $this->auth = $auth;

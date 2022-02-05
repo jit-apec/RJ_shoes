@@ -11,6 +11,11 @@ use App\Modules\Colors\Http\Controllers\Input;
 class ColorsController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display the module welcome screen
      *
@@ -66,7 +71,7 @@ class ColorsController extends Controller
 //upadte color
    public function update(Request $request,$id)
    {
-    $request->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u'
+    $request->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u|unique:colors,name,'.$id,
 ]);
        $Aid = Auth::id();
        $colors=colors::find($id);

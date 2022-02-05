@@ -27,6 +27,9 @@ class ProductController extends Controller
         ->get(['product.*', 'users.username','colors.name'],'brands.name');
         return view('Product::display',['list'=>$productdisplay]);
     }
+    public function addproduct(){
+        return view("Product::addproduct");
+    }
 
 }
 

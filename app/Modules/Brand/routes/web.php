@@ -3,6 +3,9 @@
 use App\Modules\Brand\Http\Controllers\BrandController;
 
 use Illuminate\Support\Facades\Route;
+Route::get('profile', function () {
+    //this code is user to access denied  to unauthorize user and redirect to login page
+})->middleware('auth');
 
   Route::get('brand', 'BrandController@welcome');
   Route::get('/admin/brand/display',[BrandController::class,'display']);
