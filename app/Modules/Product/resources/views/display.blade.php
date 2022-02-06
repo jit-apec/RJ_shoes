@@ -31,7 +31,7 @@
                       <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
                         <li class="breadcrumb-item">Product</li>
-                       
+
                       </ol>
                     </div><!-- /.col -->
                   </div><!-- /.row -->
@@ -46,51 +46,12 @@
           </div>
           <div class="text-center mt-2 mb-2 p-1">
             <a class="btn btn-success bg-gradient-success  btn-sm float-right " data-toggle="modal" data-target="#myModal">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
-            {{-- <a class="btn btn-success bg-gradient-success  btn-sm float-right "  href="{{ url('/admin/brand/addbrand') }}">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp; --}}
+            {{-- <a class="btn btn-success bg-gradient-success  btn-sm float-right "  href="{{ url('/admin/product/addproduct') }}">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp; --}}
 
             <a class="btn btn-danger bg-gradient-danger float-right btn-sm"
              href="{{ url('/admin/product/trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
           </div>
 
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addbrand" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addbrand">Add Brand</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" action="addbrand">
-                            @csrf
-
-
-                          <div class="card-body">
-                            <div class="form-group">
-                              <label for="name">Brand Name</label>
-                              <input type="text" class="form-control" id="name" name="name" placeholder="Enter Brand">
-                              <div>
-                                @if (session()->has('status'))
-                                <p style="color: green;font-size: 20px; font-weight: bold;" > {{session('status')}}</p>
-                                 @endif
-                            @error('name')
-                            <p style="color:red">{{ $message }} </p>
-                             @enderror
-                            <h5 id="namecheck"></h5>
-                            </div>
-                            </div>
-                          </div>
-                          <!-- /.card-body -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
           <!-- /.card-header -->
             <table id="myTable" class="display">
                 <thead>
@@ -101,6 +62,7 @@
                         <th>Product</th>
                         <th>UPC</th>
                         <th>URL</th>
+                        <th>Size</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Color</th>
@@ -112,34 +74,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- {{$data}} --}}
+                    {{-- {{$products}} --}}
                    {{-- {{ $count=0;}} --}}
-                     {{-- @php  $count=0; @endphp
-                     @foreach ($list as $brand)
-                    <tr>
+                        @php  $count=0; @endphp
+                        @foreach ($products as $product)
+                        <tr>
 
-                            <td class="text-center">{{$count+=1}}</td>
+                                <td class="text-center">{{$count+=1}}</td>
+                                <td><img src="{{ asset('dist/img/' .$product->image ) }}" height="50" width="50"></td>
+                                <td>{{$product->name}}</td>
 
-                            <td>{{$brand->username}}</td>
+                                <td>{{$product->upc}}</td>
+                                <td>{{$product->url}}</td>
+                                <td>{{$product->size}}</td>
+                                <td>{{$product->price}}</td>
+                                <td>{{$product->stock}}</td>
+                                <td>{{$product->cname}}</td>
 
-                            <td>{{$brand->name}}</td>
-                             <td>
-                            @if ($brand->status == 'Y')
-                                <input data-id="{{$brand->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" checked data-on="Active" >
-                             @else
-                                <input data-id="{{$brand->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" data-on="Active" >
-                            @endif
-                             </td> --}}
-                            {{-- <td>{{$col->created_at}}</td>
-                            <td>{{$col->updated_at}}</td> --}}
-                            {{-- <td>
+                                <td>{{$product->bname}}</td>
+                                {{-- <td>{{$product->username}}</td> --}}
 
-                            <a href="{{url('/admin/brand/editbrand',$brand->id)}}" class="fas fa-pencil-alt"></a>
-                            <a href="javascript:void(0);" onclick="move_to_brand({{$brand->id}})" class="fas fa-trash-alt"></a>
-                            </td>
-                     </tr>
 
-                    @endforeach --}}
+                                <td>
+                                @if ($product->status == 'Y')
+                                    <input data-id="{{$product->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" checked data-on="Active" >
+                                @else
+                                    <input data-id="{{$product->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" data-on="Active" >
+                                @endif
+                                </td>
+                                {{-- <td>{{$col->created_at}}</td>
+                                <td>{{$col->updated_at}}</td> --}}
+                                <td>
+
+                                <a href="{{url('/admin/product/editproduct',$product->id)}}" class="fas fa-pencil-alt"></a>
+                                <a href="javascript:void(0);" onclick="move_to_product({{$product->id}})" class="fas fa-trash-alt"></a>
+                                </td>
+                        </tr>
+
+                        @endforeach
                 </tbody>
             </table>
           </div>
@@ -157,10 +129,10 @@
 } );
 
 
-function move_to_brand(id){
+function move_to_product(id){
         if(confirm('are your sure do you want to delete !!!! ?')){
         jQuery.ajax({
-            url:'/admin/brand/movetrash',
+            url:'/admin/product/movetrash',
             type:'GET',
             data:{'id':id},
             success:function(result){
@@ -181,7 +153,7 @@ function move_to_brand(id){
           $.ajax({
               type: "GET",
               dataType: "json",
-              url: '/admin/brand/changebrandstatus',
+              url: '/admin/product/changeproductstatus',
               data: {'status': status, 'id': id},
               success: function(data){
                console.log(data.success)

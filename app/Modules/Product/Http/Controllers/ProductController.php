@@ -18,18 +18,29 @@ class ProductController extends Controller
         return view("Product::welcome");
 
     }
-    public function display(){
 
-
-        return view("Product::display");
-
-        $productdisplay=product::join('colors','colors.id','=','brands.user_id')->where('status',array('Y'))-> orWhere('status',array('N'))
-        ->get(['product.*', 'users.username','colors.name'],'brands.name');
-        return view('Product::display',['list'=>$productdisplay]);
-    }
     public function addproduct(){
+
         return view("Product::addproduct");
     }
+    public function display(){
+            $Product = Product::Join('colors', 'colors.id', '=', 'products.color_id')
+           // ->join('users', 'users.id', '=', 'products.user_id')
+              ->join('brands', 'brands.id', '=', 'products.brand_id')
+              ->where('products.status',array('Y'))
+              ->orWhere('products.status',array('N'))
+              ->get(['products.*', 'colors.name as cname','brands.name as bname']);
+        //   $Product= Product::input();
+            return view("Product::display",['products'=>$Product]);
 
+    }
+    public function trashdisplay(){
+        $Product = Product::join('colors', 'colors.id', '=', 'products.color_id')
+           ->join('brands', 'brands.id', '=', 'products.brand_id')
+           ->where('products.status',array('T'))
+           ->get(['products.*', 'colors.name as cname','brands.name as bname']);
+           //  $Product= Product::all();
+     return view("Product::trash",['product'=>$Product]);
+    }
 }
 
