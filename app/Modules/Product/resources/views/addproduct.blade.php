@@ -34,6 +34,8 @@
         </div><!-- /.container-fluid -->
       </div>
     <section class="content">
+      <form method="post" action="" enctype="multipart/form-data">
+          @csrf
       <div class="container-fluid">
         <div class="card card-primary ">
             <div class="card-header">
@@ -48,6 +50,7 @@
                 </button>
             </div>
             </div>
+
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="text-center mt-0 mb-0 p-1">
@@ -76,14 +79,18 @@
                   <label for="inputcategory">Category<span class="text-danger">*</span></label>
                   <select id="inputcategory" class="form-control">
                     <option selected>Select Category</option>
-                    <option>...</option>
+                    @foreach ($brands as $pro)
+                    <option value="{{$pro->bid}}">{{$pro->bname}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputcolor">color<span class="text-danger">*</span></label>
                   <select id="inputcolor" class="form-control">
                     <option selected>Select Color</option>
-                    <option>...</option>
+                    @foreach ($colors as $pro)
+                    <option value="{{$pro->cid}}">{{$pro->cname}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="col-md-6">
@@ -103,8 +110,8 @@
                     <label for="inputideal">Ideal For<span class="text-danger">*</span></label>
                     <select id="inputideal"  class="form-control">
                       <option selected>Select Gender</option>
-                      <option>Male</option>
-                      <option>Female</option>
+                      <option>Men</option>
+                      <option>Women</option>
                       <option>Child</option>
                     </select>
                 </div>
@@ -151,32 +158,34 @@
                     </div>
                 </div>
             </div>
+            <hr>
             <div class="form-row">
-              <div ng-app="dynamicApp" ng-controller="dynamicController" class="container" style="width:600px;" ng-init="fetchData()">
-                <form method="post" ng-submit="submitForm()">
+                <div class="col-lg-6">
+                    <div id="inputFormRow">
+                        <label>Images<span class="text-danger">*</span></label>
+                        <div class="input-group mb-3">
 
-                 <fieldset ng-repeat="row in rows">
-                  <div class="form-group">
-                   <label>Enter Your Programming Skill</label>
-                   <div class="row">
-                    <div class="col-md-9">
-                     <input type="text" name="programming_languages[]" class="form-control" ng-model="formData.skill[$index + 1]" />
+                            <input type="file" name="title[]" class="form-control m-input" autocomplete="off">
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                     <button type="button" name="remove" ng-model="row.remove" class="btn btn-danger btn-sm" ng-click="removeRow()"><span class="glyphicon glyphicon-minus"></span></button>
-                    </div>
-                   </div>
-                  </div>
-                 </fieldset>
-                 <div class="form-group">
-                  <button type="button" name="add_more" class="btn btn-success" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                  <input type="submit" name="submit" class="btn btn-info" value="Save" />
-                 </div>
-                </form>
-          </div>
+
+                    <div id="newRow"></div>
+                    <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>
+                </div>
+            </div>
+            <hr>
+            <div class="from-row">
+                <div align="center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
         </div>
+
         </div>
-      </div>
+      </div></form>
     </section>
 </div>
 @include('admin.footer');
@@ -193,61 +202,25 @@
   }
 
   </script>
+  <script type="text/javascript">
+    // add row
+    $("#addRow").click(function () {
+        var html = '';
+        html += '<div id="inputFormRow">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="file" name="title[]" class="form-control m-input" autocomplete="off">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newRow').append(html);
+    });
+
+    // remove row
+    $(document).on('click', '#removeRow', function () {
+        $(this).closest('#inputFormRow').remove();
+    });
+</script>
+
 </html>
-
-<script>
-
-  var app = angular.module('dynamicApp', []);
-
-  app.controller('dynamicController', function($scope, $http){
-
-   $scope.success = false;
-   $scope.error = false;
-
-   $scope.fetchData = function(){
-    $http.get('fetch_data.php').success(function(data){
-     $scope.namesData = data;
-    });
-   };
-
-   $scope.rows = [{name: 'programming_languages[]', name: 'remove'}];
-
-   $scope.addRow = function(){
-    var id = $scope.rows.length + 1;
-    $scope.rows.push({'id':'dynamic'+id});
-   };
-
-   $scope.removeRow = function(row){
-    var index = $scope.rows.indexOf(row);
-    $scope.rows.splice(index, 1);
-   };
-
-   $scope.formData = {};
-
-   $scope.submitForm = function(){
-    $http({
-     method:"POST",
-     url:"insert.php",
-     data:$scope.formData
-    }).success(function(data){
-     if(data.error != '')
-     {
-      $scope.success = false;
-      $scope.error = true;
-      $scope.errorMessage = data.error;
-     }
-     else
-     {
-      $scope.success = true;
-      $scope.error = false;
-      $scope.successMessage = data.message;
-      $scope.formData = {};
-      $scope.rows = [{name: 'programming_languages[]', name: 'remove'}];
-      $scope.fetchData();
-     }
-    });
-   };
-
-  });
-
-  </script>
