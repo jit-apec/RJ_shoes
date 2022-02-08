@@ -8,6 +8,7 @@ Route::get('profile', function () {
 })->middleware('auth');
 Route::get('product', 'ProductController@welcome');
 Route::get('/admin/product/display',[ProductController::class,'display']);
+Route::get('/admin/product/dropdown',[ProductController::class,'addproduct']);
 Route::get('/admin/product/addproduct',[ProductController::class,'addproduct']);
-
+Route::post('/admin/product/addproduct',[ProductController::class,'insert']);
 Route::get('/admin/product/trash',[ProductController::class,'trashdisplay']);

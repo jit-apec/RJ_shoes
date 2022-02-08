@@ -34,7 +34,7 @@
         </div><!-- /.container-fluid -->
       </div>
     <section class="content">
-      <form method="post" action="" enctype="multipart/form-data">
+      <form method="post" action="/admin/product/addproduct" enctype="multipart/form-data">
           @csrf
       <div class="container-fluid">
         <div class="card card-primary ">
@@ -54,31 +54,28 @@
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="text-center mt-0 mb-0 p-1">
-                    <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/brand/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+                    <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/product/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
                   </div>
                 <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
-                <div class="row" ng-app="">
-                    <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
                         <label for="name">Name<span class="text-danger">*</span></label>
-                        <input type="text" ng-model="name" class="form-control" id='amount' onKeyUp="javascript: replacetext('amount'); " >
-                    <a href=" " > http//localhost/<span ng-bind="name"></span> </a>
+                        <input type="text"class="form-control" id="replace" name="name">
+                    <a href=" " > http//localhost/<span id="url"></span> </a>
+                    <input type="hidden" class="form-control access_url" id="url" name="url" >
                         <i class="fas fa-edit"></i>
                     </div>
+                    <div class="col-md-6">
+                        <label for="name">Size<span class="text-danger">*</span></label>
+                        <input type="text"class="form-control"  name="size" placeholder="Size">
+                    </div>
                 </div>
-                {{-- <div ng-app="myAppTrim">
-                  <div ng-controller="myControllerTrim">
-                    <button type="button" ng-click="trimDemo()">Click Hear For Trim</button>
-                    <p  data-ng-bind-html="" > {{resultTrim}}</p>
-                    <p ng-bind="resultTrim"></p>
-                  </div>
-                </div> --}}
-
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="inputcategory">Category<span class="text-danger">*</span></label>
-                  <select id="inputcategory" class="form-control">
-                    <option selected>Select Category</option>
+                  <select id="inputcategory" name="brand_id" class="form-control">
+                    <option selected >Select Category</option>
                     @foreach ($brands as $pro)
                     <option value="{{$pro->bid}}">{{$pro->bname}}</option>
                     @endforeach
@@ -86,7 +83,7 @@
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputcolor">color<span class="text-danger">*</span></label>
-                  <select id="inputcolor" class="form-control">
+                  <select id="inputcolor" name="color_id" class="form-control">
                     <option selected>Select Color</option>
                     @foreach ($colors as $pro)
                     <option value="{{$pro->cid}}">{{$pro->cname}}</option>
@@ -99,7 +96,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="price" id="inlineFormInputGroup">
                     </div>
                 </div>
             </div>
@@ -108,7 +105,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="inputideal">Ideal For<span class="text-danger">*</span></label>
-                    <select id="inputideal"  class="form-control">
+                    <select id="inputideal" name="idealfor"  class="form-control">
                       <option selected>Select Gender</option>
                       <option>Men</option>
                       <option>Women</option>
@@ -121,7 +118,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-tag"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="upc" id="inlineFormInputGroup">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -130,7 +127,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="stock" id="inlineFormInputGroup">
                     </div>
                 </div>
             </div>
@@ -147,7 +144,7 @@
                         <div class="input-group-prepend">
                           <div class="input-group-text">1000</i></div>
                         </div>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="discription" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
                       </div>
                 </div>
                 <div class="col-sm-6">
@@ -160,20 +157,31 @@
             </div>
             <hr>
             <div class="form-row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div id="inputFormRow">
                         <label>Images<span class="text-danger">*</span></label>
+                        {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
                         <div class="input-group mb-3">
 
                             <input type="file" name="title[]" class="form-control m-input" autocomplete="off">
+                            <div class="col-lg-3">
+                                 <input type="number" name="sort[]" class="form-control m-input" autocomplete="off" min="1" max="10" placeholder="Sort number">
+                            </div>
                             <div class="input-group-append">
                                 <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                            </div>&nbsp;
+                            <div class="input-group-append">
+                                <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>
                             </div>
                         </div>
+                        {{-- <div class="col-lg-4">
+                            <label>Sort<span class="text-danger">*</span></label>
+                        <input type="number" name="title[]" class="form-control m-input" autocomplete="off">
+                        </div> --}}
                     </div>
 
                     <div id="newRow"></div>
-                    <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>
+                    {{-- <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button> --}}
                 </div>
             </div>
             <hr>
@@ -192,15 +200,17 @@
 </body>
 @include('admin.jquery');
 <script type="text/javascript">
-
-  function replacetext(i) {
-  var val = document.getElementById(i).value;
-  if (val.match(/ /g)) {
-  val = val.replace(/\s+/g, '-');
-  document.getElementById(i).value=val;
-  }
-  }
-
+  $('#replace').keyup(function() {
+    var dInput = this.value;
+	var t=dInput.toLowerCase();
+	 if (t.match(/ /g)) {
+	 t = t.replace(/\s+/g, '-');
+     //   document.getElementById('url').innerHTML = t2
+     }
+    document.getElementById("url").innerHTML = t;
+    console.log(t);
+    $('.access_url').val(t);
+});
   </script>
   <script type="text/javascript">
     // add row
@@ -209,8 +219,14 @@
         html += '<div id="inputFormRow">';
         html += '<div class="input-group mb-3">';
         html += '<input type="file" name="title[]" class="form-control m-input" autocomplete="off">';
+        html += '<div class="col-lg-3">';
+        html += '<input type="number" name="sort[]" class="form-control m-input" autocomplete="off" min="1" max="10" placeholder="Sort Number">'
+        html += '</div>';
         html += '<div class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>&nbsp;';
+        html += '<div class="input-group-append">';
+        html += '<button id="addRow" type="button" class="btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>';
         html += '</div>';
         html += '</div>';
 

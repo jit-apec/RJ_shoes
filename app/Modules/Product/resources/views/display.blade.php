@@ -81,7 +81,7 @@
                         <tr>
 
                                 <td class="text-center">{{$count+=1}}</td>
-                                <td><img src="{{ asset('dist/img/' .$product->image ) }}" height="50" width="50"></td>
+                                <td><img src="{{asset('storage/media/'.$product->image) }}" height="50" width="50"></td>
                                 <td>{{$product->name}}</td>
 
                                 <td>{{$product->upc}}</td>

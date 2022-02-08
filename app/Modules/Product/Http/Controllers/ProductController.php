@@ -7,6 +7,7 @@ use App\Modules\Colors\Models\Colors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
 
@@ -50,6 +51,38 @@ class ProductController extends Controller
            //  $Product= Product::all();
      return view("Product::trash",['product'=>$Product]);
     }
+
+    public function insert (Request $request)
+   {
+    $product = new Product;
+
+     if($request->hasFile('image')){
+
+        $image=$request->file('image');
+        $ext=$image->extension();
+        $image_name=time().'.'.$ext;
+        $image->storeAs('/public/media',$image_name);
+        $product->image=$image_name;
+
+     }
+     $product->name=$request->name;
+    $product->idealfor=$request->idealfor;
+    $product->upc=$request->upc;
+    $product->url=$request->url;
+    $product->size=$request->size;
+    $product->price=$request->price;
+    $product->stock=$request->stock;
+    $product->description=$request->discription;
+    $product->color_id=$request->color_id;
+    $product->brand_id=$request->brand_id;
+    $uid = Auth::user()->id;
+    $product->user_id=$uid;
+    $product->save();
+
+    return back();
+
+}
+
 
 }
 

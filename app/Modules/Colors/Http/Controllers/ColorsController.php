@@ -110,7 +110,7 @@ class ColorsController extends Controller
         $update->status='T';
         $update->save();
         return Colors::all();
-}
+    }
 
     // restore
     public function restore(Request $r)
