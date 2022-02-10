@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
     @include('admin.css')
+    {{-- <style>
+    body {
+        background-image: url("paper.gif");
+        background-color: #a5a7ac;
+       }
+    </style> --}}
 </head>
 
 <body class="hold-transition login-page">

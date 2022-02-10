@@ -6,9 +6,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('profile', function () {
     //this code is user to access denied  to unauthorize user and redirect to login page
 })->middleware('auth');
+
 Route::get('product', 'ProductController@welcome');
 Route::get('/admin/product/display',[ProductController::class,'display']);
-Route::get('/admin/product/dropdown',[ProductController::class,'addproduct']);
-Route::get('/admin/product/addproduct',[ProductController::class,'addproduct']);
+Route::get('/admin/product/changestatus',[ProductController::class,'changestatus']);
+Route::get('/admin/product/addproduct',[ProductController::class,'dropdown']);
 Route::post('/admin/product/addproduct',[ProductController::class,'insert']);
+Route::get('/admin/product/edit/{id}',[ProductController::class,'edit']);
 Route::get('/admin/product/trash',[ProductController::class,'trashdisplay']);
+Route::get('/admin/product/move_trash',[ProductController::class,'movetotrash']);
+Route::get('/admin/product/restore',[ProductController::class,'restore']);

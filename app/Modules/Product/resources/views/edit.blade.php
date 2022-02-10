@@ -34,7 +34,7 @@
         </div><!-- /.container-fluid -->
       </div>
     <section class="content">
-      <form method="post" action="/admin/product/addproduct" enctype="multipart/form-data">
+      <form method="post" action="/admin/product/edit/.$product->id)}}" enctype="multipart/form-data">
           @csrf
       <div class="container-fluid">
         <div class="card card-primary ">
@@ -58,36 +58,36 @@
 
                   </div>
                 <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row" >
+                    <div class="col-md-6" >
                         <label for="name">Name<span class="text-danger">*</span></label>
-                        <input type="text"class="form-control" id="replace" name="name">
+                        <input type="text"class="form-control" id="replace"  value="{{$product->url}}"  name="name">
                     <a href=" " > http//localhost/<span id="url"></span> </a>
                     <input type="hidden" class="form-control access_url" id="url" name="url" >
                         <i class="fas fa-edit"></i>
                     </div>
                     <div class="col-md-6">
                         <label for="name">Size<span class="text-danger">*</span></label>
-                        <input type="text"class="form-control"  name="size" placeholder="Size">
+                        <input type="text"class="form-control"  name="size" value="{{$product->size}}" placeholder="Size">
                     </div>
                 </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="inputcategory">Category<span class="text-danger">*</span></label>
-                  <select id="inputcategory" name="brand_id" class="form-control">
+                  <select id="inputcategory" name="brand_id" class="form-control" disabled>
                     <option selected >Select Category</option>
-                    @foreach ($brands as $pro)
+                    {{-- @foreach ($brands as $pro)
                     <option value="{{$pro->bid}}">{{$pro->bname}}</option>
-                    @endforeach
+                    @endforeach --}}
                   </select>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputcolor">color<span class="text-danger">*</span></label>
                   <select id="inputcolor" name="color_id" class="form-control">
                     <option selected>Select Color</option>
-                    @foreach ($colors as $pro)
+                    {{-- @foreach ($colors as $pro)
                     <option value="{{$pro->cid}}">{{$pro->cname}}</option>
-                    @endforeach
+                    @endforeach --}}
                   </select>
                 </div>
                 <div class="col-md-6">
@@ -96,7 +96,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="price" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="price"value="{{$product->price}}"  id="inlineFormInputGroup">
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="inputideal">Ideal For<span class="text-danger">*</span></label>
-                    <select id="inputideal" name="idealfor"  class="form-control">
+                    <select id="inputideal" name="idealfor" value="{{$product->idealfor}}"  class="form-control">
                       <option selected>Select Gender</option>
                       <option>Men</option>
                       <option>Women</option>
@@ -118,7 +118,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-tag"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="upc" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="upc" value="{{$product->upc}}"id="inlineFormInputGroup" disabled>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -127,30 +127,27 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="stock" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="stock" value="{{$product->stock}}" id="inlineFormInputGroup">
                     </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-sm-6">
-                    <!-- text input -->
-                    {{-- <div class="form-group">
-                      <label>Discription<span class="text-danger">*</span></label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
-                    </div> --}}
-                    <label>Discription<span class="text-danger">*</span></label>
+                    <label>description<span class="text-danger">*</span></label>
                     <div class="input-group mb-2">
 
                         <div class="input-group-prepend">
                           <div class="input-group-text">1000</i></div>
                         </div>
-                        <textarea class="form-control" id="" name="discription" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
+                        <textarea class="form-control"name="discription" rows="3" placeholder="This Box has a Limit of 1000 Chars">{{$product->description}}</textarea>
+                        {{-- <textarea  rows="3" cols="30" name="bgraphy"value="{{$product->description}}"class="form-control"></textarea> --}}
                       </div>
                 </div>
                 <div class="col-sm-6">
-
+                    <label>Main Image<span class="text-danger">*</span></label>
                     <div class="form-group">
-                      <label>Main Image<span class="text-danger">*</span></label>
+
+                      <img src="{{asset('storage/media/'.$product->image) }}" onerror="this.src='./assets/img/user.jpg';" alt="Missing Image" style="height:100px; width:100px; border:1px green solid;">
                      <input type="file" class="form-control" name="image">
                     </div>
                 </div>

@@ -38,9 +38,9 @@
                 </div><!-- /.container-fluid -->
               </div>
              <div class="d-flex justify-content-center">
-    <div class="col-md-12 ">
+    <div class="col-md-12  ">
         <!-- general form elements -->
-        <div class="card card-primary p-1">
+        <div class="card card-primary p-1 ">
           <div class="card-header">
             <h3 class="card-title">Product</h3>
           </div>
@@ -53,7 +53,7 @@
           </div>
 
           <!-- /.card-header -->
-            <table id="myTable" class="display">
+            <table id="myTable" class="display  table-responsive">
                 <thead>
                     <tr>
 
@@ -106,8 +106,8 @@
                                 <td>{{$col->updated_at}}</td> --}}
                                 <td>
 
-                                <a href="{{url('/admin/product/editproduct',$product->id)}}" class="fas fa-pencil-alt"></a>
-                                <a href="javascript:void(0);" onclick="move_to_product({{$product->id}})" class="fas fa-trash-alt"></a>
+                                <a href="{{url('/admin/product/edit',$product->id)}}" class="fas fa-pencil-alt"></a>
+                                <a href="javascript:void(0);" onclick="move_to_trash({{$product->id}})" class="fas fa-trash-alt"></a>
                                 </td>
                         </tr>
 
@@ -121,7 +121,41 @@
 {{-- @endsection --}}
 @include('admin.footer')
 </div>
- @include('admin.jquery')
+ <!-- jQuery -->
+{{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+<!-- Sparkline -->
+<script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
+<!-- JQVMap -->
+{{-- <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script> --}}
+<!-- jQuery Knob Chart -->
+<script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<!-- daterangepicker -->
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- Summernote -->
+<script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready( function () {
@@ -129,10 +163,10 @@
 } );
 
 
-function move_to_product(id){
+function move_to_trash(id){
         if(confirm('are your sure do you want to delete !!!! ?')){
         jQuery.ajax({
-            url:'/admin/product/movetrash',
+            url:'/admin/product/move_trash',
             type:'GET',
             data:{'id':id},
             success:function(result){
@@ -153,7 +187,7 @@ function move_to_product(id){
           $.ajax({
               type: "GET",
               dataType: "json",
-              url: '/admin/product/changeproductstatus',
+              url: '/admin/product/changestatus',
               data: {'status': status, 'id': id},
               success: function(data){
                console.log(data.success)

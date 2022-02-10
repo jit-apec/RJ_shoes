@@ -78,7 +78,7 @@
                     <tr>
 
                             <td class="text-center">{{$count+=1}}</td>
-                            <td><img src="{{ asset('dist/img/' .$product->image ) }}" height="50" width="50"></td>
+                            <td><img src="{{asset('storage/media/'.$product->image) }}" height="50" width="50"></td>
                             <td>{{$product->name}}</td>
 
                             <td>{{$product->upc}}</td>
@@ -93,7 +93,7 @@
                             {{-- <td>{{$col->created_at}}</td>
                             <td>{{$col->updated_at}}</td> --}}
                             <td>
-                                <a href="#"  onclick="restore_Product({{$product->id}})" class="fas fa-trash-restore-alt " style='font-size:24px'></a>&nbsp;&nbsp;
+                                <a href="#"  onclick="restore_product({{$product->id}})" class="fas fa-trash-restore-alt " style='font-size:24px'></a>&nbsp;&nbsp;
                                 <a href="{{url('delete/')}}" class="fas fa-trash-alt" style='font-size:24px'></a>
                             </td>
                      </tr>
@@ -115,6 +115,19 @@
     $('#myTable').DataTable();
 } );
 
+function restore_product(id){
+        if(confirm('are your sure!! do  you want to Restore?')){
+        jQuery.ajax({
+            url:'/admin/product/restore',
+            type:'GET',
+            data:{'id':id},
+            success:function(result){
+            console.log("Status Changed successfully ");
+            window.location.reload();
+            }
+        });
+    }
+    }
 </script>
 </body>
 </html>
