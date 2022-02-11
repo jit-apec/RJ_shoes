@@ -77,13 +77,35 @@ class ProductController extends Controller
      public function edit($id)
      {
         $product = Product::find($id);
-        $Product = Product::join('colors', 'colors.id', '=', 'products.color_id')
-        ->join('brands', 'brands.id', '=', 'products.brand_id')
-        ->where('products.status',array('T'))
-        ->get(['products.*', 'colors.name as cname','brands.name as bname']);
+        $brand = Product::join('brands', 'brands.id', '=', 'products.brand_id')->where('products.id',$id)
+        ->get(['brands.id as bid', 'brands.name as bname']);
+        $colors = DB::table('colors')->select('name as cname','id as cid')->where(['status'=>'Y'])->get();
+         return view('Product::edit',['brands' => $brand],compact(['colors','product']));
+    }
+    public function update(Request $request,$id)
+    {
+        $Aid = Auth::id();
 
-         return view('Product::edit', compact('product'));
-     }
+        $data=[
+            'name'=>$request->name,
+            'idealfor'=>$request->idealfor,
+            // 'upc' =>$request->upc,
+            'url'=>$request->url,
+            'size'=>$request->size,
+            'price'=>$request->price,
+            'stock'=>$request->stock,
+            'description'=>$request->description,
+            'color_id' =>$request->color_id,
+            //'brand_id'=>$request->brand_id,
+
+            'user_id'=>$Aid,
+
+        ];
+       // dd($data);
+        Product::where('id', $id)->update($data);
+        //return view("Product::display");
+       return back();
+    }
 
     public function insert (Request $request)
    {
@@ -134,9 +156,11 @@ class ProductController extends Controller
     if($request->hasFile('subimage')){
         foreach($request->file('subimage') as $file)
         {
-            $name = time().rand(1,100).'.'.$file->extension();
-            $file->move(public_path('/public/media'), $name);
-            $img[] = $name;
+            $name=$request->hasFile('image');
+            $ext=$image->extension();
+           $name = time().rand(1,100).'.'.$file->extension();
+           $str= $image->storeAs('/public/media',$name);
+            $img[] = $str;
 
         // $rand= rand('11111111', '99999999');
         // $subimage=$request->file('subimage.$key');
@@ -147,27 +171,20 @@ class ProductController extends Controller
 
         }
      }
-
+    //  dd($img);
     // $product->images=$img;
 
 
 
     //    $store_title_value =  $request->title;
 
-        foreach($store_sort_value as $key => $value)
-        {
-        $sub_image['product_id']=$pid;
+       // foreach($store_sort_value as $key => $value)
+        // {
+        //$sub_image['product_id']=$pid;
         $sub_image['images']=  $img;
-        $sub_image['sort']=$store_sort_value[$key];
-         DB::table('productimage')->insert($sub_image);
-        }
-    // $productt=$product->id;
-    // var_dump($product);
-    // dd();
-    // foreach ($request->title as $value) {
-    //     Product::create($value);
-    // }
-    // dd();
+      //  $sub_image['sort']=$store_sort_value[$key];
+         DB::table('productimage')->insert($img);
+      //  }
     return back();
 
 

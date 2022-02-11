@@ -13,6 +13,7 @@ Route::get('/admin/product/changestatus',[ProductController::class,'changestatus
 Route::get('/admin/product/addproduct',[ProductController::class,'dropdown']);
 Route::post('/admin/product/addproduct',[ProductController::class,'insert']);
 Route::get('/admin/product/edit/{id}',[ProductController::class,'edit']);
+Route::post('/admin/product/edit/{id}',[ProductController::class,'update']);
 Route::get('/admin/product/trash',[ProductController::class,'trashdisplay']);
 Route::get('/admin/product/move_trash',[ProductController::class,'movetotrash']);
 Route::get('/admin/product/restore',[ProductController::class,'restore']);

@@ -34,12 +34,13 @@
         </div><!-- /.container-fluid -->
       </div>
     <section class="content">
-      <form method="post" action="/admin/product/edit/.$product->id)}}" enctype="multipart/form-data">
+      <form method="post" action="{{url('/admin/product/edit/'.$product->id)}}" enctype="multipart/form-data">
+
           @csrf
       <div class="container-fluid">
         <div class="card card-primary ">
             <div class="card-header">
-            <h3 class="card-title">Add Product</h3>
+            <h3 class="card-title">Update Product</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -74,20 +75,20 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="inputcategory">Category<span class="text-danger">*</span></label>
-                  <select id="inputcategory" name="brand_id" class="form-control" disabled>
-                    <option selected >Select Category</option>
-                    {{-- @foreach ($brands as $pro)
-                    <option value="{{$pro->bid}}">{{$pro->bname}}</option>
-                    @endforeach --}}
+                  <select id="inputcategory" name="brand_id" class="form-control"  disabled>
+                    @foreach ($brands as $brand)
+                    <option selected >{{$brand->bname}}</option>
+                    <option value="{{$brand->bid}}">{{$brand->bname}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputcolor">color<span class="text-danger">*</span></label>
-                  <select id="inputcolor" name="color_id" class="form-control">
+                  <select id="inputcolor" id="color_id" name="color_id" class="form-control">
                     <option selected>Select Color</option>
-                    {{-- @foreach ($colors as $pro)
-                    <option value="{{$pro->cid}}">{{$pro->cname}}</option>
-                    @endforeach --}}
+                    @foreach ($colors as $color)
+                        <option  value="{{$color->cid}}" @if($color->cid == $product->color_id) selected @endif>{{$color->cname}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="col-md-6">
@@ -100,13 +101,12 @@
                     </div>
                 </div>
             </div>
-
             <!-- /.row -->
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="inputideal">Ideal For<span class="text-danger">*</span></label>
                     <select id="inputideal" name="idealfor" value="{{$product->idealfor}}"  class="form-control">
-                      <option selected>Select Gender</option>
+                      <option selected>{{$product->idealfor}}</option>
                       <option>Men</option>
                       <option>Women</option>
                       <option>Child</option>
@@ -118,7 +118,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-tag"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="upc" value="{{$product->upc}}"id="inlineFormInputGroup" disabled>
+                      <input type="text" class="form-control" name="upc" value="{{$product->upc}}" disabled>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -139,16 +139,16 @@
                         <div class="input-group-prepend">
                           <div class="input-group-text">1000</i></div>
                         </div>
-                        <textarea class="form-control"name="discription" rows="3" placeholder="This Box has a Limit of 1000 Chars">{{$product->description}}</textarea>
+                        <textarea class="form-control"name="description" rows="3" placeholder="This Box has a Limit of 1000 Chars">{{$product->description}}</textarea>
                         {{-- <textarea  rows="3" cols="30" name="bgraphy"value="{{$product->description}}"class="form-control"></textarea> --}}
                       </div>
                 </div>
                 <div class="col-sm-6">
-                    <label>Main Image<span class="text-danger">*</span></label>
+                    <label>Main Image</label>
                     <div class="form-group">
 
                       <img src="{{asset('storage/media/'.$product->image) }}" onerror="this.src='./assets/img/user.jpg';" alt="Missing Image" style="height:100px; width:100px; border:1px green solid;">
-                     <input type="file" class="form-control" name="image">
+                     <input type="file" class="form-control" value="{{$product->image}}" name="image">
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
             <div class="form-row">
                 <div class="col-lg-9">
                     <div id="inputFormRow">
-                        <label>Images<span class="text-danger">*</span></label>
+                        <label>Images</label>
                         {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
                         <div class="input-group mb-3">
 
