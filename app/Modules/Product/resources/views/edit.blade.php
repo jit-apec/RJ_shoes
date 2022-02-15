@@ -61,8 +61,10 @@
                 <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
                 <div class="row" >
                     <div class="col-md-6" >
+
                         <label for="name">Name<span class="text-danger">*</span></label>
-                        <input type="text"class="form-control" id="replace"  value="{{$product->url}}"  name="name">
+                        <span id="lblError" style="color: red"></span>
+                        <input type="text"class="form-control valid" id="replace"  value="{{$product->name}}"  name="name">
                     <a href=" " > http//localhost/<span id="url"></span> </a>
                     <input type="hidden" class="form-control access_url" id="url" name="url" >
                         <i class="fas fa-edit"></i>
@@ -207,6 +209,27 @@
     $('.access_url').val(t);
 });
   </script>
+  {{-- name only allow characters and space --}}
+   <script type="text/javascript">
+    $(function () {
+        $(".valid").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            $("#lblError").html("");
+
+            //Regex for Valid Characters i.e. Alphabets and Numbers.
+            var regex = /^[a-zA-Z\s]+$/;
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#lblError").html("Only Alphabets allowed.");
+            }
+
+            return isValid;
+        });
+    });
+</script>
+
   <script type="text/javascript">
     // add row
     var i = 1;

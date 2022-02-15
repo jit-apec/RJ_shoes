@@ -6,9 +6,7 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
      {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"  /> --}}
-
      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -107,11 +105,12 @@
                                 <td>
 
                                 <a href="{{url('/admin/product/edit',$product->id)}}" class="fas fa-pencil-alt"></a>
+                                <a href="{{url('/admin/product/product_view',$product->url)}}" class="fas fa-eye"></a>
                                 <a href="javascript:void(0);" onclick="move_to_trash({{$product->id}})" class="fas fa-trash-alt"></a>
+
                                 </td>
                         </tr>
-
-                        @endforeach
+                    @endforeach
                 </tbody>
             </table>
           </div>
@@ -161,8 +160,6 @@
     $(document).ready( function () {
     $('#myTable').DataTable();
 } );
-
-
 function move_to_trash(id){
         if(confirm('are your sure do you want to delete !!!! ?')){
         jQuery.ajax({
@@ -176,10 +173,8 @@ function move_to_trash(id){
         });
     }
     }
-
 </script>
 <script>
-
     $(function() {
       $('.toggle-class').change(function() {
           var status = $(this).prop('checked') == true ? 'Y' : 'N';

@@ -85,31 +85,73 @@ class ProductController extends Controller
     public function update(Request $request,$id)
     {
         $Aid = Auth::id();
-
         $data=[
+
             'name'=>$request->name,
             'idealfor'=>$request->idealfor,
-            // 'upc' =>$request->upc,
             'url'=>$request->url,
             'size'=>$request->size,
             'price'=>$request->price,
             'stock'=>$request->stock,
             'description'=>$request->description,
             'color_id' =>$request->color_id,
-            //'brand_id'=>$request->brand_id,
-
             'user_id'=>$Aid,
-
         ];
-       // dd($data);
+        if($request->hasFile('image')){
+
+            $image=$request->file('image');
+            $ext=$image->extension();
+            $image_name=time().'.'.$ext;
+            $image->storeAs('/public/media',$image_name);
+            $data['image']="$image_name";
+         }
         Product::where('id', $id)->update($data);
         //return view("Product::display");
-       return back();
+       return back()->with(' Product updated successfully');
     }
 
     public function insert (Request $request)
    {
     $product = new Product;
+    if($request->hasfile('subimage'))
+    {
+        $simg=[
+            'image'=>$request->subimage,
+        ];
+    //    dd($simg);
+       foreach($simg as $image)
+       {
+
+           $image=$request->file('subimage');
+        //    foreach($image as $img){
+
+        //     $ext = $img->extension();
+        //     $image_name=$img;
+        //     print_r($image_name);
+        //     $img->storeAs('\public\media',$image_name);
+        //     echo '<pre>';
+        //        print_r($image_name);
+        //     $product->image=$image_name;
+        //    $data[] = $image_name;
+        // }die;
+        //   dd($data);
+
+
+           $ext=$image->extension();
+
+            $image_name=$image;
+            print_r($image_name);
+            $image->storeAs('/public/media',$image_name);
+            $product->image=$image_name;
+           $data[] = $image_name;
+
+
+           //dd($data);
+       }
+       //dd($file);
+
+    }
+
     if($request->hasFile('image')){
 
         $image=$request->file('image');
@@ -151,16 +193,39 @@ class ProductController extends Controller
 
     //     $sub_image['subimage']='';
     // }
+        //13-feb
+    //     if($request->hasfile('subimage'))
+    //     {
+    //        foreach($request->file('subimage') as $file)
+    //        {
+    //            $name = time().'.'.$file->extension();
+    //            //$file->move(public_path().'/public/media', $name);
+    //            $str= $image->storeAs('/public/media',$name);
+    //            $data[] = $name;
+    //            //dd($file);
+    //        }
+    //     }
 
-    $img=[];
-    if($request->hasFile('subimage')){
-        foreach($request->file('subimage') as $file)
-        {
-            $name=$request->hasFile('image');
-            $ext=$image->extension();
-           $name = time().rand(1,100).'.'.$file->extension();
-           $str= $image->storeAs('/public/media',$name);
-            $img[] = $str;
+    //    dd($data);
+    //     $product= new product();
+    //     $product->subimage=json_encode($data);
+    //     $product->save();
+
+
+
+
+
+
+    //12-feb
+    // $img=[];
+    // if($request->hasFile('subimage')){
+    //     foreach($request->file('subimage') as $file)
+    //     {
+    //         $name=$request->hasFile('image');
+    //         $ext=$image->extension();
+    //        $name = time().rand(1,100).'.'.$file->extension();
+    //        $str= $image->storeAs('/public/media',$name);
+    //         $img[] = $str;
 
         // $rand= rand('11111111', '99999999');
         // $subimage=$request->file('subimage.$key');
@@ -169,8 +234,8 @@ class ProductController extends Controller
         // $request->file('subimage.$key')->storeAs('/public/media',$image_name);
         // $sub_image['subimage']=$image_name;
 
-        }
-     }
+    //     }
+    //  }
     //  dd($img);
     // $product->images=$img;
 
@@ -181,16 +246,17 @@ class ProductController extends Controller
        // foreach($store_sort_value as $key => $value)
         // {
         //$sub_image['product_id']=$pid;
-        $sub_image['images']=  $img;
+        // $sub_image['images']=  $img;
       //  $sub_image['sort']=$store_sort_value[$key];
-         DB::table('productimage')->insert($img);
+        //  DB::table('productimage')->insert($img);
       //  }
     return back();
-
-
-
 }
 
+        public function product_view()
+        {
+            return view("Product::productdisplay");
+        }
 
 }
 

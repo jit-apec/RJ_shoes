@@ -4,6 +4,7 @@
   @include('admin.css');
  {{-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.1/angular.min.js"></script> --}}
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -61,7 +62,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="name">Name<span class="text-danger">*</span></label>
-                        <input type="text"class="form-control" id="replace" name="name">
+                        <span id="lblError" style="color: red"></span>
+                        <input type="text"class="form-control valid" id="replace" name="name">
                     <a href=" " > http//localhost/<span id="url"></span> </a>
                     <input type="hidden" class="form-control access_url" id="url" name="url" >
                         <i class="fas fa-edit"></i>
@@ -133,11 +135,6 @@
             </div>
             <div class="form-row">
                 <div class="col-sm-6">
-                    <!-- text input -->
-                    {{-- <div class="form-group">
-                      <label>Discription<span class="text-danger">*</span></label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
-                    </div> --}}
                     <label>Discription<span class="text-danger">*</span></label>
                     <div class="input-group mb-2">
 
@@ -151,8 +148,12 @@
 
                     <div class="form-group">
                       <label>Main Image<span class="text-danger">*</span></label>
-                     <input type="file" class="form-control" name="image">
+                     <input type="file" class="form-control" onchange="readURL(this);"   id="upload" name="image" >
+
+
+                     <div class="image-area minipic mt-3 "><img id="imageResult" src="{{ asset('dist/img/imagepreview.jpg')}}" style="height:100px; width:100px; border:1px rgb(11, 12, 11); solid" >  </div>
                     </div>
+
                 </div>
             </div>
             <hr>
@@ -163,7 +164,7 @@
                         {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
                         <div class="input-group mb-3">
 
-                            <input type="file" name="subimage[1]" class="form-control m-input" autocomplete="off">
+                            <input type="file" name="subimage[1]" id="subupload" onchange="imagepreview(this);"  class="form-control m-input" autocomplete="off">
                             <div class="col-lg-3">
                                  <input type="number" name="sort[1]" class="form-control m-input" autocomplete="off"  placeholder="Sort number">
                             </div>
@@ -171,6 +172,7 @@
                             <div class="input-group-append">
                                 <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>
                             </div>
+
                         </div>
                         {{-- <div class="col-lg-4">
                             <label>Sort<span class="text-danger">*</span></label>
@@ -179,6 +181,8 @@
                     </div>
 
                     <div id="newRow"></div>
+                    <div class=" mt-3"><img id="subimageresult" src="{{ asset('dist/img/imagepreview.jpg')}}" alt="" class="img-fluid rounded shadow-sm mx-auto " style="height:100px; width:100px; border:1px green solid;"></div>
+                </div>
                     {{-- <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button> --}}
                 </div>
             </div>
@@ -201,13 +205,14 @@
   $('#replace').keyup(function() {
     var dInput = this.value;
 	var t=dInput.toLowerCase();
-	 if (t.match(/ /g)) {
+	 if (t.match(/ /g,)) {
 	 t = t.replace(/\s+/g, '-');
      //   document.getElementById('url').innerHTML = t2
      }
     document.getElementById("url").innerHTML = t;
     console.log(t);
     $('.access_url').val(t);
+
 });
   </script>
   <script type="text/javascript">
@@ -218,7 +223,7 @@
         var html = '';
         html += '<div id="inputFormRow">';
         html += '<div class="input-group mb-3">';
-        html += '<input type="file" name="subimage['+i+']" class="form-control m-input" autocomplete="off">';
+        html += '<input type="file" name="subimage['+i+']"  class="form-control m-input " onchange="imagepreview(this);" autocomplete="off">';
         html += '<div class="col-lg-3">';
         html += '<input type="number" name="sort['+i+']" class="form-control m-input" autocomplete="off" placeholder="Sort Number">'
         html += '</div>';
@@ -227,7 +232,9 @@
         html += '</div>&nbsp;';
 
         html += '</div>';
-
+        // html += '<div class=" mt-3">';
+        html +='<img id="subimageresult" src="{{ asset('dist/img/imagepreview.jpg')}}" alt="" class="img-fluid rounded shadow-sm mx-auto " style="height:100px; width:100px; border:1px green solid;">';
+       // html += '</div>';
         $('#newRow').append(html);
     });
 
@@ -235,6 +242,67 @@
     $(document).on('click', '#removeRow', function () {
         $(this).closest('#inputFormRow').remove();
     });
-</script>
+    //upload image preview
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
+        reader.onload = function (e) {
+            $('#imageResult')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+//upload  multiple images preview
+    function imagepreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#subimageresult')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+{{-- megnify image --}}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.minipic').jqzoom({
+                zoomType: 'standard',
+                lens: true,
+                preloadImages: false,
+                alwaysOn: false,
+                zoomHeight: 200,
+                zoomWidth:200
+            });
+        });
+    </script>
+    {{-- name only allow characters and space --}}
+    <script type="text/javascript">
+        $(function () {
+            $(".valid").keypress(function (e) {
+                var keyCode = e.keyCode || e.which;
+
+                $("#lblError").html("");
+
+                //Regex for Valid Characters i.e. Alphabets and Numbers.
+                var regex = /^[a-zA-Z\s]+$/;
+                //Validate TextBox value against the Regex.
+                var isValid = regex.test(String.fromCharCode(keyCode));
+                if (!isValid) {
+                    $("#lblError").html("Only Alphabets allowed.");
+                }
+
+                return isValid;
+            });
+        });
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.6.1/jquery.zoom.min.js"></script>
+<script src="js/jquery-1.6.js"></script>
+<script src="js/jquery.jqzoom-core.js"></script>
 </html>
