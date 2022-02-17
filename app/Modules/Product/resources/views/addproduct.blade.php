@@ -181,8 +181,7 @@
                     </div>
 
                     <div id="newRow"></div>
-                    <div class=" mt-3"><img id="subimageresult" src="{{ asset('dist/img/imagepreview.jpg')}}" alt="" class="img-fluid rounded shadow-sm mx-auto " style="height:100px; width:100px; border:1px green solid;"></div>
-                </div>
+
                     {{-- <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button> --}}
                 </div>
             </div>
@@ -232,9 +231,6 @@
         html += '</div>&nbsp;';
 
         html += '</div>';
-        // html += '<div class=" mt-3">';
-        html +='<img id="subimageresult" src="{{ asset('dist/img/imagepreview.jpg')}}" alt="" class="img-fluid rounded shadow-sm mx-auto " style="height:100px; width:100px; border:1px green solid;">';
-       // html += '</div>';
         $('#newRow').append(html);
     });
 

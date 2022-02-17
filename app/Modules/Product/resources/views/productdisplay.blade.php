@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
   @include('admin.css');
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.6.1/jquery.zoom.min.js" integrity="sha512-xhvWWTTHpLC+d+TEOSX2N0V4Se1989D03qp9ByRsiQsYcdKmQhQ8fsSTX3KLlzs0jF4dPmq0nIzvEc3jdYqKkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.6.1/jquery.zoom.js" integrity="sha512-1O67rfB2z8nblD56BtCKfz/uIU0/vSDIz4mWkr7GIii9sjcuzXP7LpZrTg+D2AGOFcVXoPMUoKEFBwEV14QiUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/jquery-1.6.js"></script>
+
+  <link href="css/jquery.jqzoom.css" rel="stylesheet" /> --}}
+ {{-- <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script> --}}
+ <script src="{{ asset('dist/js/js-image-zoom.js') }}"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -34,19 +42,24 @@
           <div class="row">
             <div class="col-12 col-sm-6">
               <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
-              <div class="col-12">
-                <img src="{{ asset('../../dist/img/prod-1.jpg')}}" class="product-image" alt="Product Image">
+              @foreach ($product as $product )
+              <div class="col-12"  id="img-container" style="height:70%; width:90%; border:1px rgb(179, 204, 179) solid;">
+                <a href="{{asset('storage/media/'.$product->image) }}" class="minipic" title="Cartoon Bike">   <img src="{{asset('storage/media/'.$product->image) }}" height="50" width="50" class="product-image" alt="Product Image"></a>
               </div>
+
+              {{-- @foreach ($product as $image ) --}}
               <div class="col-12 product-image-thumbs">
-                <div class="product-image-thumb active"><img src="{{ asset('../../dist/img/prod-1.jpg')}}" alt="Product Image"></div>
-                <div class="product-image-thumb" ><img src="../../dist/img/prod-2.jpg" alt="Product Image"></div>
-                <div class="product-image-thumb" ><img src="../../dist/img/prod-3.jpg" alt="Product Image"></div>
+                   <div class="product-image-thumb" ><img src="{{asset('storage/media/'.$product->image) }}" alt="Product Image"></div>
+                   <div class="product-image-thumb" ><img src="{{asset('storage/media/'.$product->images) }}" alt="Product Image"></div>
+
+
+                {{-- <div class="product-image-thumb" ><img src="../../dist/img/prod-3.jpg" alt="Product Image"></div>
                 <div class="product-image-thumb" ><img src="../../dist/img/prod-4.jpg" alt="Product Image"></div>
-                <div class="product-image-thumb" ><img src="../../dist/img/prod-5.jpg" alt="Product Image"></div>
+                <div class="product-image-thumb" ><img src="../../dist/img/prod-5.jpg" alt="Product Image"></div> --}}
               </div>
             </div>
             <div class="col-12 col-sm-6">
-              <h3 class="my-3">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+              <h3 class="my-3">{{$product->name}}</h3>
               <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
 
               <hr>
@@ -88,36 +101,19 @@
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-default text-center">
                   <input type="radio" name="color_option" id="color_option_b1" autocomplete="off">
-                  <span class="text-xl">S</span>
-                  <br>
-                  Small
+                  {{-- <span class="text-xl">S</span> --}}
+
+                 {{$product->size}}
                 </label>
-                <label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option_b2" autocomplete="off">
-                  <span class="text-xl">M</span>
-                  <br>
-                  Medium
-                </label>
-                <label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option_b3" autocomplete="off">
-                  <span class="text-xl">L</span>
-                  <br>
-                  Large
-                </label>
-                <label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option_b4" autocomplete="off">
-                  <span class="text-xl">XL</span>
-                  <br>
-                  Xtra-Large
-                </label>
+
               </div>
 
               <div class="bg-gray py-2 px-3 mt-4">
                 <h2 class="mb-0">
-                  $80.00
+                    ₹ {{$product->price}}
                 </h2>
                 <h4 class="mt-0">
-                  <small>Ex Tax: $80.00 </small>
+                  <small>Ex Tax:₹00.00 </small>
                 </h4>
               </div>
 
@@ -159,12 +155,12 @@
               </div>
             </nav>
             <div class="tab-content p-3" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae condimentum erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed posuere, purus at efficitur hendrerit, augue elit lacinia arcu, a eleifend sem elit et nunc. Sed rutrum vestibulum est, sit amet cursus dolor fermentum vel. Suspendisse mi nibh, congue et ante et, commodo mattis lacus. Duis varius finibus purus sed venenatis. Vivamus varius metus quam, id dapibus velit mattis eu. Praesent et semper risus. Vestibulum erat erat, condimentum at elit at, bibendum placerat orci. Nullam gravida velit mauris, in pellentesque urna pellentesque viverra. Nullam non pellentesque justo, et ultricies neque. Praesent vel metus rutrum, tempus erat a, rutrum ante. Quisque interdum efficitur nunc vitae consectetur. Suspendisse venenatis, tortor non convallis interdum, urna mi molestie eros, vel tempor justo lacus ac justo. Fusce id enim a erat fringilla sollicitudin ultrices vel metus. </div>
+              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> {{$product->description}}</div>
               <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab"> Vivamus rhoncus nisl sed venenatis luctus. Sed condimentum risus ut tortor feugiat laoreet. Suspendisse potenti. Donec et finibus sem, ut commodo lectus. Cras eget neque dignissim, placerat orci interdum, venenatis odio. Nulla turpis elit, consequat eu eros ac, consectetur fringilla urna. Duis gravida ex pulvinar mauris ornare, eget porttitor enim vulputate. Mauris hendrerit, massa nec aliquam cursus, ex elit euismod lorem, vehicula rhoncus nisl dui sit amet eros. Nulla turpis lorem, dignissim a sapien eget, ultrices venenatis dolor. Curabitur vel turpis at magna elementum hendrerit vel id dui. Curabitur a ex ullamcorper, ornare velit vel, tincidunt ipsum. </div>
               <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab"> Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat. </div>
             </div>
           </div>
-        </div>
+        </div> @endforeach
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
@@ -184,4 +180,38 @@
 
 @include('admin.jquery');
 </body>
+{{-- <script type="text/javascript">
+    $(document).ready(function () {
+        $('.minipic').jqzoom({
+            zoomType: 'standard',
+            lens: true,
+            preloadImages: false,
+            alwaysOn: false,
+            zoomHeight: 200,
+            zoomWidth:200
+        });
+    });
+</script> --}}
+<script>
+    var options1 = {
+        width: 400,
+        zoomWidth: 500,
+        offset: {vertical: 0, horizontal: 10}
+    };
+
+    // If the width and height of the image are not known or to adjust the image to the container of it
+    var options2 = {
+        fillContainer: true,
+        offset: {vertical: 0, horizontal: 10}
+    };
+    var options3 ={
+       offset:{"vertical":0,"horizontal":10},
+       scale:"1.5",
+        height:233,
+       width:350,
+       zoomPosition:"right"
+    }
+    new ImageZoom(document.getElementById("img-container"), options2);
+
+    </script>
 </html>

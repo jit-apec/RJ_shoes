@@ -5,8 +5,6 @@
       <span class="brand-text font-weight-light">Shoes Shop</span>
     </a>
 
-
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -125,7 +123,6 @@
                                     @csrf
                                 </form>
                         </ul>
-
                 </ul>
             </li>
         </ul>

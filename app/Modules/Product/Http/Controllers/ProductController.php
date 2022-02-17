@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Modules\Product\Http\Controllers;
+
 use App\Modules\Product\Models\product;
-use App\Http\Controllers\Controller;
 use App\Modules\Colors\Models\Colors;
+use App\Modules\Brand\Models\Brand;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
@@ -28,10 +29,52 @@ class ProductController extends Controller
     //below code for get dropdown list data
     public function dropdown(){
 
-        $Product1 = DB::table('colors')->select('name as cname','id as cid')->where(['status'=>'Y'])->get();
-        $Product2 =  DB::table('brands')->select('name as bname','id as bid')->where(['status'=>'Y'])->get();
-        return view('Product::addproduct',['colors' => $Product1, 'brands' => $Product2]);
+        $colors = Colors::select('name as cname','id as cid')->where(['status'=>'Y'])->get();
+        $brand =  Brand::select('name as bname','id as bid')->where(['status'=>'Y'])->get();
+        return view('Product::addproduct',['colors' => $colors, 'brands' => $brand]);
     }
+    public function insert (Request $request)
+    {
+     $product = new Product;
+     if($request->hasFile('image')){
+
+         $image=$request->file('image');
+         $ext=$image->extension();
+         $image_name=time().'.'.$ext;
+         $image->storeAs('/public/media',$image_name);
+         $product->image=$image_name;
+
+      }
+      $product->name=$request->name;
+     $product->idealfor=$request->idealfor;
+     $product->upc=$request->upc;
+     $product->url=$request->url;
+     $product->size=$request->size;
+     $product->price=$request->price;
+     $product->stock=$request->stock;
+     $product->description=$request->discription;
+     $product->color_id=$request->color_id;
+     $product->brand_id=$request->brand_id;
+     $uid = Auth::user()->id;
+     $product->user_id=$uid;
+     $product->save();
+     if($request->hasFile('subimage'))
+     {
+         foreach($request->file('subimage') as $k=>$image)
+         {
+             if ($request->input('sort')[$k])
+             {
+                 DB::table('productimage')->insert(['product_id'=>$product->id,'images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+             }
+             else {
+                 DB::table('productimage')->insert(['product_id'=>$product->id,'images'=>$request->upc.'_'.$k.'.png']);
+             }
+         $image->storeAs('/public/media' , $request->upc.'_'.$k.'.png');
+       }
+     }
+     return back();
+    }
+
     public function display(){
         $Product = Product::Join('colors', 'colors.id', '=', 'products.color_id')
         // ->join('users', 'users.id', '=', 'products.user_id')
@@ -110,153 +153,18 @@ class ProductController extends Controller
        return back()->with(' Product updated successfully');
     }
 
-    public function insert (Request $request)
-   {
-    $product = new Product;
-    if($request->hasfile('subimage'))
+
+    public function product_view($url)
     {
-        $simg=[
-            'image'=>$request->subimage,
-        ];
-    //    dd($simg);
-       foreach($simg as $image)
-       {
+            $product = Product::
+            //select('products.*','productimage.images','productimage.sort')
+        //    ->join('productimage','productimage.id','=','products.id')
 
-           $image=$request->file('subimage');
-        //    foreach($image as $img){
-
-        //     $ext = $img->extension();
-        //     $image_name=$img;
-        //     print_r($image_name);
-        //     $img->storeAs('\public\media',$image_name);
-        //     echo '<pre>';
-        //        print_r($image_name);
-        //     $product->image=$image_name;
-        //    $data[] = $image_name;
-        // }die;
-        //   dd($data);
-
-
-           $ext=$image->extension();
-
-            $image_name=$image;
-            print_r($image_name);
-            $image->storeAs('/public/media',$image_name);
-            $product->image=$image_name;
-           $data[] = $image_name;
-
-
-           //dd($data);
-       }
-       //dd($file);
+            where('url', $url)
+            ->get();
+        return view("Product::productdisplay",compact('product'));
 
     }
-
-    if($request->hasFile('image')){
-
-        $image=$request->file('image');
-        $ext=$image->extension();
-        $image_name=time().'.'.$ext;
-        $image->storeAs('/public/media',$image_name);
-        $product->image=$image_name;
-
-     }
-     $product->name=$request->name;
-    $product->idealfor=$request->idealfor;
-    $product->upc=$request->upc;
-    $product->url=$request->url;
-    $product->size=$request->size;
-    $product->price=$request->price;
-    $product->stock=$request->stock;
-    $product->description=$request->discription;
-    $product->color_id=$request->color_id;
-    $product->brand_id=$request->brand_id;
-    $uid = Auth::user()->id;
-    $product->user_id=$uid;
-    $product->save();
-
-    $pid = $product->id;
-    $store_sort_value =  $request->sort;
-
-    //    if($request->hasFile('subimage.$key')){
-
-    //     $rand= rand('11111111', '99999999');
-    //     $subimage=$request->file('subimage.$key');
-    //     $ext=$subimage->extension();
-    //     $image_name=$rand.'.'.$ext;
-    //     $request->file('subimage.$key')->storeAs('/public/media',$image_name);
-    //     $sub_image['subimage']=$image_name;
-
-    //  }
-    // else {
-
-
-    //     $sub_image['subimage']='';
-    // }
-        //13-feb
-    //     if($request->hasfile('subimage'))
-    //     {
-    //        foreach($request->file('subimage') as $file)
-    //        {
-    //            $name = time().'.'.$file->extension();
-    //            //$file->move(public_path().'/public/media', $name);
-    //            $str= $image->storeAs('/public/media',$name);
-    //            $data[] = $name;
-    //            //dd($file);
-    //        }
-    //     }
-
-    //    dd($data);
-    //     $product= new product();
-    //     $product->subimage=json_encode($data);
-    //     $product->save();
-
-
-
-
-
-
-    //12-feb
-    // $img=[];
-    // if($request->hasFile('subimage')){
-    //     foreach($request->file('subimage') as $file)
-    //     {
-    //         $name=$request->hasFile('image');
-    //         $ext=$image->extension();
-    //        $name = time().rand(1,100).'.'.$file->extension();
-    //        $str= $image->storeAs('/public/media',$name);
-    //         $img[] = $str;
-
-        // $rand= rand('11111111', '99999999');
-        // $subimage=$request->file('subimage.$key');
-        // $ext=$subimage->extension();
-        // $image_name=$rand.'.'.$ext;
-        // $request->file('subimage.$key')->storeAs('/public/media',$image_name);
-        // $sub_image['subimage']=$image_name;
-
-    //     }
-    //  }
-    //  dd($img);
-    // $product->images=$img;
-
-
-
-    //    $store_title_value =  $request->title;
-
-       // foreach($store_sort_value as $key => $value)
-        // {
-        //$sub_image['product_id']=$pid;
-        // $sub_image['images']=  $img;
-      //  $sub_image['sort']=$store_sort_value[$key];
-        //  DB::table('productimage')->insert($img);
-      //  }
-    return back();
-}
-
-        public function product_view()
-        {
-            return view("Product::productdisplay");
-        }
 
 }
 
