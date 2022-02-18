@@ -54,6 +54,9 @@
 
             <!-- /.card-header -->
             <div class="card-body">
+                @if (session()->has('status'))
+                <div class="text-success" >   {{session('status')}}</div>
+                @endif
                 <div class="text-center mt-0 mb-0 p-1">
                     <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/product/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 

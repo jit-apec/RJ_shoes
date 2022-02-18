@@ -3,12 +3,14 @@
 namespace App\Modules\Product\Http\Controllers;
 
 use App\Modules\Product\Models\product;
+use App\Modules\Product\Models\Productimage;
 use App\Modules\Colors\Models\Colors;
 use App\Modules\Brand\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
 
@@ -58,21 +60,23 @@ class ProductController extends Controller
      $uid = Auth::user()->id;
      $product->user_id=$uid;
      $product->save();
-     if($request->hasFile('subimage'))
-     {
-         foreach($request->file('subimage') as $k=>$image)
-         {
-             if ($request->input('sort')[$k])
-             {
-                 DB::table('productimage')->insert(['product_id'=>$product->id,'images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
-             }
-             else {
-                 DB::table('productimage')->insert(['product_id'=>$product->id,'images'=>$request->upc.'_'.$k.'.png']);
-             }
-         $image->storeAs('/public/media' , $request->upc.'_'.$k.'.png');
-       }
-     }
-     return back();
+
+    if($request->hasFile('subimage'))
+    {
+      foreach($request->file('subimage') as $key=>$insert)
+      {
+        // $imageName = time().'-'.$insert->getClientoriginalName();
+         $imageName =$request->upc.'_'.$insert->getClientoriginalName();
+         $insert->storeAs('/public/media' ,$imageName);
+         $save_sub_image=[
+            'product_id'=>$product->id,
+             'images' => $imageName,
+             'sort' =>$request->sort[$key],
+         ];
+         DB::table('productimages')->insert($save_sub_image);
+      }
+    }
+    return redirect('/admin/product/addproduct')->with('status','Product Add Successfully');
     }
 
     public function display(){
@@ -120,10 +124,12 @@ class ProductController extends Controller
      public function edit($id)
      {
         $product = Product::find($id);
-        $brand = Product::join('brands', 'brands.id', '=', 'products.brand_id')->where('products.id',$id)
-        ->get(['brands.id as bid', 'brands.name as bname']);
-        $colors = DB::table('colors')->select('name as cname','id as cid')->where(['status'=>'Y'])->get();
-         return view('Product::edit',['brands' => $brand],compact(['colors','product']));
+        $brand = Product::join('brands', 'brands.id', '=', 'products.brand_id')
+        ->where('products.id',$id)->get(['brands.id as bid', 'brands.name as bname']);
+        $colors = DB::table('colors')->select('name as cname','id as cid')->where(['status'=>'Y'])->orderBy('name', 'asc')->get();
+        $images=Productimage::where('product_id',$id)->get();
+       // dd($images);
+         return view('Product::edit',['brands' => $brand],compact(['colors','product','images']));
     }
     public function update(Request $request,$id)
     {
@@ -149,6 +155,70 @@ class ProductController extends Controller
             $data['image']="$image_name";
          }
         Product::where('id', $id)->update($data);
+        ////////////////////////////////
+        // if($request->hasFile('sub_img'))
+        // {
+        //   foreach($request->file('sub_img') as $key=>$insert)
+        //   {
+        //     // $imageName = time().'-'.$insert->getClientoriginalName();
+        //      $imageName =$request->upc.'_'.$insert->getClientoriginalName();
+        //      $insert->storeAs('/public/media' ,$imageName);
+        //      $save_sub_image=[
+        //         'product_id'=>$id,
+        //          'images' => $imageName,
+        //          'sort' =>$request->sort[$key],
+        //      ];
+        //      //dd($save_sub_image);
+        //     Productimage::where('id', $id)->update($save_sub_image);
+        //   }
+        // }
+        ///////////////////////
+        //dd($id);
+        if ($request->input('img_id')){
+            $img=Productimage::where('product_id',$id)->whereNotIn('id',$request->input('img_id'))->get();
+            foreach ($img as $item){
+                echo $item->name.'<br>';
+                File::delete('/public/media'.$request->upc.'/'.$item->name);
+                $item->delete();
+            }
+        }
+        else{
+            $img=Productimage::where('product_id',$id)->get();
+            foreach ($img as $item){
+                echo $item->name.'<br>';
+                File::delete('/public/media'.$request->upc.'/'.$item->name);
+                $item->delete();
+            }
+        }
+        if($request->hasFile('sub_img'))
+        {
+            foreach($request->file('sub_img') as $k=>$image)
+            {
+                if ($request->input('img_id')[$k])
+                {
+                    if ($request->input('sort')[$k])
+                    {
+                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+                    }
+                    else{
+                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.$k.'.png']);
+                    }
+                    $image->storeAs('/public/media' . $request->upc, $request->upc.'_'.$k.'.png');
+                }
+                else {
+                    if ($request->input('sort')[$k])
+                    {
+                        Productimage::create(['product_id'=>$request->id,'images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+                    }
+                    else {
+                        Productimage::create(['product_id'=>$request->id,'images'=>$request->upc.'_'.$k.'.png']);
+                    }
+                    $image->storeAs('/public/media'. $request->upc, $request->upc.'_'.$k.'.png');
+                }
+            }
+        }
+
+       // return redirect('/admin/product/edit')->with('status','Product Add Successfully');
         //return view("Product::display");
        return back()->with(' Product updated successfully');
     }
