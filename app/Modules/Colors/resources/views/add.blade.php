@@ -45,7 +45,9 @@
               <div class="form-group">
                 <label for="name">Color Name</label>
                 {{-- <input type="text" class="form-control" id="colorname" onfocusout="check_name()" name="name" placeholder="Enter color"> --}}
-                <input type="text" class="form-control" id="colorname" onfocusout="check_name()" name="name">
+                <input type="text" class="form-control" id="colorname" onfocusout="check_name()"
+                 name="name">
+                 {{-- <input type="text" class="form-control"  pattern=".{4,}" id="colorname" onfocusout="check_name()" title="Eight or more characters" name="name"> --}}
 
                 {{-- <input type="text" onfocusout="check_name()" id="colorname"> --}}
                 {{-- <input type="text" id="name"  id="colorname" onkeyup="myFunction()"> --}}

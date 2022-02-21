@@ -4,8 +4,20 @@
   @include('admin.css');
  {{-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.1/angular.min.js"></script> --}}
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+ {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script> --}}
+
+  <style>
+    input:invalid {
+  border: red solid 1px;
+}
+
+/* input:invalid:required {
+  background-image: linear-gradient(to right, pink, lightgreen);
+} */
+</style>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" onload="function()">
 <div class="wrapper">
 
 
@@ -34,7 +46,7 @@
         </div><!-- /.container-fluid -->
       </div>
     <section class="content">
-      <form method="post" action="{{url('/admin/product/edit/'.$product->id)}}" enctype="multipart/form-data">
+      <form method="post" action="{{url('/admin/product/edit/'.$product->id)}}" enctype="multipart/form-data" id=" form_validation">
 
           @csrf
       <div class="container-fluid">
@@ -70,8 +82,13 @@
                         <i class="fas fa-edit"></i>
                     </div>
                     <div class="col-md-6">
-                        <label for="name">Size<span class="text-danger">*</span></label>
-                        <input type="text"class="form-control"  name="size" value="{{$product->size}}" placeholder="Size">
+                        <label for="name">Size<span class="text-danger">*</span>
+                            @error('size')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror</label>
+                        <input type="text"class="form-control"  name="size" value="{{$product->size}}" placeholder="Size"pattern="[A-Za-z0-9_]{1,5}" title="Enter only Alphabet or Number. Max 5 Charactor">
                     </div>
                 </div>
             <div class="form-row">
@@ -95,11 +112,16 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputPrice">Price<span class="text-danger">*</span></label>
+                    @error('price')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="price"value="{{$product->price}}"  id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="price"value="{{$product->price}}"  id="inlineFormInputGroup" id=""pattern="[0-9]{1,5}" title="Enter only Number.">
                     </div>
                 </div>
             </div>
@@ -116,20 +138,31 @@
                 </div>
                 <div class="col-md-3">
                     <label for="inputupc">UPC<span class="text-danger">*</span></label>
+                    @error('upc')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-tag"></i></div>
                       </div>
                       <input type="text" class="form-control" name="upc" value="{{$product->upc}}" disabled>
+                      {{-- <input type="hidden" class="form-control" name="upc" value="{{$product->upc}}"> --}}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label for="inputstock">Stock<span class="text-danger">*</span></label>
+                    @error('stock')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="stock" value="{{$product->stock}}" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="stock" value="{{$product->stock}}" id="inlineFormInputGroup"  placeholder="eg.12345"pattern="[0-9]{1,5}" title="Enter only Number.">
                     </div>
                 </div>
             </div>
@@ -141,7 +174,7 @@
                         <div class="input-group-prepend">
                           <div class="input-group-text">1000</i></div>
                         </div>
-                        <textarea class="form-control"name="description" rows="3" placeholder="This Box has a Limit of 1000 Chars">{{$product->description}}</textarea>
+                        <textarea class="form-control"name="description" rows="3" placeholder="This Box has a Limit of 1000 Chars" pattern="[A-Za-z0-9_]{0,1000}" title="Special charactor is not allowd">{{$product->description}}</textarea>
                         {{-- <textarea  rows="3" cols="30" name="bgraphy"value="{{$product->description}}"class="form-control"></textarea> --}}
                       </div>
                 </div>
@@ -149,8 +182,8 @@
                     <label>Main Image</label>
                     <div class="form-group">
 
-                      <img src="{{asset('storage/media/'.$product->image) }}" onerror="" alt="Missing Image" style="height:100px; width:100px; border:1px green solid;">
-                     <input type="file" class="form-control" value="{{$product->image}}" name="image">
+                      <img src="{{asset('storage/media/'.$product->image) }}" onerror="" alt="Missing Image" style="height:100px; width:100px; border:1px rgb(145, 172, 145) solid;" >
+                     <input type="file" class="form-control" value="{{$product->image}}" name="image" accept=".png, .jpg, .jpeg">
                     </div>
                 </div>
             </div>
@@ -185,7 +218,7 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="form-group">
-                                            <input type="file" name="sub_img[]"  onchange="readURLSubimg(this);"  class="form-control moreImgInp @error('sub_img') is-invalid @enderror" data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept="image/*"/>
+                                            <input type="file" name="sub_img[]"  onchange="readURLSubimg(this);"  class="form-control moreImgInp @error('sub_img') is-invalid @enderror" data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept=".png, .jpg, .jpeg" accept="image/*"/>
                                             <input class="form-control  @error('img_id') is-invalid @enderror img_id" value="{{$image->id}}" name="img_id[]" type="hidden">
                                             @error('sub_img')
                                             <span class="invalid-feedback" role="alert">
@@ -200,7 +233,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group">{{$image->id}}
                                     <input class="form-control  @error('sort') is-invalid @enderror" value="{{$image->sort}}" name="sort[]" type="text" id="sort" maxlength="2" onkeypress="if(this.value.length==2);" placeholder="Sort Number" id="{{$image->id}}">
                                     @error('sort')
                                     <span class="invalid-feedback" role="alert">
@@ -210,13 +243,8 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <button name="add_img" id="add_img" type="button" class="btn btn-outline-primary add_img">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
-                                <button name="remove_img" id="{{$image->id}}" type="button" class="btn btn-outline-warning remove_img">
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                </button>
-
+                                <button name="add_img" id="add_img" type="button" class="  btn btn-success add_img"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add &nbsp;</button>
+                                <button name="remove_img"  id="{{$image->id}}" type="button" class="btn btn-danger remove_img"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Remove</button>
                             </div>
                         </div>
                     </div>
@@ -227,7 +255,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="form-group">
-                                        <input type="file" name="sub_img[]"  class="form-control @error('sub_img') is-invalid @enderror" data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept="image/*"/>
+                                        <input type="file" name="sub_img[]" id="sub_img[]"  class="form-control @error('sub_img') is-invalid @enderror" data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept="image/*"/>
                                         @error('sub_img')
                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -241,7 +269,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <input class="form-control @error('sort') is-invalid @enderror" value="" name="sort[]" type="text" id="sort" maxlength="2" onkeypress="if(this.value.length==2);" placeholder="Sort Number">
                                 @error('sort')
@@ -252,13 +280,17 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <button name="add_img" id="add_img" type="button" class="  btn btn-success add_img"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add &nbsp;</button>
+                            <button name="remove_img"  id="remove_img" type="button" class="btn btn-danger remove_img"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Remove</button>
+                        </div>
+                        {{-- <div class="col-md-4">
                             <button name="add_img" id="add_img" type="button" class="btn btn-outline-primary add_img">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                             <button name="remove_img"  id="remove_img" type="button" class="btn btn-outline-warning remove_img" style="display: none">
                                 <i class="fa fa-minus" aria-hidden="true"></i>
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -367,13 +399,6 @@
             }
             $('.multiple_img_list').on('click','.add_img',function () {
                 var $obj = $(this).closest('.more_img').clone();
-                // $obj.find("img").removeAttr("src");
-                // $obj.find("input").val("");
-                // $obj.end().insertAfter($(this).closest('.more_img'));
-                // // find('input').val('').end().insertAfter($(this).closest('.more_img'));
-                // if ($(".multiple_img_list >div").length != 1){
-                //     $('.remove_img').show();
-                // }
                 $obj.find('input').val('').end().insertAfter($(this).closest('.more_img'));
                 if ($(".multiple_img_list >div").length != 1){
                     $('.remove_img').show();
@@ -397,6 +422,113 @@
                 }
             });
         });
+
+  </script>
+<script>
+//     jQuery.validator.addMethod( "pricevalidate", function( value, element ) {
+//            return this.optional(element) || /^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/.test(value);
+//          }, "The price must be in this 999999.999 Digit" );
+//     $.validator.addMethod('filesize', function (value, element, param) {
+//       return this.optional(element) || (element.files[0].size <= param)
+//   }, 'File size must be less than 5mb');
+
+  $("#form_validation").validate({
+                  rules: {
+                      name:{
+                          required: true,
+                      },
+                      url:{
+                          required: true,
+                          remote:{
+                              url: '/admin/products/checkurl',
+                              type: "GET",
+                              data: {
+                                  colorname: function () {
+                                      return $( "#url" ).val();
+                                  }
+                              },
+                          }
+                      },
+                      category_id:{
+                        required: true,
+
+                      },
+                      color_id:{
+                            required:true,
+                      },
+                      price:{
+                        required:true,
+                        number:true,
+                        pricevalidate:true,
+                      },
+                      size:{
+                        required:true,
+                        number:true,
+                      },
+
+                      upc:{
+                        required:true,
+                        number:true,
+                        minlength: 12,
+                        maxlength: 12,
+                        remote:{
+                              url: '/admin/products/uniqueproduct',
+                              type: "GET",
+                              data: {
+                                  colorname: function () {
+                                      return $( "#upc" ).val();
+                                  }
+                              },
+                          }
+                      },
+
+                     stock:{
+                       required:true,
+                     },
+                     description:{
+                       maxlength:1000
+                     },
+
+                  },
+
+                  messages: {
+                       name: {
+                          required: 'The name field is required.',
+                      },
+                      price: {
+                          required: 'The price field is required.',
+                          number:"The price must be in number",
+
+                      },
+
+                      upc:{
+                        required:"the upc field is required",
+                        number:"The upc must be in number",
+                        remote:'The upc has already been taken.',
+                        minlength:"The upc may not be less than 12 Digit",
+                        maxlength:"The upc may not be grater than 12 Digit"
+
+
+                      },
+                    errorPlacement: function(error, element)
+                    {
+                          error.appendTo( element.parents('.form-group'));
+                    },
+
+                    submitHandler: function (form) {
+                     form.submit();
+                  }
+                  },
+
+
+
+
+
+          });
+
+
+
+
 
   </script>
 

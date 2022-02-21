@@ -37,6 +37,22 @@ class ProductController extends Controller
     }
     public function insert (Request $request)
     {
+        $request->validate(['name'=>'required|max:100',
+        'image' => 'required|mimes:jpg,png,jpeg,gif',
+        'subimage[]' => 'required|mimes:jpg,png,jpeg,gif',
+        'upc' => ['required','unique:products','regex:/[0-9]{12,13}$/'],
+        'price' => ['required','regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
+        'stock' => 'required|integer|max:999999',
+        'sort[]' => 'required|integer|max:10|min:1',
+        'size' => 'required|integer|max:3|min:1',
+        'description' => 'max:500',
+        'color_id' => 'required',
+        'category_id' => 'required',
+
+         'url'=>'unique:products'
+
+]);
+
      $product = new Product;
      if($request->hasFile('image')){
 
@@ -174,6 +190,7 @@ class ProductController extends Controller
         // }
         ///////////////////////
         //dd($id);
+        //for delete record
         if ($request->input('img_id')){
             $img=Productimage::where('product_id',$id)->whereNotIn('id',$request->input('img_id'))->get();
             foreach ($img as $item){
@@ -190,36 +207,37 @@ class ProductController extends Controller
                 $item->delete();
             }
         }
+
         if($request->hasFile('sub_img'))
         {
             foreach($request->file('sub_img') as $k=>$image)
             {
                 if ($request->input('img_id')[$k])
                 {
+
                     if ($request->input('sort')[$k])
                     {
-                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+
+                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
                     }
                     else{
-                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.$k.'.png']);
+                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.time().'.png']);
                     }
-                    $image->storeAs('/public/media' . $request->upc, $request->upc.'_'.$k.'.png');
+                    $image->storeAs('/public/media', $request->upc.'_'.time().'.png');
                 }
                 else {
+
                     if ($request->input('sort')[$k])
                     {
-                        Productimage::create(['product_id'=>$request->id,'images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+                        Productimage::create(['product_id'=>$request->id, 'images'=>$request->upc.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
                     }
                     else {
-                        Productimage::create(['product_id'=>$request->id,'images'=>$request->upc.'_'.$k.'.png']);
+                        Productimage::create(['product_id'=>$request->id,'images'=>$request->upc.'_'.time().'.png']);
                     }
-                    $image->storeAs('/public/media'. $request->upc, $request->upc.'_'.$k.'.png');
+                    $image->storeAs('/public/media', $request->upc.'_'.time().'.png');
                 }
             }
         }
-
-       // return redirect('/admin/product/edit')->with('status','Product Add Successfully');
-        //return view("Product::display");
        return back()->with(' Product updated successfully');
     }
 

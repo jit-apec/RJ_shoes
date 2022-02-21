@@ -4,7 +4,16 @@
   @include('admin.css');
  {{-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.1/angular.min.js"></script> --}}
  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<style>
+    input:invalid {
+  border: red solid 1px;
+  /* //border:2px solid red; */
+}
 
+/* input:invalid:required {
+  background-image: linear-gradient(to right, pink, lightgreen);
+} */
+</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -66,14 +75,19 @@
                     <div class="col-md-6">
                         <label for="name">Name<span class="text-danger">*</span></label>
                         <span id="lblError" style="color: red"></span>
-                        <input type="text"class="form-control valid" id="replace" name="name">
+                        <input type="text"class="form-control valid" id="replace" name="name" placeholder="Enter Name">
                     <a href=" " > http//localhost/<span id="url"></span> </a>
                     <input type="hidden" class="form-control access_url" id="url" name="url" >
                         <i class="fas fa-edit"></i>
                     </div>
                     <div class="col-md-6">
-                        <label for="name">Size<span class="text-danger">*</span></label>
-                        <input type="text"class="form-control"  name="size" placeholder="Size">
+                        <label for="name">Size<span class="text-danger">*</span>  </label>
+                        @error('size')
+                        <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <input type="text"class="form-control"  name="size" placeholder="Enter Shoes Size" pattern="[A-Za-z0-9_]{1,5}" title="Enter only Alphabet or Number. Max 5 Charactor">
                     </div>
                 </div>
             <div class="form-row">
@@ -97,11 +111,17 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputPrice">Price<span class="text-danger">*</span></label>
+                    @error('price')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="price" id="inlineFormInputGroup">
+
+                      <input type="text" class="form-control" name="price" placeholder=" Enter Price"  id=""pattern="[0-9]{1,5}" title="Enter only Number.">
                     </div>
                 </div>
             </div>
@@ -119,38 +139,50 @@
                 </div>
                 <div class="col-md-3">
                     <label for="inputupc">UPC<span class="text-danger">*</span></label>
+                    @error('upc')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-tag"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="upc" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="upc" id="" placeholder="eg.123456789123"pattern="[0-9]{12,12}" title="Enter only Number.">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label for="inputstock">Stock<span class="text-danger">*</span></label>
+                    @error('stock')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="stock" id="inlineFormInputGroup">
+                      <input type="text" class="form-control" name="stock" id="" placeholder="eg.12345"pattern="[0-9]{1,5}" title="Enter only Number.">
+                       {{-- <input type="text" class="form-control" name="stock" id=""
+                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" title="only number" > --}}
                     </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-sm-6">
-                    <label>Discription<span class="text-danger">*</span></label>
+                    <label>Discription</label>
                     <div class="input-group mb-2">
 
                         <div class="input-group-prepend">
                           <div class="input-group-text">1000</i></div>
                         </div>
-                        <textarea class="form-control" id="" name="discription" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
+                        <textarea class="form-control" id="" name="discription" rows="3" placeholder="This Box has a Limit of 1000 Chars"pattern="[A-Za-z0-9_]{0,1000}" title="Special charactor is not allowd"></textarea>
                       </div>
                 </div>
                 <div class="col-sm-6">
 
                     <div class="form-group">
-                      <label>Main Image<span class="text-danger">*</span></label>
+                      <label>Main Image</label>
                      <input type="file" class="form-control" onchange="readURL(this);"   id="upload" name="image" >
 
 
@@ -167,9 +199,9 @@
                         {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
                         <div class="input-group mb-3">
 
-                            <input type="file" name="subimage[1]" id="subupload" onchange="imagepreview(this);"  class="form-control m-input" autocomplete="off">
+                            <input type="file" name="subimage[1]" id="subupload" onchange="imagepreview(this);"  class="form-control m-input" autocomplete="off" accept=".png, .jpg, .jpeg" >
                             <div class="col-lg-3">
-                                 <input type="number" name="sort[1]" class="form-control m-input" autocomplete="off"  placeholder="Sort number">
+                                 <input type="number" name="sort[1]"class="form-control m-input" autocomplete="off"  placeholder="Sort number"pattern="[0-9]{1,2}" title="Enter only Number.">
                             </div>
 
                             <div class="input-group-append">
@@ -225,9 +257,9 @@
         var html = '';
         html += '<div id="inputFormRow">';
         html += '<div class="input-group mb-3">';
-        html += '<input type="file" name="subimage['+i+']"  class="form-control m-input " onchange="imagepreview(this);" autocomplete="off">';
+        html += '<input type="file" name="subimage['+i+']"  class="form-control m-input " onchange="imagepreview(this);" autocomplete="off" accept=".png, .jpg, .jpeg" >';
         html += '<div class="col-lg-3">';
-        html += '<input type="number" name="sort['+i+']" class="form-control m-input" autocomplete="off" placeholder="Sort Number">'
+        html += '<input type="number" name="sort['+i+']" class="form-control m-input"maxlength="2" autocomplete="off" placeholder="Sort Number" pattern="[0-9]{1,2}" title="Enter only Number.">'
         html += '</div>';
         html += '<div class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Remove</button>';
