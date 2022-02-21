@@ -183,7 +183,7 @@
 
                     <div class="form-group">
                       <label>Main Image</label>
-                     <input type="file" class="form-control" onchange="readURL(this);"   id="upload" name="image" >
+                     <input type="file" class="form-control" onchange="readURL(this);"   id="upload" name="image" accept="image/*">
 
 
                      <div class="image-area minipic mt-3 "><img id="imageResult" src="{{ asset('dist/img/imagepreview.jpg')}}" style="height:100px; width:100px; border:1px rgb(11, 12, 11); solid" >  </div>
@@ -199,7 +199,7 @@
                         {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
                         <div class="input-group mb-3">
 
-                            <input type="file" name="subimage[1]" id="subupload" onchange="imagepreview(this);"  class="form-control m-input" autocomplete="off" accept=".png, .jpg, .jpeg" >
+                            <input type="file" name="subimage[1]" id="subupload" onchange="imagepreview(this);"  class="form-control m-input"  autocomplete="off" accept="image/*" >
                             <div class="col-lg-3">
                                  <input type="number" name="sort[1]"class="form-control m-input" autocomplete="off"  placeholder="Sort number"pattern="[0-9]{1,2}" title="Enter only Number.">
                             </div>
@@ -257,7 +257,7 @@
         var html = '';
         html += '<div id="inputFormRow">';
         html += '<div class="input-group mb-3">';
-        html += '<input type="file" name="subimage['+i+']"  class="form-control m-input " onchange="imagepreview(this);" autocomplete="off" accept=".png, .jpg, .jpeg" >';
+        html += '<input type="file" name="subimage['+i+']"  class="form-control m-input " onchange="imagepreview(this);" autocomplete="off"  id="subupload" accept=".png, .jpg, .jpeg" >';
         html += '<div class="col-lg-3">';
         html += '<input type="number" name="sort['+i+']" class="form-control m-input"maxlength="2" autocomplete="off" placeholder="Sort Number" pattern="[0-9]{1,2}" title="Enter only Number.">'
         html += '</div>';
@@ -322,7 +322,7 @@
                 $("#lblError").html("");
 
                 //Regex for Valid Characters i.e. Alphabets and Numbers.
-                var regex = /^[a-zA-Z\s]+$/;
+                var regex = /^[0-9a-zA-Z\s]+$/;
                 //Validate TextBox value against the Regex.
                 var isValid = regex.test(String.fromCharCode(keyCode));
                 if (!isValid) {
@@ -333,6 +333,54 @@
             });
         });
     </script>
+    <script>
+
+        document.getElementById('upload'). onfocusout = function (){
+           var image=document.getElementById('upload').value;
+               if(image!=''){
+                 var checkimg = image.toLowerCase();
+                 if(!checkimg.match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG)$/)){
+                    alert("Please Select jpg,png File");
+                    document.getElementById('upload').value="";
+
+                 }
+                 var image=document.getElementById('upload');
+                 var size = parseFloat(image.files[0].size / (1024 * 1024)).toFixed(2);
+                 if (size > 2){
+                     alert("Please Select Size Less Than 2 MB");
+                    document.getElementById('upload').value="";
+
+                 }
+               }
+
+         }
+
+         </script>
+
+<script>
+
+    document.getElementById('subupload'). onfocusout = function (){
+       var image=document.getElementById('subupload').value;
+           if(image!=''){
+             var checkimg = image.toLowerCase();
+             if(!checkimg.match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG)$/)){
+                alert("Please Select jpg,png File");
+                document.getElementById('subupload').value="";
+
+             }
+             var image=document.getElementById('subupload');
+             var size = parseFloat(image.files[0].size / (1024 * 1024)).toFixed(2);
+             if (size > 2){
+                 alert("Please Select Size Less Than 2 MB");
+                document.getElementById('subupload').value="";
+
+             }
+           }
+
+     }
+
+     </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.6.1/jquery.zoom.min.js"></script>
 <script src="js/jquery-1.6.js"></script>
 <script src="js/jquery.jqzoom-core.js"></script>

@@ -43,7 +43,7 @@
             <h3 class="card-title">Product</h3>
           </div>
           <div class="text-center mt-2 mb-2 p-1">
-            <a class="btn btn-success bg-gradient-success  btn-sm float-right " data-toggle="modal" data-target="#myModal">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
+            <a class="btn btn-success bg-gradient-success  btn-sm float-right "  href="{{ url('/admin/product/addproduct') }}" role="button">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
             {{-- <a class="btn btn-success bg-gradient-success  btn-sm float-right "  href="{{ url('/admin/product/addproduct') }}">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp; --}}
 
             <a class="btn btn-danger bg-gradient-danger float-right btn-sm"

@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">{{$image->id}}
+                                <div class="form-group">
                                     <input class="form-control  @error('sort') is-invalid @enderror" value="{{$image->sort}}" name="sort[]" type="text" id="sort" maxlength="2" onkeypress="if(this.value.length==2);" placeholder="Sort Number" id="{{$image->id}}">
                                     @error('sort')
                                     <span class="invalid-feedback" role="alert">
@@ -332,7 +332,7 @@
             $("#lblError").html("");
 
             //Regex for Valid Characters i.e. Alphabets and Numbers.
-            var regex = /^[a-zA-Z\s]+$/;
+            var regex = /^[0-9a-zA-Z\s]+$/;
             //Validate TextBox value against the Regex.
             var isValid = regex.test(String.fromCharCode(keyCode));
             if (!isValid) {
@@ -370,20 +370,17 @@
     });
 
 
-    function readURL(input) {
+        function readURL(input) {
             console.log(input.files)
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    $('#img')
-                        .attr('src', e.target.result)
+                    $('#img').attr('src', e.target.result)
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
         function readURLSubimg(input) {
-            // var $obj = $(this);
-            // console.log($obj.html());
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
@@ -433,105 +430,92 @@
 //   }, 'File size must be less than 5mb');
 
   $("#form_validation").validate({
-                  rules: {
-                      name:{
-                          required: true,
-                      },
-                      url:{
-                          required: true,
-                          remote:{
-                              url: '/admin/products/checkurl',
-                              type: "GET",
-                              data: {
-                                  colorname: function () {
-                                      return $( "#url" ).val();
-                                  }
-                              },
-                          }
-                      },
-                      category_id:{
-                        required: true,
+    rules: {
+        name:{
+            required: true,
+        },
+        url:{
+            required: true,
+            remote:{
+                url: '/admin/products/checkurl',
+                type: "GET",
+                data: {
+                    colorname: function () {
+                        return $( "#url" ).val();
+                    }
+                },
+            }
+        },
+        category_id:{
+        required: true,
 
-                      },
-                      color_id:{
-                            required:true,
-                      },
-                      price:{
-                        required:true,
-                        number:true,
-                        pricevalidate:true,
-                      },
-                      size:{
-                        required:true,
-                        number:true,
-                      },
+        },
+        color_id:{
+            required:true,
+        },
+        price:{
+        required:true,
+        number:true,
+        pricevalidate:true,
+        },
+        size:{
+        required:true,
+        number:true,
+        },
 
-                      upc:{
-                        required:true,
-                        number:true,
-                        minlength: 12,
-                        maxlength: 12,
-                        remote:{
-                              url: '/admin/products/uniqueproduct',
-                              type: "GET",
-                              data: {
-                                  colorname: function () {
-                                      return $( "#upc" ).val();
-                                  }
-                              },
-                          }
-                      },
+        upc:{
+        required:true,
+        number:true,
+        minlength: 12,
+        maxlength: 12,
+        remote:{
+                url: '/admin/products/uniqueproduct',
+                type: "GET",
+                data: {
+                    colorname: function () {
+                        return $( "#upc" ).val();
+                    }
+                },
+            }
+        },
 
-                     stock:{
-                       required:true,
-                     },
-                     description:{
-                       maxlength:1000
-                     },
+        stock:{
+        required:true,
+        },
+        description:{
+        maxlength:1000
+        },
 
-                  },
+    },
 
-                  messages: {
-                       name: {
-                          required: 'The name field is required.',
-                      },
-                      price: {
-                          required: 'The price field is required.',
-                          number:"The price must be in number",
+    messages: {
+        name: {
+            required: 'The name field is required.',
+        },
+        price: {
+            required: 'The price field is required.',
+            number:"The price must be in number",
 
-                      },
+        },
 
-                      upc:{
-                        required:"the upc field is required",
-                        number:"The upc must be in number",
-                        remote:'The upc has already been taken.',
-                        minlength:"The upc may not be less than 12 Digit",
-                        maxlength:"The upc may not be grater than 12 Digit"
-
-
-                      },
-                    errorPlacement: function(error, element)
-                    {
-                          error.appendTo( element.parents('.form-group'));
-                    },
-
-                    submitHandler: function (form) {
-                     form.submit();
-                  }
-                  },
+        upc:{
+        required:"the upc field is required",
+        number:"The upc must be in number",
+        remote:'The upc has already been taken.',
+        minlength:"The upc may not be less than 12 Digit",
+        maxlength:"The upc may not be grater than 12 Digit"
 
 
+        },
+            errorPlacement: function(error, element)
+            {
+                    error.appendTo( element.parents('.form-group'));
+            },
 
-
-
-          });
-
-
-
-
-
+            submitHandler: function (form) {
+                form.submit();
+            }
+        },
+    });
   </script>
-
-
-
 </html>
