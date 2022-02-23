@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Modules\Product\Http\Controllers\Session;
 class ProductController extends Controller
 {
 
@@ -37,21 +38,21 @@ class ProductController extends Controller
     }
     public function insert (Request $request)
     {
-        $request->validate(['name'=>'required|max:100',
-        'image' => 'required|mimes:jpg,png,jpeg,gif',
-        'subimage[]' => 'required|mimes:jpg,png,jpeg,gif',
-        'upc' => ['required','unique:products','regex:/[0-9]{12,13}$/'],
+        $request->validate(['name'=>'required',
+         'image' =>'mimes:jpg,png,jpeg,gif',
+        //'subimage[]' => 'mimes:jpg,png,jpeg,gif',
+        'upc' => ['required','unique:products','regex:/[0-9]{12,12}$/'],
         'price' => ['required','regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
         'stock' => 'required|integer|max:999999',
-        'sort[]' => 'required|integer|max:10|min:1',
-        'size' => 'required|integer|max:3|min:1',
-        'description' => 'max:500',
+        //'sort[]' => 'required|integer|max:10|min:1',
+         'size' => 'required','regex:/[A-Za-z0-9_]{1,5}/',
+       'description' => 'max:500',
         'color_id' => 'required',
-        'category_id' => 'required',
+        'brand_id' => 'required',
+        'idealfor' => 'required',
+         'url'=>'unique:products',
 
-         'url'=>'unique:products'
-
-]);
+    ]);
 
      $product = new Product;
      if($request->hasFile('image')){
@@ -149,6 +150,20 @@ class ProductController extends Controller
     }
     public function update(Request $request,$id)
     {
+    //     $request->validate(['name'=>'required|max:100',
+    //     'image' => 'required|mimes:jpg,png,jpeg,gif',
+    //     'subimage[]' => 'required|mimes:jpg,png,jpeg,gif',
+    //     'upc' => ['required','unique:products','regex:/[0-9]{12,13}$/'],
+    //     'price' => ['required','regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
+    //     'stock' => 'required|integer|max:999999',
+    //     'sort[]' => 'required|integer|max:10|min:1',
+    //     'size' => 'required|integer|max:3|min:1',
+    //     'description' => 'max:500',
+    //     'color_id' => 'required',
+    //     'category_id' => 'required',
+    //      'url'=>'unique:products'
+
+    //    ]);
         $Aid = Auth::id();
         $data=[
 
@@ -171,39 +186,37 @@ class ProductController extends Controller
             $data['image']="$image_name";
          }
         Product::where('id', $id)->update($data);
-        ////////////////////////////////
-        // if($request->hasFile('sub_img'))
-        // {
-        //   foreach($request->file('sub_img') as $key=>$insert)
-        //   {
-        //     // $imageName = time().'-'.$insert->getClientoriginalName();
-        //      $imageName =$request->upc.'_'.$insert->getClientoriginalName();
-        //      $insert->storeAs('/public/media' ,$imageName);
-        //      $save_sub_image=[
-        //         'product_id'=>$id,
-        //          'images' => $imageName,
-        //          'sort' =>$request->sort[$key],
-        //      ];
-        //      //dd($save_sub_image);
-        //     Productimage::where('id', $id)->update($save_sub_image);
-        //   }
-        // }
-        ///////////////////////
-        //dd($id);
+
         //for delete record
         if ($request->input('img_id')){
             $img=Productimage::where('product_id',$id)->whereNotIn('id',$request->input('img_id'))->get();
+           // dd($img);
             foreach ($img as $item){
-                echo $item->name.'<br>';
-                File::delete('/public/media'.$request->upc.'/'.$item->name);
+               // dd(('/storage/media/').$item->images);
+              // File::delete('/public/media/',$item->images);
+            //    $del=app_path('storage/media/').$item->images;
+            //   dd($del);
+
+              $destinationPath = 'storage/media/';
+              File::delete($destinationPath.'/$item->images');
+              // @unlink($del);
                 $item->delete();
             }
         }
         else{
             $img=Productimage::where('product_id',$id)->get();
+           // dd($img);
             foreach ($img as $item){
-                echo $item->name.'<br>';
-                File::delete('/public/media'.$request->upc.'/'.$item->name);
+                //dd('/storage/media/');
+                // $del=app_path('storage/media/').$item->images;
+                // dd($del);
+                $destinationPath = 'storage/media/';
+                File::delete($destinationPath.'/$item->images');
+                //File::delete('/storage/media/').$item->images;
+            //    File::delete('resources/assets/admin/images/products/'.$request->upc.'/'.$item->name);
+             //  dd($del);
+           //  File::delete('/public/media',$item->images);
+             //  @unlink($del);
                 $item->delete();
             }
         }
@@ -218,28 +231,45 @@ class ProductController extends Controller
                     if ($request->input('sort')[$k])
                     {
 
-                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
+                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$id.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
                     }
                     else{
-                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$request->upc.'_'.time().'.png']);
+                        Productimage::where('id',$request->input('img_id')[$k])->update(['images'=>$id.'_'.time().'.png']);
                     }
-                    $image->storeAs('/public/media', $request->upc.'_'.time().'.png');
+                    $image->storeAs('/public/media', $id.'_'.time().'.png');
                 }
-                else {
-
+                else
+                {
                     if ($request->input('sort')[$k])
                     {
-                        Productimage::create(['product_id'=>$request->id, 'images'=>$request->upc.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
+                        Productimage::create(['product_id'=>$request->id, 'images'=>$id.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
                     }
                     else {
-                        Productimage::create(['product_id'=>$request->id,'images'=>$request->upc.'_'.time().'.png']);
+                        Productimage::create(['product_id'=>$request->id,'images'=>$id.'_'.time().'.png']);
                     }
-                    $image->storeAs('/public/media', $request->upc.'_'.time().'.png');
+                    $image->storeAs('/public/media', $id.'_'.time().'.png');
                 }
             }
         }
-       return back()->with(' Product updated successfully');
+       // Session::flash('deleted_user','The user has been deleted');
+      // return back()->with(' Product updated successfully');
+       return response()->json(['success'=>'Status change successfully.']);
     }
+// chack uniqe name
+    public function checkUrl(Request $request)
+    {
+
+        $product=Product::where('id','!=',$request->id)->where('name',$request->name)->first();
+
+        if(isset($product))
+        {
+            return json_encode(false);
+        }
+        else {
+            return json_encode(true);
+        }
+    }
+
 
 
     public function product_view($url)

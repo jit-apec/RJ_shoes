@@ -17,5 +17,6 @@ Route::post('/admin/product/edit/{id}',[ProductController::class,'update']);
 Route::get('/admin/product/trash',[ProductController::class,'trashdisplay']);
 Route::get('/admin/product/move_trash',[ProductController::class,'movetotrash']);
 Route::get('/admin/product/restore',[ProductController::class,'restore']);
+Route::get('/admin/products/checkurl',[ProductController::class,'checkurl']);
 
 Route::get('/admin/product/product_view/{url}',[ProductController::class,'product_view']);

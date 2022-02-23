@@ -17,7 +17,7 @@
 } */
 </style>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed" onload="function()">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
 
@@ -38,7 +38,7 @@
               <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item active"><a href="{{url('/admin/dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item active"><a href="{{url('/admin/product/display')}}">Product</a></li>
-                <li class="breadcrumb-item">Add</li>
+                <li class="breadcrumb-item">Edit</li>
 
               </ol>
             </div><!-- /.col -->
@@ -46,7 +46,7 @@
         </div><!-- /.container-fluid -->
       </div>
     <section class="content">
-      <form method="post" action="{{url('/admin/product/edit/'.$product->id)}}" enctype="multipart/form-data" id=" form_validation">
+      <form method="post" action="{{url('/admin/product/edit/'.$product->id)}}" enctype="multipart/form-data" id="validation">
 
           @csrf
       <div class="container-fluid">
@@ -54,18 +54,14 @@
             <div class="card-header">
             <h3 class="card-title">Update Product</h3>
 
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-                </button>
-            </div>
+
             </div>
 
             <!-- /.card-header -->
             <div class="card-body">
+                @if (session()->has('status'))
+                <div class="text-success" >   {{session('status')}}</div>
+                @endif
                 <div class="text-center mt-0 mb-0 p-1">
                     <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/product/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
@@ -76,10 +72,11 @@
 
                         <label for="name">Name<span class="text-danger">*</span></label>
                         <span id="lblError" style="color: red"></span>
-                        <input type="text"class="form-control valid" id="replace"  value="{{$product->name}}"  name="name">
+                        <input type="text"class="form-control valid" id="replace"  value="{{$product->name}}"  name="name"
+                        oninput="this.value = this.value.replace(/[^A-Za-z/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');" title="Special Charactor is Not allowd">
                     <a href=" " > http//localhost/<span id="url"></span> </a>
                     <input type="hidden" class="form-control access_url" id="url" name="url" >
-                        <i class="fas fa-edit"></i>
+
                     </div>
                     <div class="col-md-6">
                         <label for="name">Size<span class="text-danger">*</span>
@@ -88,7 +85,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror</label>
-                        <input type="text"class="form-control"  name="size" value="{{$product->size}}" placeholder="Size"pattern="[A-Za-z0-9_]{1,5}" title="Enter only Alphabet or Number. Max 5 Charactor">
+                        <input type="text"class="form-control"  name="size" value="{{$product->size}}" placeholder="Size"pattern="[A-Za-z0-9_]{1,5}"  oninput="this.value = this.value.replace(/[^/A-Za-z0-9_\s]/g, '').replace(/(\..*)\./g, '$1');" title=" Max 5 Charactor">
                     </div>
                 </div>
             <div class="form-row">
@@ -96,7 +93,7 @@
                   <label for="inputcategory">Category<span class="text-danger">*</span></label>
                   <select id="inputcategory" name="brand_id" class="form-control"  disabled>
                     @foreach ($brands as $brand)
-                    <option selected >{{$brand->bname}}</option>
+                    <option value="" >{{$brand->bname}}</option>
                     <option value="{{$brand->bid}}">{{$brand->bname}}</option>
                     @endforeach
                   </select>
@@ -104,7 +101,7 @@
                 <div class="form-group col-md-3">
                   <label for="inputcolor">color<span class="text-danger">*</span></label>
                   <select id="inputcolor" id="color_id" name="color_id" class="form-control">
-                    <option selected>Select Color</option>
+                    <option value="">Select Color</option>
                     @foreach ($colors as $color)
                         <option  value="{{$color->cid}}" @if($color->cid == $product->color_id) selected @endif>{{$color->cname}}</option>
                     @endforeach
@@ -121,7 +118,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="price"value="{{$product->price}}"  id="inlineFormInputGroup" id=""pattern="[0-9]{1,5}" title="Enter only Number.">
+                      <input type="text" class="form-control" name="price"value="{{$product->price}}"  id="inlineFormInputGroup" id=""pattern="[0-9]{1,5}" oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');" title="max 6 digit. " >
                     </div>
                 </div>
             </div>
@@ -130,7 +127,7 @@
                 <div class="form-group col-md-3">
                     <label for="inputideal">Ideal For<span class="text-danger">*</span></label>
                     <select id="inputideal" name="idealfor" value="{{$product->idealfor}}"  class="form-control">
-                      <option selected>{{$product->idealfor}}</option>
+                      <option value="">{{$product->idealfor}}</option>
                       <option>Men</option>
                       <option>Women</option>
                       <option>Child</option>
@@ -162,7 +159,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="stock" value="{{$product->stock}}" id="inlineFormInputGroup"  placeholder="eg.12345"pattern="[0-9]{1,5}" title="Enter only Number.">
+                      <input type="text" class="form-control" name="stock" value="{{$product->stock}}" id="inlineFormInputGroup"  placeholder="eg.12345"pattern="[0-9]{1,5}"  oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');" title="only 6 Digit Allowed" >
                     </div>
                 </div>
             </div>
@@ -171,9 +168,9 @@
                     <label>description<span class="text-danger">*</span></label>
                     <div class="input-group mb-2">
 
-                        <div class="input-group-prepend">
+                        {{-- <div class="input-group-prepend">
                           <div class="input-group-text">1000</i></div>
-                        </div>
+                        </div> --}}
                         <textarea class="form-control"name="description" rows="3" placeholder="This Box has a Limit of 1000 Chars" pattern="[A-Za-z0-9_]{0,1000}" title="Special charactor is not allowd">{{$product->description}}</textarea>
                         {{-- <textarea  rows="3" cols="30" name="bgraphy"value="{{$product->description}}"class="form-control"></textarea> --}}
                       </div>
@@ -182,8 +179,8 @@
                     <label>Main Image</label>
                     <div class="form-group">
 
-                      <img src="{{asset('storage/media/'.$product->image) }}" onerror="" alt="Missing Image" style="height:100px; width:100px; border:1px rgb(145, 172, 145) solid;" >
-                     <input type="file" class="form-control" value="{{$product->image}}" name="image" accept=".png, .jpg, .jpeg">
+                      <img src="{{asset('storage/media/'.$product->image) }}" onerror="" alt="Missing Image" style="height:50px; width:50px; border:1px rgb(145, 172, 145) solid;" >
+                     <input type="file" class="form-control" value="{{$product->image}}" name="image" accept=".png, .jpg, .jpeg" required>
                     </div>
                 </div>
             </div>
@@ -228,7 +225,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <img alt="Product Image" id="sub_image" src="{{asset('storage/media/'.$image->images) }}" class="img-thumbnail sub_image">
+                                        <img alt="Product Image" id="sub_image" src="{{asset('storage/media/'.$image->images) }}" class="img-thumbnail sub_image"  onerror="this.onerror=null;this.src='{{asset('storage/media/no_image1.png') }}'">
                                     </div>
                                 </div>
                             </div>
@@ -264,7 +261,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <img  id="sub_image" class="img-thumbnail sub_image">
+                                    <img  id="sub_image" class="img-thumbnail sub_image"  onerror="this.onerror=null;this.src='{{asset('storage/media/no_image1.png') }}'">
                                     {{-- onerror="this.{{asset('storage/media/'.no_image.png) }}"  --}}
                                 </div>
                             </div>
@@ -283,14 +280,6 @@
                             <button name="add_img" id="add_img" type="button" class="  btn btn-success add_img"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add &nbsp;</button>
                             <button name="remove_img"  id="remove_img" type="button" class="btn btn-danger remove_img"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Remove</button>
                         </div>
-                        {{-- <div class="col-md-4">
-                            <button name="add_img" id="add_img" type="button" class="btn btn-outline-primary add_img">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
-                            <button name="remove_img"  id="remove_img" type="button" class="btn btn-outline-warning remove_img" style="display: none">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </button>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -310,8 +299,9 @@
 @include('admin.footer');
 </body>
 @include('admin.jquery');
+{{-- Url replce  --}}
 <script type="text/javascript">
-  $('#replace').keyup(function() {
+  $('#replace').on('keyup keypress click change',function() {
     var dInput = this.value;
 	var t=dInput.toLowerCase();
 	 if (t.match(/ /g)) {
@@ -323,27 +313,6 @@
     $('.access_url').val(t);
 });
   </script>
-  {{-- name only allow characters and space --}}
-   <script type="text/javascript">
-    $(function () {
-        $(".valid").keypress(function (e) {
-            var keyCode = e.keyCode || e.which;
-
-            $("#lblError").html("");
-
-            //Regex for Valid Characters i.e. Alphabets and Numbers.
-            var regex = /^[0-9a-zA-Z\s]+$/;
-            //Validate TextBox value against the Regex.
-            var isValid = regex.test(String.fromCharCode(keyCode));
-            if (!isValid) {
-                $("#lblError").html("Only Alphabets allowed.");
-            }
-
-            return isValid;
-        });
-    });
-</script>
-
   <script type="text/javascript">
     // add row
     var i = 1;
@@ -421,101 +390,41 @@
         });
 
   </script>
-<script>
-//     jQuery.validator.addMethod( "pricevalidate", function( value, element ) {
-//            return this.optional(element) || /^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/.test(value);
-//          }, "The price must be in this 999999.999 Digit" );
-//     $.validator.addMethod('filesize', function (value, element, param) {
-//       return this.optional(element) || (element.files[0].size <= param)
-//   }, 'File size must be less than 5mb');
-
-  $("#form_validation").validate({
-    rules: {
-        name:{
-            required: true,
-        },
-        url:{
-            required: true,
-            remote:{
-                url: '/admin/products/checkurl',
-                type: "GET",
-                data: {
-                    colorname: function () {
-                        return $( "#url" ).val();
-                    }
+{{-- validation --}}
+  <script>
+    $(document).ready(function () {
+      $("#validation").validate({
+              rules: {
+                  name:{
+                          required:true,
+                          remote:{
+                                  url: '/admin/products/checkurl',
+                                  type: "GET",
+                                  data: {
+                                      colorname: function () {
+                                          return $( ".valid" ).val();
+                                      }
+                                  },
+                              }
+                        },
+                color_id:{
+                required:true,
                 },
-            }
-        },
-        category_id:{
-        required: true,
-
-        },
-        color_id:{
-            required:true,
-        },
-        price:{
-        required:true,
-        number:true,
-        pricevalidate:true,
-        },
-        size:{
-        required:true,
-        number:true,
-        },
-
-        upc:{
-        required:true,
-        number:true,
-        minlength: 12,
-        maxlength: 12,
-        remote:{
-                url: '/admin/products/uniqueproduct',
-                type: "GET",
-                data: {
-                    colorname: function () {
-                        return $( "#upc" ).val();
-                    }
+                brand_id:{
+                        required:true,
                 },
-            }
-        },
-
-        stock:{
-        required:true,
-        },
-        description:{
-        maxlength:1000
-        },
-
-    },
-
-    messages: {
-        name: {
-            required: 'The name field is required.',
-        },
-        price: {
-            required: 'The price field is required.',
-            number:"The price must be in number",
-
-        },
-
-        upc:{
-        required:"the upc field is required",
-        number:"The upc must be in number",
-        remote:'The upc has already been taken.',
-        minlength:"The upc may not be less than 12 Digit",
-        maxlength:"The upc may not be grater than 12 Digit"
-
-
-        },
-            errorPlacement: function(error, element)
-            {
-                    error.appendTo( element.parents('.form-group'));
+                idealfor:{
+                        required:true,
+                },
             },
-
-            submitHandler: function (form) {
-                form.submit();
-            }
-        },
+          messages:{
+                name:{
+                        required:"Name Field is required.",
+                        remote:"Name is already teken",
+                    },
+                  }
+      });
     });
   </script>
+
 </html>
