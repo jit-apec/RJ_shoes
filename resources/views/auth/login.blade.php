@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     @include('admin.css')
     {{-- <style>
@@ -11,89 +12,95 @@
 </head>
 
 <body class="hold-transition login-page">
-<div class="login-box">
-    <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
-      <div class="card-header text-center">
-        <a href="#" class="h1"><b>Admin</b>LTE</a>
-      </div>
-      <div class="card-body">
-        <p class="login-box-msg">Sign in</p>
-
-        <form form method="POST" action="{{ route('login') }}">
-            @csrf
-          <div class="input-group mb-3">
-            <input type="username" id="username" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="username">
-            @error('username')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-             @enderror
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>Admin</b>LTE</a>
             </div>
-          </div>
-          <div class="input-group mb-3">
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter  Password"required autocomplete="current-password">
-            @error('password')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-8">
-              <div class="icheck-primary">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <div class="card-body">
+                <p class="login-box-msg">Sign in</p>
 
-                <label for="remember">
-                  Remember Me
-                </label>
-              </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                <form form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input type="username" id="username" name="username"
+                            class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}"
+                            required autocomplete="username" autofocus placeholder="username">
+                        @error('username')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="password" type="password"
+                            class="form-control @error('password') is-invalid @enderror" name="password"
+                            placeholder="Enter  Password" required autocomplete="current-password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
 
-            </div>
-            <!-- /.col -->
-          </div>
-        </form>
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
 
-        <div class="social-auth-links text-center mt-2 mb-3">
-          <a href="#" class="btn btn-block btn-primary">
-            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-          </a>
-          <a href="#" class="btn btn-block btn-danger">
-            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-          </a>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center mt-2 mb-3">
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    </a>
+                </div>
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+
+                    @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                    @endif
+                </p>
+                <p class="mb-0">
+                    <a href="{{ url('register') }}" class="text-center">Register a new membership</a>
+                </p>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.social-auth-links -->
-
-        <p class="mb-1">
-
-          @if (Route::has('password.request'))
-              <a class="btn btn-link" href="{{ route('password.request') }}">
-                  {{ __('Forgot Your Password?') }}
-              </a>
-             @endif
-        </p>
-        <p class="mb-0">
-          <a href="{{url('register')}}" class="text-center">Register a new membership</a>
-        </p>
-      </div>
-      <!-- /.card-body -->
+        <!-- /.card -->
     </div>
-    <!-- /.card -->
-  </div>
 </body>
 
 @include('admin.jquery')
+
 </html>

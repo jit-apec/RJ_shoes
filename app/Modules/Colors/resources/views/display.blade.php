@@ -9,7 +9,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item">Brand</li>
+                            <li class="breadcrumb-item">Color</li>
                         </ol>
                     </div>
                 </div>
@@ -19,48 +19,35 @@
             <div class="col-md-12 ">
                 <div class="card card-primary p-1">
                     <div class="card-header">
-                        <h3 class="card-title">Brand</h3>
+                        <h3 class="card-title">Colors</h3>
                     </div>
                     <div class="text-center mt-2 mb-2 p-1">
                         <a class="btn btn-success bg-gradient-success  btn-sm float-right " data-toggle="modal"
                             data-target="#myModal">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
                         <a class="btn btn-danger bg-gradient-danger float-right btn-sm"
-                            href="{{ url('/admin/brand/trashbrand') }}" role="button">Trash&nbsp; <i
-                                class="fa fa-trash" aria-hidden="true"></i></a>
+                            href="{{ url('/admin/color/trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash"
+                                aria-hidden="true"></i></a>
                     </div>
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addbrand"
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addcolors"
                         aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="addbrand">Add Brand</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    </button>
+                                    <h5 class="modal-title" id="addcolors">Add Colors</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">               </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="addbrand">
+                                    <form method="POST" action="/admin/color/addcolor">
                                         @csrf
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="name">Brand Name</label>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    placeholder="Enter Brand">
-                                                <div>
-                                                    @if (session()->has('status'))
-                                                        <p style="color: green;font-size: 20px; font-weight: bold;">
-                                                            {{ session('status') }}</p>
-                                                    @endif
-                                                    @error('name')
-                                                        <p style="color:red">{{ $message }} </p>
-                                                    @enderror
-                                                    <h5 id="namecheck"></h5>
-                                                </div>
+                                                <label for="name">Color Name</label>
+                                                <input type="text" class="form-control" name="name"
+                                                    placeholder="Enter color">
                                             </div>
                                         </div>
-
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
@@ -73,33 +60,32 @@
                             <tr>
                                 <th class="text-center"> id </th>
                                 <th>User Name</th>
-                                <th>Brand Name</th>
+                                <th>Color Name</th>
                                 <th>Status</th>
                                 <th>action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php  $count=0; @endphp
-                            @foreach ($list as $brand)
+                            @foreach ($colors as $col)
                                 <tr>
                                     <td class="text-center">{{ $count += 1 }}</td>
-                                    <td>{{ $brand->username }}</td>
-                                    <td>{{ $brand->name }}</td>
+                                    <td>{{ $col->username }}</td>
+                                    <td>{{ $col->name }}</td>
                                     <td>
-                                        @if ($brand->status == 'Y')
-                                            <input data-id="{{ $brand->id }}" class="toggle-class btn-xs" type="checkbox"
+                                        @if ($col->status == 'Y')
+                                            <input data-id="{{ $col->id }}" class="toggle-class btn-xs" type="checkbox"
                                                 data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                 data-size="sm" checked data-on="Active">
                                         @else
-                                            <input data-id="{{ $brand->id }}" class="toggle-class btn-xs" type="checkbox"
+                                            <input data-id="{{ $col->id }}" class="toggle-class btn-xs" type="checkbox"
                                                 data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                 data-size="sm" data-on="Active">
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ url('/admin/brand/editbrand', $brand->id) }}"
-                                            class="fas fa-pencil-alt"></a>
-                                        <a href="javascript:void(0);" onclick="move_to_brand({{ $brand->id }})"
+                                        <a href="{{ url('/admin/color/edit/' . $col->id) }}" class="fas fa-pencil-alt"></a>
+                                        <a href="javascript:void(0);" onclick="delete_Question({{ $col->id }})"
                                             class="fas fa-trash-alt"></a>
                                     </td>
                                 </tr>
@@ -113,10 +99,10 @@
 @endsection
 @section('scripts')
     <script>
-        function move_to_brand(id) {
+        function delete_Question(id) {
             if (confirm('are your sure do you want to delete !!!! ?')) {
                 jQuery.ajax({
-                    url: '/admin/brand/movetrash',
+                    url: '/admin/color/movetotrash',
                     type: 'GET',
                     data: {
                         'id': id
@@ -135,7 +121,7 @@
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '/admin/brand/changebrandstatus',
+                    url: '/admin/color/changeStatus',
                     data: {
                         'status': status,
                         'id': id
