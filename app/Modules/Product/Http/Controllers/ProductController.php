@@ -29,7 +29,7 @@ class ProductController extends Controller
         return view("Product::welcome");
     }
     //below code for get dropdown list data
-    public function dropdown()
+    public function create()
     {
         $colors = Colors::select('name as cname', 'id as cid')->where(['status' => 'Y'])->get();
         $brand =  Brand::select('name as bname', 'id as bid')->where(['status' => 'Y'])->get();
@@ -105,7 +105,7 @@ class ProductController extends Controller
         return response()->json(['success' => 'Status change successfully.']);
     }
 
-    public function trashdisplay()
+    public function trash()
     {
         $Product = Product::join('colors', 'colors.id', '=', 'products.color_id')
             ->join('brands', 'brands.id', '=', 'products.brand_id')
@@ -114,7 +114,7 @@ class ProductController extends Controller
         return view("Product::trash", ['product' => $Product]);
     }
 
-    public function movetotrash(Request $r)
+    public function delete(Request $r)
     {
         $update = Product::find($r->id);
         $update->status = 'T';

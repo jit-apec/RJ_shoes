@@ -18,17 +18,17 @@ class ColorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function create()
     {
         return view("Colors::add");
     }
-    public function displaycolor()
+    public function display()
     {
         $users = Colors::join('users', 'users.id', '=', 'colors.user_id')->where('status', array('Y'))->orWhere('status', array('N'))
             ->get(['colors.*', 'users.username']);
         return view('Colors::display', ['colors' => $users]);
     }
-    public function getdata(Request $request)
+    public function add(Request $request)
     {
         $request->validate([
             'name' => 'required|alpha|min:3|unique:colors|max:10|regex:/^\S*$/u'
@@ -58,22 +58,12 @@ class ColorsController extends Controller
         $colors->update();
         return back()->with('status', 'Data Update Successfully');
     }
-    public function changeStatus(Request $r)
-    {
-        $colors = new colors;
-        $id = Auth::id();
-        $colors->user_id = $id;
-        $colors = Colors::find($r->id);
-        $colors->status = $r->status;
-        $colors->save();
-        return response()->json(['success' => 'Status change successfully.']);
-    }
-    public function trashshow()
+    public function trash()
     {
         $colors = Colors::join('users', 'users.id', '=', 'colors.user_id')->where('status', array('T'))->get(['colors.*', 'users.username']);
         return view('Colors::trash', ['colors' => $colors]);
     }
-    public function movetotrash(Request $r)
+    public function delete(Request $r)
     {
         $update = Colors::find($r->id);
         $update->status = 'T';
@@ -87,12 +77,14 @@ class ColorsController extends Controller
         $update->save();
         return colors::all();
     }
-    public function check_availability(Request $r)
+    public function changeStatus(Request $r)
     {
-        if (Colors::where('name', '=', Colors::get('name'))->exists()) {
-            return response()->json(['success' => 'available']);
-        } else {
-            return response()->json(['success' => 'hi']);
-        }
+        $colors = new colors;
+        $id = Auth::id();
+        $colors->user_id = $id;
+        $colors = Colors::find($r->id);
+        $colors->status = $r->status;
+        $colors->save();
+        return response()->json(['success' => 'Status change successfully.']);
     }
 }

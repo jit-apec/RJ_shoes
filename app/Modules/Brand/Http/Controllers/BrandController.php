@@ -22,11 +22,11 @@ class BrandController extends Controller
             ->get(['brands.*', 'users.username']);
         return view('Brand::display', ['list' => $branddisp]);
     }
-    public function addBrands()
+    public function create()
     {
         return view("Brand::addbrand");
     }
-    public function adddata(Request $req)
+    public function add(Request $req)
     {
         $req->validate([
             'name' => 'required|alpha|min:3|unique:brands|max:10|regex:/^\S*$/u'
@@ -55,13 +55,13 @@ class BrandController extends Controller
         $brand->update();
         return back()->with('status', 'Data Update Successfully');
     }
-    public function trashlist()
+    public function trash()
     {
         $branddisp = brand::join('users', 'users.id', '=', 'brands.user_id')->where('status', array('T'))
             ->get(['brands.*', 'users.username']);
         return view('Brand::trashbrand', ['list' => $branddisp]);
     }
-    public function movetrash(Request $r)
+    public function delete(Request $r)
     {
         $update = brand::find($r->id);
         $update->status = 'T';

@@ -23,7 +23,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-       //  return view('home');
+        //  return view('home');
         return view('admin.dashboard');
+    }
+    public function frontend()
+    {
+        return view('frontend.index');
+    }
+    public function grid()
+    {
+        return view('frontend.gridview');
+    }
+    public function list()
+    {
+        return view('frontend.listview');
     }
 }

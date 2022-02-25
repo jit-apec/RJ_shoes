@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 //use App\Modules\Brand\Http\Controllers\BrandController;
 
@@ -22,7 +23,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //Route::post('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Route::get('welcome',[ColorsController::class,'welcome']);
+Route::get('/view', [App\Http\Controllers\HomeController::class, 'frontend']);
+Route::get('/grid', [App\Http\Controllers\HomeController::class, 'grid']);
+Route::get('/list', [App\Http\Controllers\HomeController::class, 'list']);
 
 //  Route::get('/welcome', [App\Modules\Brand\Http\Controllers\BrandController::class, 'welcomes'])->name('welcomes');
-

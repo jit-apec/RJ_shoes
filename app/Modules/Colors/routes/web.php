@@ -9,14 +9,14 @@ Route::get('profile', function () {
 })->middleware('auth');
 
 Route::get('colors', 'ColorsController@welcome');
-Route::get('/admin/color/add', [ColorsController::class, 'add']);
-Route::get('/admin/color/addcolor', [ColorsController::class, 'getdata']);
-Route::post('/admin/color/addcolor', [ColorsController::class, 'getdata']);
-Route::get('/admin/color/displaycolor', [ColorsController::class, 'displaycolor']);
+Route::get('/admin/color/add', [ColorsController::class, 'create']);
+Route::get('/admin/color/addcolor', [ColorsController::class, 'add']);
+Route::post('/admin/color/addcolor', [ColorsController::class, 'add']);
+Route::get('/admin/color/displaycolor', [ColorsController::class, 'display']);
 Route::get('/admin/color/edit/{id}', [ColorsController::class, 'edit']);
 Route::post('/admin/color/edit/{id}', [ColorsController::class, 'update']);
 Route::get('/admin/color/changeStatus', [ColorsController::class, 'changeStatus']);
 Route::get('/admin/color/restore', [ColorsController::class, 'restore']);
-Route::get('/admin/color/trash', [ColorsController::class, 'trashshow']);
-Route::get('/admin/color/movetotrash', [ColorsController::class, 'movetotrash']);
+Route::get('/admin/color/trash', [ColorsController::class, 'trash']);
+Route::get('/admin/color/movetotrash', [ColorsController::class, 'delete']);
 

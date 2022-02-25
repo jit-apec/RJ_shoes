@@ -22,51 +22,10 @@
                         <h3 class="card-title">Brand</h3>
                     </div>
                     <div class="text-center mt-2 mb-2 p-1">
-                        <a class="btn btn-success bg-gradient-success  btn-sm float-right " data-toggle="modal"
-                            data-target="#myModal">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
+                        <a class="btn btn-success bg-gradient-success  btn-sm float-right "
+                            href="{{ url('/admin/brand/addBrands') }}">Add<i class="fa fa-plus-circle"aria-hidden="true"></i></a>&nbsp;
                         <a class="btn btn-danger bg-gradient-danger float-right btn-sm"
-                            href="{{ url('/admin/brand/trashbrand') }}" role="button">Trash&nbsp; <i
-                                class="fa fa-trash" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addbrand"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addbrand">Add Brand</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="POST" action="addbrand">
-                                        @csrf
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="name">Brand Name</label>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    placeholder="Enter Brand">
-                                                <div>
-                                                    @if (session()->has('status'))
-                                                        <p style="color: green;font-size: 20px; font-weight: bold;">
-                                                            {{ session('status') }}</p>
-                                                    @endif
-                                                    @error('name')
-                                                        <p style="color:red">{{ $message }} </p>
-                                                    @enderror
-                                                    <h5 id="namecheck"></h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                            href="{{ url('/admin/brand/trashbrand') }}" role="button">Trash&nbsp; <i class="fa fa-trash" aria-hidden="true"></i></a>
                     </div>
                     <table id="myTable" class="display">
                         <thead>
