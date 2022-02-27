@@ -50,7 +50,7 @@
                                     <input type="text" class="form-control valid" id="replace"
                                         value="{{ $product->name }}" name="name"
                                         oninput="this.value = this.value.replace(/[^A-Za-z/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                        title="Special Charactor is Not allowd"><br>
+                                        data-error="#errname"><span id="errname"></span><br>
                                     <a href=" "> http//localhost/<span id="url"></span> </a>
                                     <input type="text" class="border  border-0 text-primary  input-sm access_url"
                                         id="edit_url" name="url">
@@ -63,7 +63,7 @@
                                     <input type="text" class="form-control" name="size" value="{{ $product->size }}"
                                         placeholder="Size" pattern="[A-Za-z0-9_]{1,5}"
                                         oninput="this.value = this.value.replace(/[^/A-Za-z0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                        title=" Max 5 Charactor">
+                                       data-error="#errsize"><span id="errsize"></span>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -106,7 +106,7 @@
                                             value="{{ $product->price }}" id="inlineFormInputGroup" id=""
                                             pattern="[0-9]{1,5}"
                                             oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                            title="max 6 digit. ">
+                                            data-error="#errprice"><span id="errprice"></span>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                                             value="{{ $product->stock }}" id="inlineFormInputGroup"
                                             placeholder="eg.12345" pattern="[0-9]{1,5}"
                                             oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                            title="only 6 Digit Allowed">
+                                           data-error="#errstock"><span id="errstock"></span>
                                     </div>
                                 </div>
                             </div>
@@ -287,6 +287,7 @@
     </div>
 @endsection
 @section('scripts')
+    <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/test.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
@@ -392,8 +393,8 @@
             });
         });
 
-        $(document).ready(function() {
-            $("#validation").validate({
+        jQuery(function($) {
+            var validator = $('#validation').validate({
                 rules: {
                     name: {
                         required: true,
@@ -407,23 +408,48 @@
                             },
                         }
                     },
-                    color_id: {
+                    size:{
+                        required: true,
+                        maxlength:5,
+                    },
+                    brand_id:{
                         required: true,
                     },
-                    brand_id: {
+                    color_id:{
                         required: true,
+                    },
+                    price: {
+                        required: true,
+                        minlength:2,
+                        maxlength:6,
                     },
                     idealfor: {
                         required: true,
                     },
+
+                    upc: {
+                        required: true,
+                        minlength:12,
+                        maxlength:12,
+                    },
+                    stock:{
+                        required: true,
+                        maxlength:6,
+                    },
+
                 },
                 messages: {
-                    name: {
-                        required: "Name Field is required.",
-                        remote: "Name is already teken",
-                    },
+                },
+                errorPlacement: function(error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
                 }
             });
         });
+
     </script>
 @endsection

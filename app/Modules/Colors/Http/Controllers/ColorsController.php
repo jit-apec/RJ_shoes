@@ -87,4 +87,14 @@ class ColorsController extends Controller
         $colors->save();
         return response()->json(['success' => 'Status change successfully.']);
     }
+
+    public function checkUrl(Request $request)
+    {
+        $colors = Colors::where('id', '!=', $request->id)->where('name', $request->name)->first();
+        if (isset($colors)) {
+            return json_encode(false);
+        } else {
+            return json_encode(true);
+        }
+    }
 }

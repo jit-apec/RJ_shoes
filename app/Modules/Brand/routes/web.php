@@ -19,3 +19,4 @@ Route::get('/admin/brand/movetrash', [BrandController::class, 'delete']);
 Route::get('/admin/brand/trashbrand', [BrandController::class, 'trash']);
 Route::get('/admin/brand/restorebrand', [BrandController::class, 'restore']);
 Route::get('/admin/brand/changebrandstatus', [BrandController::class, 'changestatus']);
+Route::get('/admin/brand/uniquename', [BrandController::class, 'checkurl']);

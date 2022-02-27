@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Modules\Product\Models\product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
@@ -24,7 +24,18 @@ class HomeController extends Controller
     public function index()
     {
         //  return view('home');
-        return view('admin.dashboard');
+        $role = Auth::user()->role;
+        if($role=='A')
+        {
+            return view('admin.dashboard');
+
+        }
+        else
+        {
+            return view('frontend.index');
+        }
+       // return view('admin.dashboard');
+
     }
     public function frontend()
     {
@@ -32,10 +43,14 @@ class HomeController extends Controller
     }
     public function grid()
     {
-        return view('frontend.gridview');
+        $product = Product::all();
+         return view("frontend.gridview", compact('product'));
+        // return view('frontend.gridview');
     }
     public function list()
     {
-        return view('frontend.listview');
+        $product = Product::all();
+         return view("frontend.listview", compact('product'));
+        //return view('frontend.listview');
     }
 }

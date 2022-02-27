@@ -85,4 +85,13 @@ class BrandController extends Controller
         $brand->save();
         return response()->json(['success' => 'Status change successfully.']);
     }
+    public function checkUrl(Request $request)
+    {
+        $brand = brand::where('id', '!=', $request->id)->where('name', $request->name)->first();
+        if (isset($brand)) {
+            return json_encode(false);
+        } else {
+            return json_encode(true);
+        }
+    }
 }

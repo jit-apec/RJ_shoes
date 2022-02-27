@@ -2,16 +2,18 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="assets/styles/styles.css" media="all" />
     <ul class="products-grid row products-grid--max-3-col last odd">
+        @foreach ($product as $product)
         <li class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-mobile-12 item">
+
             <div class="category-products-grid">
                 <div class="images-container">
                     <div class="product-hover">
                         <span class="sticker top-left"><span class="labelnew">New</span></span>
                         <a href="#" title="Configurable Product" class="product-image">
                             <img id="product-collection-image-8" class="img-responsive"
-                                src="{{ asset('dist/img/m1.jpg') }}" alt="" height="355" width="278">
+                                src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355" width="278">
                             <span class="product-img-back"> <img class="img-responsive"
-                                    src="{{ asset('dist/img/m1.jpg') }}" alt="" height="355" width="278"> </span>
+                                    src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355" width="278"> </span>
                         </a>
                     </div>
                     <div class="actions-no hover-box">
@@ -30,7 +32,7 @@
                     </div>
                 </div>
                 <div class="product-info products-textlink clearfix">
-                    <h2 class="product-name"><a href="#" title="Configurable Product">Configurable Product</a></h2>
+                    <h2 class="product-name"><a href="#" title="Configurable Product">{{$product->name}}</a></h2>
                     <ul class="configurable-swatch-list configurable-swatch-color clearfix">
                         <li class="option-blue is-media"> <a href="javascript:void(0)" name="blue"
                                 class="swatch-link swatch-link-92 has-image" title="blue"> <span class="swatch-label">
@@ -39,7 +41,8 @@
                                 class="swatch-link swatch-link-92 has-image" title="red"> <span class="swatch-label"> <img
                                         src="assets/images/red.png" alt="red" height="15" width="15"> </span> </a></li>
                     </ul>
-                    <div class="price-box"> <span class="regular-price"> <span class="price">$180.00</span>
+                    <div class="price-box"> <span class="regular-price"> <span class="price">
+                        ₹{{$product->price}}</span></span>
                         </span></div>
                     <div class="ratings">
                         <div class="rating-box">
@@ -49,8 +52,9 @@
                     </div>
                 </div>
             </div>
-        </li>
 
+        </li>
+        @endforeach
     </ul>
     <!--- .products-grid-->
 

@@ -50,11 +50,12 @@
                                     <input type="text" class="form-control valid" id="replace" name="name"
                                         placeholder="Enter Name"
                                         oninput="this.value = this.value.replace(/[^A-Za-z/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                        title="Special Charactor is Not allowed"><br>
+                                        data-error="#errname"><span id="errname"></span><br>
                                     <a href="#"> http//localhost/<span id="url" name="url"></span> </a>
                                     <input type="text" class="border  border-0 text-primary  input-sm access_url"
                                         id="edit_url" name="url">
                                 </div>
+
                                 <div class="col-md-6">
                                     <label for="name">Size<span class="text-danger">*</span> </label>
                                     @error('size')
@@ -63,8 +64,9 @@
                                     <input type="text" class="form-control" name="size" id="size"
                                         placeholder="Enter Shoes Size" pattern="[A-Za-z0-9_]{1,5}"
                                         oninput="this.value = this.value.replace(/[^/A-Za-z0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                        title=" Max 5 Charactor">
+                                        data-error="#errsize"><span id="errsize"></span>
                                 </div>
+
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
@@ -102,10 +104,12 @@
                                         </div>
 
                                         <input type="text" class="form-control" name="price" placeholder=" Enter Price"
-                                            id="" pattern="[0-9]{1,6}"
+                                            id="" pattern="[0-9]{1,6}"data-error="#errprice"
                                             oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                            title="max 6 digit. ">
+                                           >
+
                                     </div>
+                                    <span id="errprice"></span>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -131,10 +135,12 @@
                                             <div class="input-group-text"><i class="fas fa-tag"></i></div>
                                         </div>
                                         <input type="text" class="form-control" name="upc" id=""
-                                            placeholder="eg.123456789123" pattern="[0-9]{12,12}"
+                                            placeholder="eg.123456789123" pattern="[0-9]{12,12}" data-error="#errupc"
                                             oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                            title="Only 12 Digit Allowed.">
+                                           >
+
                                     </div>
+                                    <span id="errupc"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputstock">Stock<span class="text-danger">*</span></label>
@@ -146,9 +152,10 @@
                                             <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                                         </div>
                                         <input type="text" class="form-control" name="stock" id="" pattern="[0-9]{1,6}"
-                                            oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                            title="only 6 Digit Allowed">
+                                        oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');" data-error="#errstock">
+
                                     </div>
+                                    <span id="errstock"></span>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -220,6 +227,7 @@
     </div>
 @endsection
 @section('scripts')
+    <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/test.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script type="text/javascript">
@@ -338,9 +346,8 @@
             }
 
         }
-
-        $(document).ready(function() {
-            $("#validation").validate({
+        jQuery(function($) {
+            var validator = $('#validation').validate({
                 rules: {
                     name: {
                         required: true,
@@ -353,24 +360,46 @@
                                 }
                             },
                         }
-
                     },
-                    color_id: {
+                    size:{
+                        required: true,
+                        maxlength:5,
+                    },
+                    brand_id:{
                         required: true,
                     },
-                    brand_id: {
+                    color_id:{
                         required: true,
+                    },
+                    price: {
+                        required: true,
+                        minlength:2,
+                        maxlength:6,
                     },
                     idealfor: {
                         required: true,
                     },
+
+                    upc: {
+                        required: true,
+                        minlength:12,
+                        maxlength:12,
+                    },
+                    stock:{
+                        required: true,
+                        maxlength:6,
+                    },
+
                 },
                 messages: {
-
-                    name: {
-                        required: "Name Field is required.",
-                        remote: "Name is already teken",
-                    },
+                },
+                errorPlacement: function(error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
                 }
             });
         });

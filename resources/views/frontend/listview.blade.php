@@ -1,6 +1,7 @@
 @extends('frontend.product_master')
 @section('content')
     <ol class="products-list" id="products-list">
+        @foreach ($product as $product)
         <li class="item odd">
             <div class="row">
                 <div class="col-mobile-12 col-xs-5 col-md-4 col-sm-4 col-lg-4">
@@ -10,9 +11,9 @@
                                 <span class="sticker top-left"><span class="labelnew">New</span></span>
                                 <a href="#" title="" class="product-image">
                                     <img id="product-collection-image-8" class="img-responsive"
-                                        src="{{ asset('dist/img/m1.jpg') }}" width="278" height="355" alt="">
+                                        src="{{ asset('storage/media/' . $product->image) }}" width="278" height="355" alt="">
                                     <span class="product-img-back">
-                                        <img class="img-responsive" src="{{ asset('dist/img/m1.jpg') }}" width="278"
+                                        <img class="img-responsive" src="{{ asset('storage/media/' . $product->image) }}" width="278"
                                             height="355" alt="">
                                     </span>
                                 </a>
@@ -28,7 +29,7 @@
                 <div class="product-shop col-mobile-12 col-xs-7 col-md-8 col-sm-8 col-lg-8">
                     <div class="f-fix">
                         <div class="product-primary products-textlink clearfix">
-                            <h2 class="product-name"><a href="#" title="Configurable Product">Configurable Product</a>
+                            <h2 class="product-name"><a href="#" title="Configurable Product">{{$product->name}}</a></h2>
                             </h2>
                             <div class="ratings">
                                 <div class="rating-box">
@@ -38,7 +39,7 @@
                                     <a href="#">Add Your Review</a></p>
                             </div>
                             <div class="price-box"> <span class="regular-price"> <span
-                                        class="price">$180.00</span> </span></div>
+                                        class="price">₹{{$product->price}}</span> </span></div>
                             <ul class="configurable-swatch-list configurable-swatch-color clearfix">
                                 <li class="option-blue is-media"> <a href="javascript:void(0)" name="blue"
                                         class="swatch-link swatch-link-92 has-image" title="blue"> <span
@@ -51,9 +52,7 @@
                             </ul>
                         </div>
                         <div class="desc std">
-                            <p>Aliquam condimentum pharetra metus sed posuere. Ut euismod nisl sit amet enim consectetur
-                                volutpat. Nulla vitae magna dictum, adipiscing mauris eu, gravida tellus. Nulla tempor,
-                                felis feugiat fermentum suscipit.</p>
+                            <p>{{$product->description}}</p>
                         </div>
                         <div class="product-secondary actions-no actions-list clearfix">
                             <p class="action"><button type="button" title="Add to Cart"
@@ -70,6 +69,7 @@
                 </div>
             </div>
         </li>
+        @endforeach
         <!--- .item-->
 
     </ol>

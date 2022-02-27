@@ -4,6 +4,7 @@
             <div class="header-logo show-992">
                 <a href="index.html" class="logo"> <img class="img-responsive" src="assets/images/logo.png"
                         alt="" /></a>
+
             </div>
             <!--- .header-logo -->
             <div class="header-bottom">
@@ -87,7 +88,19 @@
                                         <li><a href="#" title="My Cart">My Cart</a></li>
                                         <li><a href="checkout-step1.html" title="Checkout"
                                                 class="top-link-checkout">Checkout</a></li>
-                                        <li class=" last"><a href="#" title="Log In">Log In</a></li>
+                                        <li class=" last"><a href="{{ route('login') }}" title="Log In">Log
+                                                In</a></li>
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                                class="nav-link ">Logout
+
+                                            </a>
+                                        </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
                                     </ul>
                                 </div>
                             </div>

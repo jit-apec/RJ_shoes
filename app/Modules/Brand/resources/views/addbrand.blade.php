@@ -24,7 +24,8 @@
                     </div>
                     <div class="text-center mt-0 mb-0 p-1">
                         <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                            href="{{ url('/admin/brand/display') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>&nbsp;
+                            href="{{ url('/admin/brand/display') }}"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i>Back</a>&nbsp;
                     </div>
                     <form method="POST" action="addbrand" id="validation">
                         @csrf
@@ -32,7 +33,8 @@
                             <div class="form-group">
                                 <label for="name">Brand Name</label>
                                 <input type="text" class="form-control" name="name" id="brandname"
-                                    placeholder="Enter Brand">
+                                    placeholder="Enter Brand" pattern="[A-Za-z0-9_]{3,10}"
+                                    oninput="this.value = this.value.replace(/[^/A-Za-z0-9_\s]/g, '').replace(/(\..*)\./g, '$1');">
                                 <div>
                                     @if (session()->has('status'))
                                         <p style="color: green;font-size: 20px; font-weight: bold;">
@@ -59,47 +61,40 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#namecheck').hide();
-            var color_err = true;
-            $('#brandname').keyup(function() {
-                brandname_check();
-            });
-            function brandname_check() {
-                var color_val = $('#brandname').val();
-                if (color_val.length == '') {
-                    $('#namecheck').show();
-                    $('#namecheck').html("fill this filled");
-                    $('#namecheck').focus();
-                    $('#namecheck').css("color", "red");
-                    color_err = false;
-                    return false;
-                } else {
-                    $('#namecheck').hide();
-                }
-                var regex = /^[A-Za-z]+$/;
-                if (!color_val.match(regex)) {
-                    $('#namecheck').show();
-                    $('#namecheck').html("Please input characters only");
-                    $('#namecheck').focus();
-                    $('#namecheck').css("color", "red");
-                    color_err = false;
-                    return false;
-                } else {
-                    $('#namecheck').hide();
-                }
-                if ((color_val.length < 3) || (color_val.length > 10)) {
+        $("#validation").validate({
+            rules: {
+                name: {
 
-                    $('#namecheck').show();
-                    $('#namecheck').html(" color name legth must be between 3 and 10");
-                    $('#namecheck').focus();
-                    $('#namecheck').css("color", "red");
-                    color_err = false;
-                    return false;
-                } else {
-                    $('#namecheck').hide();
-                }
-            }
+                    required: true,
+                    minlength: 3,
+                    maxlength: 10,
+                    remote: {
+                        url: '/admin/brand/uniquename',
+                        type: "GET",
+                        Data: {
+                            colorname: function() {
+
+                                return $("#name").val();
+
+                            }
+                        }
+
+
+
+                    },
+
+                },
+            },
+
+            messages: {
+
+                name: {
+                    required: "Name field is required",
+                    remote: "The Name has already been taken!!!",
+                },
+
+            },
+
         });
     </script>
 @endsection
