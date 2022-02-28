@@ -2,9 +2,8 @@
     <div class="header_full">
         <div class="header">
             <div class="header-logo show-992">
-                <a href="index.html" class="logo"> <img class="img-responsive" src="assets/images/logo.png"
-                        alt="" /></a>
-
+                <a href="index.html" class="logo"> <img class="img-responsive"
+                        src="{{ asset('assets/images/logo.png') }}" alt="" /></a>
             </div>
             <!--- .header-logo -->
             <div class="header-bottom">
@@ -15,16 +14,17 @@
                                 <div class="custom-menu col-lg-12">
                                     <div class="header-logo hidden-992">
                                         <a href="index.html" class="logo"> <img class="img-responsive"
-                                                src="assets/images/logo.png" alt="" /></a>
+                                                src="{{ asset('assets/images/logo.png') }}" alt="" /></a>
                                     </div>
                                     <!--- .header-logo -->
                                     <div class="magicmenu clearfix">
                                         <ul class="nav-desktop sticker">
                                             <li class="level0 logo display"><a class="level-top"
-                                                    href="index.html"><img alt="logo" src="assets/images/logo.png"></a>
+                                                    href="{{ url('/dashboard') }}"><img alt="logo"
+                                                        src="{{ asset('assets/images/logo.png') }}"></a>
                                             </li>
                                             <li class="level0 home">
-                                                <a class="level-top" href="{{ url('view') }}"><span
+                                                <a class="level-top" href="{{ url('/dashboard') }}"><span
                                                         class="icon-home fa fa-home"></span><span
                                                         class="icon-text">Home</span></a>
 

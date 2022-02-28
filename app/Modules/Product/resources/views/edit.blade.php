@@ -398,15 +398,15 @@
                 rules: {
                     name: {
                         required: true,
-                        remote: {
-                            url: '/admin/products/checkurl',
-                            type: "GET",
-                            data: {
-                                colorname: function() {
-                                    return $(".valid").val();
-                                }
-                            },
-                        }
+                        // remote: {
+                        //     url: '/admin/products/checkurl',
+                        //     type: "GET",
+                        //     data: {
+                        //         colorname: function() {
+                        //             return $(".valid").val();
+                        //         }
+                        //     },
+                        // }
                     },
                     size:{
                         required: true,

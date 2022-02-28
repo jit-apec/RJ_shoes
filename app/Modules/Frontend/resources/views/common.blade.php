@@ -5,17 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Shoes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" type="text/css" href="assets/styles/styles.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/styles.css')}}" media="all" />
 </head>
 
 <body>
+
     <div class="wrapper">
         <div class="page">
-            @include('frontend.header')
+            @include('Frontend::header')
             @yield('content')
-            @include('frontend.footer')
+            @include('Frontend::footer')
         </div>
     </div>
 </body>
-    @include('frontend.jquery')
+    @include('Frontend::jquery')
 </html>

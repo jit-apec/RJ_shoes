@@ -1,15 +1,14 @@
-@extends('frontend.product_master')
+@extends('Frontend::product_master')
 @section('content')
     <link rel="stylesheet" type="text/css" href="assets/styles/styles.css" media="all" />
     <ul class="products-grid row products-grid--max-3-col last odd">
         @foreach ($product as $product)
         <li class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-mobile-12 item">
-
             <div class="category-products-grid">
                 <div class="images-container">
                     <div class="product-hover">
                         <span class="sticker top-left"><span class="labelnew">New</span></span>
-                        <a href="#" title="Configurable Product" class="product-image">
+                        <a href="{{ url('/user', $product->url) }}" title="Configurable Product" class="product-image">
                             <img id="product-collection-image-8" class="img-responsive"
                                 src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355" width="278">
                             <span class="product-img-back"> <img class="img-responsive"
@@ -32,7 +31,7 @@
                     </div>
                 </div>
                 <div class="product-info products-textlink clearfix">
-                    <h2 class="product-name"><a href="#" title="Configurable Product">{{$product->name}}</a></h2>
+                    <h2 class="product-name"><a href="{{ url('/user', $product->url) }}" title="Configurable Product">{{$product->name}}</a></h2>
                     <ul class="configurable-swatch-list configurable-swatch-color clearfix">
                         <li class="option-blue is-media"> <a href="javascript:void(0)" name="blue"
                                 class="swatch-link swatch-link-92 has-image" title="blue"> <span class="swatch-label">

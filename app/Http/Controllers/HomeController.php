@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Modules\Product\Models\product;
 use Illuminate\Http\Request;
+use App\Modules\Frontend\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
@@ -32,25 +33,14 @@ class HomeController extends Controller
         }
         else
         {
-            return view('frontend.index');
+            return view('Frontend::index');
         }
        // return view('admin.dashboard');
 
     }
     public function frontend()
     {
-        return view('frontend.index');
+        return view('Frontend::index');
     }
-    public function grid()
-    {
-        $product = Product::all();
-         return view("frontend.gridview", compact('product'));
-        // return view('frontend.gridview');
-    }
-    public function list()
-    {
-        $product = Product::all();
-         return view("frontend.listview", compact('product'));
-        //return view('frontend.listview');
-    }
+
 }

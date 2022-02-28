@@ -23,6 +23,4 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
  Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'frontend']);
-Route::get('/grid', [App\Http\Controllers\HomeController::class, 'grid']);
-Route::get('/list', [App\Http\Controllers\HomeController::class, 'list']);
 

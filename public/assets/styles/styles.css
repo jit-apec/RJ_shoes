@@ -45,7 +45,7 @@
 ---------3.1.6 Block:Wishlist
 ---------3.1.7 Block:Related
 ---------3.1.8 Block:Compare Products
----------3.1.9 Block:Poll 
+---------3.1.9 Block:Poll
 ---------3.1.10 Block:Orders and Returns
 ---------3.1.11 Block:Tags
 ---------3.1.12 Block:Reorder
@@ -94,7 +94,7 @@
 ------8.2 Blog List
 ------8.3 Sidebar
 ------8.4 Pagination
-------8.5 Blog Mansory 
+------8.5 Blog Mansory
 ------8.6 Blog Single
 ------8.7 Comment
 9. Misc
@@ -117,7 +117,7 @@
 ---------10.2.1 Header
 ---------10.2.2 Block:Layered Navigation
 ---------10.2.3 Block:Subscribe
----------10.2.4 Block:popup-newsletter 
+---------10.2.4 Block:popup-newsletter
 ---------10.2.5 Block:New and Sale
 ---------10.2.6 Block:testimonials
 ---------10.2.7 Block:banner
@@ -132,7 +132,7 @@
 ---------10.3.1 Header
 ---------10.3.2 Block:Layered Navigation
 ---------10.3.3 Block:Subscribe
----------10.3.4 Block:popup-newsletter 
+---------10.3.4 Block:popup-newsletter
 ---------10.3.5 Block:New and Sale
 ---------10.3.6 Block:testimonials
 ---------10.3.7 Block:banner
@@ -147,7 +147,7 @@
 ---------10.4.1 Header
 ---------10.4.2 Block:Layered Navigation
 ---------10.4.3 Block:Subscribe
----------10.4.4 Block:popup-newsletter 
+---------10.4.4 Block:popup-newsletter
 ---------10.4.5 Block:New and Sale
 ---------10.4.6 Block:testimonials
 ---------10.4.7 Block:banner
@@ -162,7 +162,7 @@
 ---------10.5.1 Header
 ---------10.5.2 Block:Layered Navigation
 ---------10.5.3 Block:Subscribe
----------10.5.4 Block:popup-newsletter 
+---------10.5.4 Block:popup-newsletter
 ---------10.5.5 Block:New and Sale
 ---------10.5.6 Block:testimonials
 ---------10.5.7 Block:banner
@@ -177,7 +177,7 @@
 ---------10.6.1 Header
 ---------10.6.2 Block:Layered Navigation
 ---------10.6.3 Block:Subscribe
----------10.6.4 Block:popup-newsletter 
+---------10.6.4 Block:popup-newsletter
 ---------10.6.5 Block:New and Sale
 ---------10.6.6 Block:testimonials
 ---------10.6.7 Block:banner
@@ -190,7 +190,7 @@
 ---------10.6.13 Other
 11. Page Styles
 ------11.1 Page Not Pound
-------11.2 About us 
+------11.2 About us
 ------11.3 Meet the team
 ------11.4 Contact us
 ------11.5 About Personal
@@ -509,7 +509,7 @@ p.required{font-size:11px;text-align:right;color:#EB340A}
     .page-nav-bottom .right ul li{width: 20%}
     .page-nav-bottom .right ul li a{width: 100%}
     .item .add-to-links{width: auto!important;}
-}   
+}
 /* 1.4.11 Data Table */
 .data-table{width:100%;border:1px solid #eeeeee;}
 .data-table .odd{background:#ffffff}
@@ -637,7 +637,7 @@ tr.summary-details-excluded{font-style:italic}
 */
 #nav{font-size:13px;margin:0}
 /* All Levels */
- 
+
 /* Style consistent throughout all nav levels */
 #nav li{position:relative;text-align:left}
 #nav li.over{z-index:998}
@@ -803,7 +803,7 @@ tr.summary-details-excluded{font-style:italic}
 .block-gr-search button.button span{border-color:#406a83;background:#618499}
 /* 3.1.11 Block:Tags */
 .block.block-tags{margin-bottom:30px}
-.block.block-tags .block-title strong span{color: #e8e9ee;font-size: 16px;} 
+.block.block-tags .block-title strong span{color: #e8e9ee;font-size: 16px;}
 .block-tags .block-title strong{}
 .block-tags .block-content .tags-list{background:none;border:0;font-size:12px;padding: 3px 0 0;}
 .block-tags .block-content .tags-list li{margin:0}
@@ -1560,7 +1560,7 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 .product-view .add-to-cart button.out-of-stock {background-position: -80px -362px;cursor: default;}
 .product-view .product-options li > a.swatch-link{width: 35px !important;height: 35px !important;line-height: 35px !important;}
 .product-view .product-options .swatch-link.has-image .swatch-label {height: 33px !important;width: 33px !important;}
-.product-view .product-options .swatch-link.has-image img {height: 100%; width: 100%;} 
+.product-view .product-options .swatch-link.has-image img {height: 100%; width: 100%;}
 .template-all .featured-list{margin: 0}
 .template-all .featured-list li{margin: 0;line-height: 20px;margin-bottom: 15px;}
 .template-all .featured-list .thumb{float: left;margin-right: 20px;}
@@ -2206,7 +2206,7 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 	.template-default .block-progress .block-content{padding:10px}
 }
 @media (min-width: 768px) and (max-width: 991px) {
-	
+
 	.template-default .custom-menu{display:none}
 	.template-default .mean-container .mean-bar{display:inline-block}
 	.template-default .mean-container a.meanmenu-reveal{padding:28px 30px;height:18px}
@@ -2290,8 +2290,8 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 	.template-default .timer-view .box span b{font-size:20px;line-height:22px}
 	.template-default .timer-view .box span.title{font-size:13px}
 	.template-default .deal-of .shop-now a{line-height:35px;margin-top:32px;}
-	
-	
+
+
 	.template-default .support-footer-inner .support-info{margin:10px 0}
 	.template-default .box .featured-images-wrap,.template-default .box .featured-text-wrap{float:none;margin:0 auto}
 	.template-default .box{padding-bottom:0}
@@ -2403,7 +2403,7 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 	.template-default .product-view .product-img-box .more-views .bx-wrapper .bx-controls-direction a{height:65px;line-height:65px}
 	.template-default .header .header-page{width: 100%}
 	.template-default .header-container{height: 227px;}
-	
+
 }
 @media only screen and (min-width: 320px) and (max-width: 480px) {
 	.template-default table#wishlist-table,.template-default table#shopping-cart-table,.template-default table#checkout-review-table,.template-default table#my-orders-table{border:0 none;outline:medium none}
@@ -6029,7 +6029,7 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 .template-4 .products-list .price-box .regular-price .price,.template-4 .products-list .price-box .special-price .price,.template-4 .products-list .price-box .old-price .price{font-size:13px}
 }
 @media (max-width: 767px) {
-.template-4 .block-banner{padding: 0;}	
+.template-4 .block-banner{padding: 0;}
 .template-4 .block-banner .thumb{padding-left: 10em;font-size: 1em;padding-right: 1.5em}
 .template-4 .block-banner .text-middle .text-middle1{font-size: 4em;line-height: 1em}
 .template-4 .block-banner .text-middle .text-middle2.text-middle2-1{margin-top: 1.1em;font-size: 2em;line-height: 1.1em;margin-bottom: 0.7em}
@@ -7201,10 +7201,10 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 .cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0 > a,
 .cms-about-us .header > div:not(.header-container-fixed) .miniCartWrap .icons,
 .cms-about-us .header > div:not(.header-container-fixed) .header-setting .icons{color: #fff}
-.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0.over > a, 
-.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0.active > a, 
-.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0.active > a span.icon-text, 
-.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0 > a:hover, 
+.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0.over > a,
+.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0.active > a,
+.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0.active > a span.icon-text,
+.cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0 > a:hover,
 .cms-about-us .header > div:not(.header-container-fixed) .magicmenu .nav-desktop .level0 > a.icon-text:hover{color: #72BF20;}
 /*------------------------------------------------------------------
 [11.2 About us ]

@@ -2,7 +2,7 @@
     <div class="breadcrumbs">
         <div class="container">
             <ul>
-                <li class="home"> <a href="{{ url('view') }}" title="Go to Home Page">Home</a></li>
+                <li class="home"> <a href="{{ url('/dashboard') }}" title="Go to Home Page">Home</a></li>
                 <li class="category4"> <strong>Products</strong></li>
             </ul>
         </div>
