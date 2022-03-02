@@ -38,4 +38,12 @@ class FrontendController extends Controller
         return view("Frontend::details", compact('products','subimage'));
     }
 
+    public function price_filter(Request $request)
+    {
+
+        $product=Product::whereBetween('price',[(int)$request->minimum,(int)$request->maximum])->get();
+       
+        return view("Frontend::gridview", compact('product'));
+    }
+
 }

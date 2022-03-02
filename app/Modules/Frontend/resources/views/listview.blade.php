@@ -8,7 +8,7 @@
                         <div class="products-list-container">
                             <div class="images-container">
                                 <div class="product-hover">
-                                    <span class="sticker top-left"><span class="labelnew">New</span></span>
+                                    {{-- <span class="sticker top-left"><span class="labelnew">New</span></span> --}}
                                     <a href="{{ url('/user', $product->url) }}" title="" class="product-image">
                                         <img id="product-collection-image-8" class="img-responsive"
                                             src="{{ asset('storage/media/' . $product->image) }}" width="278" height="355"
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="price-box"> <span class="regular-price"> <span
                                             class="price">₹{{ $product->price }}</span> </span></div>
-                                <ul class="configurable-swatch-list configurable-swatch-color clearfix">
+                                {{-- <ul class="configurable-swatch-list configurable-swatch-color clearfix">
                                     <li class="option-blue is-media"> <a href="javascript:void(0)" name="blue"
                                             class="swatch-link swatch-link-92 has-image" title="blue"> <span
                                                 class="swatch-label"> <img src="assets/images/blue.png" alt="blue"
@@ -56,7 +56,7 @@
                                             class="swatch-link swatch-link-92 has-image" title="red"> <span
                                                 class="swatch-label"> <img src="assets/images/red.png" alt="red"
                                                     width="15" height="15"> </span> </a></li>
-                                </ul>
+                                </ul> --}}
                             </div>
                             <div class="desc std">
                                 <p>{{ $product->description }}</p>
@@ -106,4 +106,23 @@
     <!--- .container-->
     </div>
     <!--- .main-container -->
+@endsection
+@section('custom_scripts')
+    <script>
+        function save() {
+
+            var a = document.getElementById('minimum').value;
+            localStorage.setItem("min", a);
+            var b = document.getElementById('maximum').value;
+            localStorage.setItem("max", b);
+        }
+
+        function displaylist() {
+            var minimum = document.getElementById("minimum");
+            var maximum = document.getElementById("maximum");
+            minimum.value = localStorage.getItem("min");
+            maximum.value = localStorage.getItem("max");
+
+        }
+    </script>
 @endsection

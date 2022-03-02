@@ -7630,7 +7630,7 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 }
 .slider-ui-wrap{width:100%;border:1px solid #d7d9df;height:9px;padding:0 20px 0 0;margin:20px 0 30px}
 .slider-ui{width:100%;height:7px;position:relative}
-.slider-ui .ui-slider-range{background-color:#d7d9df;height:7px;position:absolute;top:0}
+.slider-ui .ui-slider-range{background-color:lightseagreen;height:7px;position:absolute;top:0}
 .slider-ui .ui-slider-handle{top:-7px;position:absolute;background-color:#fff;border:2px solid #d7d9df;width:20px;height:20px;border-radius:100%}
 .price-range-form .range_value{width:67px;border:1px solid #D7D9DF;text-align:center;height:31px;font-family:"Source Code Pro"}
 .price-range-form .btn-submit{width:45px;height:32px;margin-left:20px;background-color:#b86f6f;color:#fff;border:none;font-size:14px}

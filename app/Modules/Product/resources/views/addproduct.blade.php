@@ -102,7 +102,6 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                                         </div>
-
                                         <input type="text" class="form-control" name="price" placeholder=" Enter Price"
                                             id="" pattern="[0-9]{1,6}"data-error="#errprice"
                                             oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"

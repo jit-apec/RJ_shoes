@@ -47,7 +47,7 @@
             </div>
             <!--- .header-bottom -->
             <div class="header-page clearfix">
-                <div class="header-setting header-search">
+                {{-- <div class="header-setting header-search">
                     <div class="settting-switcher">
                         <div class="dropdown-toggle">
                             <div class="icon-setting"><i class="icon-magnifier icons"></i></div>
@@ -71,7 +71,7 @@
                             <!--- #search_mini_form -->
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!--- .header-search -->
                 <div class="header-setting">
                     <div class="settting-switcher">
@@ -82,12 +82,12 @@
                             <div class="top-links-alo">
                                 <div class="header-top-link">
                                     <ul class="links">
-                                        <li><a href="#" title="My Account">My Account</a></li>
+                                        {{-- <li><a href="#" title="My Account">My Account</a></li>
                                         <li><a href="my-wish-list.html" title="My Wishlist">My Wishlist</a></li>
                                         <li><a href="compare.html" title="Compare Products">Compare Products</a></li>
-                                        <li><a href="#" title="My Cart">My Cart</a></li>
-                                        <li><a href="checkout-step1.html" title="Checkout"
-                                                class="top-link-checkout">Checkout</a></li>
+                                        <li><a href="#" title="My Cart">My Cart</a></li> --}}
+                                        {{-- <li><a href="checkout-step1.html" title="Checkout"
+                                                class="top-link-checkout">Checkout</a></li> --}}
                                         <li class=" last"><a href="{{ route('login') }}" title="Log In">Log
                                                 In</a></li>
                                         <li>

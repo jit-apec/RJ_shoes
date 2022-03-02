@@ -7,3 +7,5 @@ Route::get('/dashboard', [FrontendController::class, 'frontend']);
 Route::get('/grid', [FrontendController::class, 'grid']);
 Route::get('/list', [FrontendController::class, 'list']);
 Route::get('/user/{url}', [FrontendController::class, 'view']);
+Route::get('/filter/price',[FrontendController::class,'price_filter']);
+Route::post('/filter/price',[FrontendController::class,'price_filter']);

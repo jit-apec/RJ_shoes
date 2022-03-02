@@ -20,14 +20,20 @@
                                 <dt class="even">By Price</dt>
                                 <dd class="even">
                                     <div class="slider-ui-wrap">
-                                        <div id="price-range" class="slider-ui" slider-min="0" slider-max="1000"
-                                            slider-min-start="25" slider-max-start="689"></div>
+                                        <div id="price-range" class="slider-ui" slider-min="0" slider-max="10000"
+                                            slider-min-start="0" slider-max-start="10000"></div>
                                     </div>
-                                    <form action="#" class="price-range-form">
-                                        <input type="text" class="range_value range_value_min" target="#price-range" />
-                                        - <input type="text" class="range_value range_value_max"
-                                            target="#price-range" />
-                                        <input type="submit" class="btn-submit" value="OK" />
+                                    <form action="/filter/price" class="price-range-form" method="POST">
+                                        @csrf
+                                        Min &nbsp;₹<input type="text" class="range_value range_value_min"
+                                            target="#price-range" name="minimum" id="minimum" />
+                                        -
+                                        ₹<input type="text" class="range_value range_value_max" target="#price-range"
+                                            name="maximum" id="maximum" /> Max &nbsp; <br><br>
+                                        <div class="text-right">
+                                            <input type="submit" class="btn-submit text-center" value="ok"
+                                                onclick="save();">
+                                        </div>
                                     </form>
                                 </dd>
                                 <dt class="odd">By Brands</dt>
@@ -49,41 +55,24 @@
                                 <dd class="even">
                                     <ol class="configurable-swatch-list">
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/black.png" alt="Black" title="Black"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">Black(2)</span> </a></li>
+                                                </span> <span class="count">Black(2)</span> </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/blue.png" alt="Blue" title="Blue"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">Blue(4)</span> </a></li>
+                                                </span> <span class="count">Blue(4)</span> </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/blue.png" alt="Blue" title="Blue"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">Blue(2)</span> </a></li>
+                                                </span> <span class="count">Blue(2)</span> </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/indigo.png" alt="Indigo" title="Indigo"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">Indigo(1)</span> </a></li>
+                                                </span> <span class="count">Indigo(1)</span> </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/orange.png" alt="orange" title="orange"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">orange(1)</span> </a></li>
+                                                </span> <span class="count">orange(1)</span> </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/pink.png" alt="pink" title="pink"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">pink(2)</span> </a></li>
+                                                </span> <span class="count">pink(2)</span> </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/red.png" alt="Red" title="Red" height="15"
-                                                        width="15"> </span> <span class="count">Red(4)</span>
+                                                    <span class="count">Red(4)</span>
                                             </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/taupe.png" alt="Taupe" title="Taupe"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">Taupe(1)</span> </a></li>
+                                                </span> <span class="count">Taupe(1)</span> </a></li>
                                         <li> <a href="#" class="swatch-link has-image"> <span class="swatch-label">
-                                                    <img src="assets/images/yellow.png" alt="yellow" title="yellow"
-                                                        height="15" width="15"> </span> <span
-                                                    class="count">yellow(2)</span> </a></li>
+                                                </span> <span class="count">yellow(2)</span> </a></li>
                                     </ol>
                                 </dd>
                                 <dt class="last odd">By Size</dt>
