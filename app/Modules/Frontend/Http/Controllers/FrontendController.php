@@ -20,8 +20,8 @@ class FrontendController extends Controller
     }
     public function grid()
     {
-        $product = Product::all();
-         return view("Frontend::gridview", compact('product'));
+        $products = Product::all();
+         return view("Frontend::gridview", compact('products'));
     }
     public function list()
     {
@@ -41,9 +41,9 @@ class FrontendController extends Controller
     public function price_filter(Request $request)
     {
 
-        $product=Product::whereBetween('price',[(int)$request->minimum,(int)$request->maximum])->get();
-       
-        return view("Frontend::gridview", compact('product'));
+        $products=Product::whereBetween('price',[(int)$request->minimum,(int)$request->maximum])->get();
+
+        return view("Frontend::gridview", compact('products'));
     }
 
 }
