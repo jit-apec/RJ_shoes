@@ -14,7 +14,7 @@
                                         <h3 class="caption2">Extra<strong>30%</strong>off</h3>
                                         <h2 class="caption3">When you buy from 2 or more...</h2>
                                         <p class="icon-anchor icons caption6"><span class="hidden">hidden</span></p>
-                                        <a href="{{ url('/grid') }}" class="btn-shop caption4">Shop Now</a>
+                                        <a href="{{ url('/products') }}" class="btn-shop caption4">Shop Now</a>
                                     </div>
                                 </div>
                             </div>

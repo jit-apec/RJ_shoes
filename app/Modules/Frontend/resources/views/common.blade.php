@@ -6,9 +6,10 @@
     <title>Shoes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/styles.css')}}" media="all" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 
-<body>
+<body onload="displaylist()">
 
     <div class="wrapper">
         <div class="page">
@@ -19,4 +20,5 @@
     </div>
 </body>
     @include('Frontend::jquery')
+    @yield('custom_scripts')
 </html>

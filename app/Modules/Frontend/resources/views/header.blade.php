@@ -20,11 +20,11 @@
                                     <div class="magicmenu clearfix">
                                         <ul class="nav-desktop sticker">
                                             <li class="level0 logo display"><a class="level-top"
-                                                    href="{{ url('/dashboard') }}"><img alt="logo"
+                                                    href="{{ url('/') }}"><img alt="logo"
                                                         src="{{ asset('assets/images/logo.png') }}"></a>
                                             </li>
                                             <li class="level0 home">
-                                                <a class="level-top" href="{{ url('/dashboard') }}"><span
+                                                <a class="level-top" href="{{ url('/') }}"><span
                                                         class="icon-home fa fa-home"></span><span
                                                         class="icon-text">Home</span></a>
 
