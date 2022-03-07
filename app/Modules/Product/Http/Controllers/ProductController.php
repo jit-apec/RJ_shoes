@@ -24,11 +24,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function welcome()
-    {
-        return view("Product::welcome");
-    }
-    //below code for get dropdown list data
+
     public function create()
     {
         $colors = Colors::select('name as cname', 'id as cid')->where(['status' => 'Y'])->get();
@@ -40,11 +36,9 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'image' => 'mimes:jpg,png,jpeg,gif',
-            //'subimage[]' => 'mimes:jpg,png,jpeg,gif',
             'upc' => ['required', 'unique:products', 'regex:/[0-9]{12,12}$/'],
             'price' => ['required', 'regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
             'stock' => 'required|integer|max:999999',
-            // 'sort' => 'required|integer|max:10|min:1',
             'size' => 'required', 'regex:/[A-Za-z0-9_]{1,5}/',
             'description' => 'max:500',
             'color_id' => 'required',
@@ -143,15 +137,11 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'image' => 'mimes:jpg,png,jpeg,gif',
-            //'subimage[]' => 'mimes:jpg,png,jpeg,gif',
-            //'upc' => ['required','unique:products','regex:/[0-9]{12,12}$/'],
             'price' => ['required', 'regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
             'stock' => 'required|integer|max:999999',
-            //'sort[]' => 'required|integer|max:10|min:1',
             'size' => 'required', 'regex:/[A-Za-z0-9_]{1,5}/',
             'description' => 'max:1000',
             'color_id' => 'required',
-            //'brand_id' => 'required',
             'idealfor' => 'required',
             'url' => 'required',
         ]);
@@ -181,30 +171,15 @@ class ProductController extends Controller
         if ($request->input('img_id')) {
             $img = Productimage::where('product_id', $id)->whereNotIn('id', $request->input('img_id'))->get();
             foreach ($img as $item) {
-                // dd(('/storage/media/').$item->images);
-                // File::delete('/public/media/',$item->images);
-                //    $del=app_path('storage/media/').$item->images;
-                //   dd($del);
-
                 $destinationPath = 'storage/media/';
                 File::delete($destinationPath . '/$item->images');
-                // @unlink($del);
                 $item->delete();
             }
         } else {
             $img = Productimage::where('product_id', $id)->get();
-            // dd($img);
             foreach ($img as $item) {
-                //dd('/storage/media/');
-                // $del=app_path('storage/media/').$item->images;
-                // dd($del);
                 $destinationPath = 'storage/media/';
                 File::delete($destinationPath . '/$item->images');
-                //File::delete('/storage/media/').$item->images;
-                //    File::delete('resources/assets/admin/images/products/'.$request->upc.'/'.$item->name);
-                //  dd($del);
-                //  File::delete('/public/media',$item->images);
-                //  @unlink($del);
                 $item->delete();
             }
         }
@@ -244,9 +219,6 @@ class ProductController extends Controller
     public function product_view($url)
     {
         $product = Product::
-            //select('products.*','productimage.images','productimage.sort')
-            //    ->join('productimage','productimage.id','=','products.id')
-
             where('url', $url)
             ->get();
         return view("Product::productdisplay", compact('product'));

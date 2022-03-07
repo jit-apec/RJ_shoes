@@ -53,7 +53,7 @@
                                         data-error="#errname"><span id="errname"></span><br>
                                     <a href=" "> http//localhost/<span id="url"></span> </a>
                                     <input type="text" class="border  border-0 text-primary  input-sm access_url"
-                                        id="edit_url" name="url">
+                                        id="edit_url" value="{{$product->url}}" name="url">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="name">Size<span class="text-danger">*</span>

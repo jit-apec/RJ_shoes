@@ -33,8 +33,8 @@
                                             ₹<input type="text" class="range_value range_value_max" target="#price-range"
                                                 name="maximum" id="maximum" /> Max &nbsp; <br><br>
                                             <div class="text-right">
-                                                <input type="submit" class="btn-submit text-center" value="ok"
-                                                    id="onsubmit" onclick="save();">
+                                                <input type="submit" class="btn-submit text-center" value="ok" id="onsubmit"
+                                                    onclick="save();">
                                             </div>
                                         </form>
                                     </dd>
@@ -43,8 +43,8 @@
                                         @foreach ($brand as $brands)
                                             <ul style="" class="nav-accordion">
                                                 <li>
-                                                    <a href="#"
-                                                        class="level-top"><span>{{ $brands->name }}</span></a>
+                                                    <input type="checkbox" value="{{$brands->id}}">
+                                                    <span>{{ $brands->name }}</span>
                                                 </li>
                                             </ul>
                                         @endforeach
@@ -53,11 +53,14 @@
                                     <dd class="even">
 
                                         <ol class="configurable-swatch-list">
+
                                             @foreach ($color as $colors)
-                                                <li> <a href="#" class="swatch-link has-image">
-                                                        <span class="count">{{ $colors->name }}</span>
-                                                    </a></li>
+                                                <li> <input type="checkbox" value="{{$colors->name}}">
+                                                    <span class="count">{{ $colors->name }}</span>
+                                                </li>
+
                                             @endforeach
+
                                         </ol>
 
                                     </dd>
@@ -99,8 +102,9 @@
                         <div class="category-products grid-display" id="grid-display">
                             <div class="toolbar">
                                 <div class="sorter">
-                                    <p class="view-mode"> <label>View as:</label> <a title="Grid" id="grid_view"
-                                            class="grid active"> <i class="icon-grid icons" id="grid_view"></i> </a>
+                                    <p class="view-mode"> <label>View as:</label>
+                                        <a title="Grid" id="grid_view" class="grid active"> <i class="icon-grid icons"
+                                                id="grid_view"></i> </a>
                                         <a id="list_view" title="List" class="redirectjs list"> <i
                                                 class="icon-list icons"></i>
                                         </a>
@@ -139,67 +143,7 @@
                             </div>
                             <!--- .toolbar-->
                             <div id="content">
-                                <ul class="products-grid row products-grid--max-3-col last odd listview" id="listdisp">
-                                    @foreach ($products as $product)
-                                        <li class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-mobile-12 item item-list">
-                                            <div class="category-products-grid">
-                                                <div class="images-container">
-                                                    <div class="product-hover">
-                                                        <a href="{{ url('/user', $product->url) }}"
-                                                            title="Configurable Product" class="product-image">
-                                                            <img id="product-collection-image-8" class="img-responsive"
-                                                                src="{{ asset('storage/media/' . $product->image) }}"
-                                                                alt="" height="355" width="278">
-                                                            <span class="product-img-back"> <img class="img-responsive"
-                                                                    src="{{ asset('storage/media/' . $product->image) }}"
-                                                                    alt="" height="355" width="278"> </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="actions-no hover-box">
-                                                        <div class="actions">
-                                                            <button type="button" title="Add to Cart"
-                                                                class="button btn-cart pull-left"><span><i
-                                                                        class="icon-handbag icons"></i><span>Add to
-                                                                        Cart</span></span></button>
-                                                            <ul class="add-to-links pull-left">
-                                                                <li class="pull-left"><a href="#"
-                                                                        title="Add to Wishlist" class="link-wishlist"><i
-                                                                            class="icon-heart icons"></i>Add to
-                                                                        Wishlist</a></li>
-                                                                <li class="pull-left"><a href="#"
-                                                                        title="Add to Compare" class="link-compare"><i
-                                                                            class="icon-bar-chart icons"></i>Add to
-                                                                        Compare</a></li>
-                                                                <li class="link-view pull-left"> <a title="Quick View"
-                                                                        href="#" class="link-quickview"><i
-                                                                            class="icon-magnifier icons"></i>Quick
-                                                                        View</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info products-textlink clearfix">
-                                                    <h2 class="product-name"><a href="{{ url('/user', $product->url) }}"
-                                                            title="Configurable Product">{{ $product->name }}</a></h2>
 
-                                                    <div class="price-box"> <span class="regular-price"> <span
-                                                                class="price">
-                                                                ₹{{ $product->price }}</span></span>
-                                                        </span></div>
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:80%"></div>
-                                                        </div>
-                                                        <span class="amount"><a href="#">1 Review(s)</a></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="display">
-                                            </div>
-                                        </li>
-                                    @endforeach
-
-                                </ul>
                             </div>
                             <!--- .products-grid-->
                             <div class="page-nav-bottom">
@@ -229,77 +173,50 @@
 @endsection
 @section('custom_scripts')
     <script>
-        function save() {
+        function price_filter()
 
-            var a = document.getElementById('minimum').value;
-            localStorage.setItem("min", a);
-            var b = document.getElementById('maximum').value;
-            localStorage.setItem("max", b);
-        }
+        {
+            var minimum = jQuery('#minimum').val();
+            var maximum = jQuery('#maximum').val();
 
-        function displaylist() {
-            var minimum = document.getElementById("minimum");
-            var maximum = document.getElementById("maximum");
-            minimum.value = localStorage.getItem("min");
-            maximum.value = localStorage.getItem("max");
-        }
-        jQuery(document).ready(function($) {
-            $('#grid_view').on("click", function() {
-               // alert('hello');
-                $('#grid_view').removeClass('redirectjs list').addClass('grid active');
-                $('#list_view').removeClass('grid active ').addClass('redirectjs list');
-                $.ajax({
-                    url: "/grid",
-                    type: "GET",
-                    success: function(data) {
-                        $("#content").html(data);
-                    }
-
-                });
-            })
-            $('#list_view').on("click", function() {
-                $('#list_view').removeClass('redirectjs list').addClass('grid active');
-                $('#grid_view').removeClass('grid active').addClass('redirectjs list');
-                $.ajax({
-                    url: "/list",
-                    type: "GET",
-                    success: function(data) {
-                        $("#content").html(data);
-                    }
-
-                });
-
-
-            })
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            jQuery.ajax({
+                url: "{{ url('/products/price') }}",
+                type: "get",
+                datatype: 'html',
+                data: {
+                    view: jQuery('#grid_view').hasClass('active'),
+                    'minimum': minimum,
+                    'maximum': maximum,
+                },
+                success: function(data) {
+                    jQuery("#content").html(data);
                 }
             });
+        }
 
-            $("#onsubmit").click(function(e) {
-                e.preventDefault();
-                var minimum = $("#minimum").val();
-                var maximum = $("#maximum").val();
-                $.ajax({
-                    url:"/products/price",
-                    type:'POST',
-                    datatype: "json",
-                    data: {
+        jQuery(document).ready(function() {
+            price_filter();
+        });
 
-                        minimum: minimum,
-                        maximum: maximum,
+        jQuery('#grid_view').on("click", function() {
 
-                    },
-                    success: function(data) {
-                        $('#content').html(data);
-                      //  alert(data);
-                    },
-                    error:function(){
-                      alert("Sonthing wronng!!");
-                    }
-                });
-            });
+            jQuery("#grid_view").removeClass('redirectjs list').addClass('grid active');
+            jQuery("#list_view").removeClass('grid active').addClass('redirectjs list');
+
+            price_filter();
+        });
+
+        jQuery('#list_view').on("click", function() {
+
+            jQuery("#list_view").removeClass('redirectjs list').addClass('grid active');
+            jQuery("#grid_view").removeClass('grid active').addClass('redirectjs list');
+
+            price_filter();
+        });
+
+        jQuery("#onsubmit").click(function(e) {
+            e.preventDefault();
+            price_filter();
         });
     </script>
 @endsection

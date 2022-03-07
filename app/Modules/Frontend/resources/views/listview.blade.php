@@ -1,5 +1,5 @@
 <ol class="products-list" id="products-list">
-    @foreach ($product as $product)
+    @foreach ($products as $product)
         <li class="item odd">
             <div class="row">
                 <div class="col-mobile-12 col-xs-5 col-md-4 col-sm-4 col-lg-4">
