@@ -22,6 +22,16 @@ class FrontendController extends Controller
     {
         return view('Frontend::index');
     }
+    // public function grid()
+    // {
+    //     $products = Product::where('status', 'Y')->get();
+    //      return view("Frontend::gridview", compact('products'));
+    // }
+    // public function list()
+    // {
+    //     $products = Product::where('status', 'Y')->get();
+    //      return view("Frontend::listview", compact('products'));
+    // }
     public function product()
     {
         $color = Colors::where('status', 'Y')->get();
@@ -43,15 +53,23 @@ class FrontendController extends Controller
     public function price_filter(Request $request)
     {
         $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->get();
-
-        // if(){
-
-        // }
-
+        if (isset($request->brand))
+        {
+            $products=Product::whereIn('brand_id',$request->id)->where('status','Y')->get();
+        }
         if ($request->view == 'true') {
             return view('Frontend::gridview', compact('products'));
         } else {
             return view('Frontend::listview', compact('products'));
         }
+        return  view("Frontend::products",compact('products'));
     }
+    // public function price_filter(Request $request)
+    // {
+
+    //   $products=Product::whereBetween('price',[(int)$request->minimum,(int)$request->maximum])->get();
+    //  // $products=json_encode($product);
+    //    return  compact('products');
+    // }
+
 }

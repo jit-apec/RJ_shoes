@@ -22,8 +22,8 @@
                                     <dt class="even">By Price</dt>
                                     <dd class="even">
                                         <div class="slider-ui-wrap">
-                                            <div id="price-range" class="slider-ui" slider-min="0" slider-max="10000"
-                                                slider-min-start="0" slider-max-start="10000"></div>
+                                            <div id="price-range" class="slider-ui" slider-min="0" slider-max="25000"
+                                                slider-min-start="0" slider-max-start="25000"></div>
                                         </div>
                                         <form action="" id="price_filter" class="price-range-form" method="">
                                             @csrf
@@ -43,7 +43,7 @@
                                         @foreach ($brand as $brands)
                                             <ul style="" class="nav-accordion">
                                                 <li>
-                                                    <input type="checkbox" value="{{$brands->id}}">
+                                                    <input type="checkbox" name="brand[]" value="{{ $brands->id }}">
                                                     <span>{{ $brands->name }}</span>
                                                 </li>
                                             </ul>
@@ -55,10 +55,9 @@
                                         <ol class="configurable-swatch-list">
 
                                             @foreach ($color as $colors)
-                                                <li> <input type="checkbox" value="{{$colors->name}}">
+                                                <li> <input type="checkbox" name="color[]" value="{{ $colors->name }}">
                                                     <span class="count">{{ $colors->name }}</span>
                                                 </li>
-
                                             @endforeach
 
                                         </ol>
@@ -120,24 +119,16 @@
                                                 src="assets/images/i_asc_arrow.gif" alt="Set Descending Direction"
                                                 class="v-middle"></a>
                                     </div>
-                                    <div class="limiter">
-                                        <label>Show</label>
+                                    <div class="sort-by">
+                                        <label>Order By</label>
                                         <select>
-                                            <option value="9" selected="selected"> 9</option>
-                                            <option value="12"> 12</option>
-                                            <option value="15"> 15</option>
+                                            <option value="position" selected="selected"> Position</option>
+                                            <option value="name"> Acending</option>
+                                            <option value="price"> Decending</option>
                                         </select>
-                                    </div>
-                                    <div class="pager">
-                                        <div class="pages">
-                                            <strong>Page:</strong>
-                                            <ol>
-                                                <li class="current">1</li>
-                                                <li><a href="#">2</a></li>
-                                                <li class="bor-none"> <a class="next i-next" href="#" title="Next">
-                                                        <i class="fa fa-angle-right">&nbsp;</i> </a></li>
-                                            </ol>
-                                        </div>
+                                        <a href="#" title="Set Descending Direction"><img
+                                                src="assets/images/i_asc_arrow.gif" alt="Set Descending Direction"
+                                                class="v-middle"></a>
                                     </div>
                                 </div>
                             </div>
@@ -145,20 +136,7 @@
                             <div id="content">
 
                             </div>
-                            <!--- .products-grid-->
-                            <div class="page-nav-bottom">
-                                <div class="left">Items 13 to 24 of 38 total</div>
-                                <div class="right">
-                                    <ul class="page-nav-category">
-                                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a class="selected" href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--- .page-nav-bottom-->
+
                         </div>
                         <!--- .category-products-->
                     </div>
@@ -173,9 +151,13 @@
 @endsection
 @section('custom_scripts')
     <script>
-        function price_filter()
+        function price_filter() {
 
-        {
+            var brand = [];
+            jQuery.each(jQuery("input='brand"),function())
+            {
+                category.push(jQuery(this).val());
+            }
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
 
@@ -185,6 +167,7 @@
                 datatype: 'html',
                 data: {
                     view: jQuery('#grid_view').hasClass('active'),
+                    'brand':brand,
                     'minimum': minimum,
                     'maximum': maximum,
                 },

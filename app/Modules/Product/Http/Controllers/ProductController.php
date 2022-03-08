@@ -88,7 +88,7 @@ class ProductController extends Controller
             ->join('brands', 'brands.id', '=', 'products.brand_id')
             ->where('products.status', array('Y'))
             ->orWhere('products.status', array('N'))
-            ->get(['products.*', 'colors.name as cname', 'brands.name as bname']);
+            ->get(['products.*', 'colors.name as cname', 'brands.name as bna.me']);
         return view("Product::display", ['products' => $Product]);
     }
     public function changestatus(Request $r)
@@ -96,6 +96,8 @@ class ProductController extends Controller
         $product = Product::find($r->id);
         $product->status = $r->status;
         $product->save();
+
+       // Product::where('id',$r->id)->update(['status'=>$r->status]);
         return response()->json(['success' => 'Status change successfully.']);
     }
 
@@ -128,7 +130,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $brand = Product::join('brands', 'brands.id', '=', 'products.brand_id')
             ->where('products.id', $id)->get(['brands.id as bid', 'brands.name as bname']);
-        $colors = DB::table('colors')->select('name as cname', 'id as cid')->where(['status' => 'Y'])->orderBy('name', 'asc')->get();
+        $colors = Colors::select('name as cname', 'id as cid')->where(['status' => 'Y'])->orderBy('name', 'asc')->get();
         $images = Productimage::where('product_id', $id)->get();
         return view('Product::edit', ['brands' => $brand], compact(['colors', 'product', 'images']));
     }
@@ -218,8 +220,7 @@ class ProductController extends Controller
 
     public function product_view($url)
     {
-        $product = Product::
-            where('url', $url)
+        $product = Product::where('url', $url)
             ->get();
         return view("Product::productdisplay", compact('product'));
     }

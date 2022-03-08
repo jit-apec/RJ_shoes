@@ -29,14 +29,12 @@ class HomeController extends Controller
         if($role=='A')
         {
             return view('admin.dashboard');
-
         }
         else
         {
             return view('Frontend::index');
         }
        // return view('admin.dashboard');
-
     }
     public function frontend()
     {
