@@ -22,16 +22,6 @@ class FrontendController extends Controller
     {
         return view('Frontend::index');
     }
-    // public function grid()
-    // {
-    //     $products = Product::where('status', 'Y')->get();
-    //      return view("Frontend::gridview", compact('products'));
-    // }
-    // public function list()
-    // {
-    //     $products = Product::where('status', 'Y')->get();
-    //      return view("Frontend::listview", compact('products'));
-    // }
     public function product()
     {
         $color = Colors::where('status', 'Y')->get();
@@ -39,7 +29,6 @@ class FrontendController extends Controller
         $products = Product::where('status', 'Y')->get();
         return view("Frontend::products", compact('products', 'color', 'brand'));
     }
-
     public function view($url)
     {
         $products = Product::where('url', $url)
@@ -49,27 +38,68 @@ class FrontendController extends Controller
         $subimage = Productimage::where('product_id', $filter_id)->orderBy('sort', 'asc')->get();
         return view("Frontend::details", compact('products', 'subimage'));
     }
-
     public function price_filter(Request $request)
     {
-        $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->get();
-        if (isset($request->brand))
-        {
-            $products=Product::whereIn('brand_id',$request->id)->where('status','Y')->get();
+        if (isset($request->color) && (isset($request->brand)) && (isset($request->size))) {
+            $products = Product::whereIn('color_id', $request->color)
+                ->where('size', $request->size)
+                ->where('brand_id', $request->brand)
+                ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->where('status', 'Y')
+                ->orderBy($request->sort_by,$request->order_by)
+                ->get();
+        } elseif (isset($request->color) && (isset($request->brand))) {
+            $products = Product::whereIn('color_id', $request->color)
+                ->where('brand_id', $request->brand)
+                ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->where('status', 'Y')
+                ->orderBy($request->sort_by,$request->order_by)
+                ->get();
+        } elseif (isset($request->brand) && (isset($request->size))) {
+            $products = Product::whereIn('brand_id', $request->brand)
+                ->where('size', $request->size)
+                ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->where('status', 'Y')
+                ->orderBy($request->sort_by,$request->order_by)
+
+                ->get();
+        } elseif (isset($request->color) && (isset($request->size))) {
+            $products = Product::whereIn('color_id', $request->color)
+                ->where('size', $request->size)
+                ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->where('status', 'Y')
+                ->orderBy($request->sort_by,$request->order_by)
+                ->get();
+        } elseif (isset($request->brand)) {
+            $products = Product::where('brand_id', $request->brand)
+                ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->where('status', 'Y')
+                ->orderBy($request->sort_by,$request->order_by)
+                ->get();
+        } elseif (isset($request->color)) {
+            $products = Product::whereIn('color_id', $request->color)->where('status', 'Y')
+                ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->orderBy($request->sort_by,$request->order_by)
+                ->paginate($request->show_product);
+
+               // ->get();
+        } elseif (isset($request->size)) {
+            $products = Product::whereIn('size', $request->size)->where('status', 'Y')
+                ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->orderBy($request->sort_by,$request->order_by)
+                ->get();
+        } else {
+            $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+            ->orderBy($request->sort_by,$request->order_by)
+            ->paginate($request->show_product);
+
+            //->get();
         }
         if ($request->view == 'true') {
             return view('Frontend::gridview', compact('products'));
         } else {
             return view('Frontend::listview', compact('products'));
         }
-        return  view("Frontend::products",compact('products'));
+        return  view("Frontend::products", compact('products'));
     }
-    // public function price_filter(Request $request)
-    // {
-
-    //   $products=Product::whereBetween('price',[(int)$request->minimum,(int)$request->maximum])->get();
-    //  // $products=json_encode($product);
-    //    return  compact('products');
-    // }
-
 }

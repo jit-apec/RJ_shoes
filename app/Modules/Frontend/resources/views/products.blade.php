@@ -43,7 +43,8 @@
                                         @foreach ($brand as $brands)
                                             <ul style="" class="nav-accordion">
                                                 <li>
-                                                    <input type="checkbox" name="brand[]" value="{{ $brands->id }}">
+                                                    <input type="checkbox" id="category" name="brand[]"
+                                                        value="{{ $brands->id }}">
                                                     <span>{{ $brands->name }}</span>
                                                 </li>
                                             </ul>
@@ -55,7 +56,8 @@
                                         <ol class="configurable-swatch-list">
 
                                             @foreach ($color as $colors)
-                                                <li> <input type="checkbox" name="color[]" value="{{ $colors->name }}">
+                                                <li> <input type="checkbox" id="checkbox" name="color"
+                                                        value="{{ $colors->id }}">
                                                     <span class="count">{{ $colors->name }}</span>
                                                 </li>
                                             @endforeach
@@ -68,9 +70,10 @@
 
                                         <ol class="configurable-swatch-list configurable-size">
                                             @foreach ($products as $p)
-                                                <li> <a href="#" class="swatch-link"> <span class="swatch-label">
-                                                            {{ $p->size }}
-                                                        </span></a></li>
+                                                <li><input type="checkbox" id="size" name="color" class="swatch-link"
+                                                        value="{{ $p->size }}"> <span class="swatch-label">
+                                                        {{ $p->size }}
+                                                    </span></li>
                                             @endforeach
                                         </ol>
 
@@ -94,7 +97,7 @@
                     <div class="col-main col-lg-9 col-md-9 col-sm-9 col-xs-12 content-color color product-grid"
                         id="product-grid">
                         <div class="page-title category-title">
-                            <h1>Men</h1>
+                            <h1></h1>
                         </div>
                         <p class="category-image"><img src="assets/images/categories_grid_1.jpg" alt="Men" title="Men">
                         </p>
@@ -110,33 +113,59 @@
                                     </p>
                                     <div class="sort-by">
                                         <label>Sort By</label>
-                                        <select>
-                                            <option value="position" selected="selected"> Position</option>
+                                        <select id="sort_by" name="sort_by" >
+                                            <option value="name"> Position</option>
                                             <option value="name"> Name</option>
-                                            <option value="price"> Price</option>
+                                            <option value="price" > Price</option>
                                         </select>
-                                        <a href="#" title="Set Descending Direction"><img
-                                                src="assets/images/i_asc_arrow.gif" alt="Set Descending Direction"
-                                                class="v-middle"></a>
                                     </div>
                                     <div class="sort-by">
                                         <label>Order By</label>
-                                        <select>
-                                            <option value="position" selected="selected"> Position</option>
-                                            <option value="name"> Acending</option>
-                                            <option value="price"> Decending</option>
+                                        <select id="order_by" name="order_by">
+                                            <option value="ASC"> Position</option>
+                                            <option value="ASC"> Acending</option>
+                                            <option value="DESC"> Decending</option>
                                         </select>
-                                        <a href="#" title="Set Descending Direction"><img
-                                                src="assets/images/i_asc_arrow.gif" alt="Set Descending Direction"
-                                                class="v-middle"></a>
+
                                     </div>
+                                    <div class="limiter">
+                                        <label>Show</label>
+                                        <select id="show_product" name="show_product">
+                                            <option value="5" selected="selected"> 5</option>
+                                            <option value="10"> 10</option>
+                                            <option value="20"> 20</option>
+                                        </select>
+                                    </div>
+                                    {{-- <div class="pager">
+                                        <div class="pages">
+                                            <strong>Page:</strong>
+                                            <ol>
+                                                <li class="current">1</li>
+                                                <li><a href="#">2</a></li>
+                                                <li class="bor-none"> <a class="next i-next" href="#" title="Next">
+                                                        <i class="fa fa-angle-right">&nbsp;</i> </a></li>
+                                            </ol>
+                                        </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!--- .toolbar-->
                             <div id="content">
 
                             </div>
-
+                            <div class="page-nav-bottom">
+                                <div class="left">Items 13 to 24 of 38 total</div>
+                                <div class="right">
+                                    <ul class="page-nav-category">
+                                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a class="selected" href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                        {{-- <li><a href="#">{{ $products->render() }}<i class="fa fa-angle-right"></a></li> --}}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <!--- .category-products-->
                     </div>
@@ -151,23 +180,71 @@
 @endsection
 @section('custom_scripts')
     <script>
+        var color = [];
+        var brand = [];
+        var size = [];
+        jQuery('input#checkbox').click(function() {
+
+            if (jQuery(this).is(':checked')) {
+                var colors = jQuery(this).val()
+                color.push(colors);
+            } else {
+                var colors = jQuery(this).val()
+                color.pop(colors);
+            }
+            console.log(color);
+            price_filter();
+
+        })
+        jQuery('input#category').click(function() {
+
+            if (jQuery(this).is(':checked')) {
+                var brands = jQuery(this).val()
+                brand.push(brands);
+            } else {
+                var brands = jQuery(this).val()
+                brand.pop(brands);
+            }
+            console.log(brand);
+            price_filter();
+
+        })
+        jQuery('input#size').click(function() {
+
+            if (jQuery(this).is(':checked')) {
+                var sizes = jQuery(this).val()
+                size.push(sizes);
+            } else {
+                var sizes = jQuery(this).val()
+                size.pop(sizes);
+            }
+            console.log(size);
+            price_filter();
+
+        })
+
+
+
         function price_filter() {
 
-            var brand = [];
-            jQuery.each(jQuery("input='brand"),function())
-            {
-                category.push(jQuery(this).val());
-            }
+
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
-
+            var sort_by = jQuery('#sort_by').val();
+            var order_by= jQuery('#order_by').val();
+            var show_product= jQuery('#show_product').val();
             jQuery.ajax({
                 url: "{{ url('/products/price') }}",
                 type: "get",
                 datatype: 'html',
                 data: {
                     view: jQuery('#grid_view').hasClass('active'),
-                    'brand':brand,
+                    'brand': brand,
+                    'color': color,
+                    'size': size,
+                    'sort_by': sort_by,
+                    'order_by': order_by,
+                    'show_product': show_product,
                     'minimum': minimum,
                     'maximum': maximum,
                 },

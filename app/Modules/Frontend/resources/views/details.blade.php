@@ -88,11 +88,23 @@
                                                             </p>
                                                             <div class="products-sku"> <span
                                                                     class="text-sku">Product
-                                                                    Code:</span> demo_02</div>
+                                                                    Code:{{ $product->upc }}</span></div>
                                                         </div>
                                                         <div class="short-description">
                                                             <h2>Short Description</h2>
                                                             <p>{{ $product->description }}</p>
+                                                        </div>
+                                                        <div class="last odd">By Size</div>
+                                                        <div class="last odd">
+                                                            <ol class="configurable-swatch-list configurable-size">
+                                                                @foreach ($products as $p)
+                                                                    <li> <a href="#" class="swatch-link"> <span
+                                                                                class="swatch-label">
+                                                                                {{ $p->size }}
+                                                                            </span></a></li>
+                                                                @endforeach
+                                                            </ol>
+
                                                         </div>
                                                         <div class="add-to-box">
                                                             <div class="product-qty">

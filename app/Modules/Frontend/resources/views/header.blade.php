@@ -88,8 +88,8 @@
                                         <li><a href="#" title="My Cart">My Cart</a></li> --}}
                                         {{-- <li><a href="checkout-step1.html" title="Checkout"
                                                 class="top-link-checkout">Checkout</a></li> --}}
-                                        <li class=" last"><a href="{{ route('login') }}" title="Log In">Log
-                                                In</a></li>
+                                        {{-- <li class=" last"><a href="{{ route('login') }}" title="Log In">Log
+                                                In</a></li> --}}
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
