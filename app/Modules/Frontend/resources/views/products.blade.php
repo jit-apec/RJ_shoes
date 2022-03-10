@@ -1,4 +1,7 @@
 @extends('Frontend::common')
+@section('title')
+Products
+@endsection
 @section('content')
     <div class="main-container col2-left-layout ">
         <div class="breadcrumbs">
@@ -43,7 +46,7 @@
                                         @foreach ($brand as $brands)
                                             <ul style="" class="nav-accordion">
                                                 <li>
-                                                    <input type="checkbox" id="category" name="brand[]"
+                                                    <input type="checkbox" id="category" name="brand"
                                                         value="{{ $brands->id }}">
                                                     <span>{{ $brands->name }}</span>
                                                 </li>
@@ -113,10 +116,10 @@
                                     </p>
                                     <div class="sort-by">
                                         <label>Sort By</label>
-                                        <select id="sort_by" name="sort_by" >
+                                        <select id="sort_by" name="sort_by">
                                             <option value="name"> Position</option>
                                             <option value="name"> Name</option>
-                                            <option value="price" > Price</option>
+                                            <option value="price"> Price</option>
                                         </select>
                                     </div>
                                     <div class="sort-by">
@@ -134,6 +137,8 @@
                                             <option value="5" selected="selected"> 5</option>
                                             <option value="10"> 10</option>
                                             <option value="20"> 20</option>
+                                            <option value="50"> 50</option>
+                                            <option value="100"> 100</option>
                                         </select>
                                     </div>
                                     {{-- <div class="pager">
@@ -153,19 +158,22 @@
                             <div id="content">
 
                             </div>
-                            <div class="page-nav-bottom">
+                                {{-- <div class="d-flex justify-content-center">
+                                    {!! $products->links() !!}
+                                </div> --}}
+                            {{-- <div class="page-nav-bottom">
                                 <div class="left">Items 13 to 24 of 38 total</div>
-                                <div class="right">
+                                <div class="right" id="pagination">
                                     <ul class="page-nav-category">
                                         <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
                                         <li><a href="#">1</a></li>
                                         <li><a class="selected" href="#">2</a></li>
                                         <li><a href="#">3</a></li>
                                         <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        {{-- <li><a href="#">{{ $products->render() }}<i class="fa fa-angle-right"></a></li> --}}
+
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <!--- .category-products-->
                     </div>
@@ -192,9 +200,7 @@
                 var colors = jQuery(this).val()
                 color.pop(colors);
             }
-            console.log(color);
             price_filter();
-
         })
         jQuery('input#category').click(function() {
 
@@ -222,17 +228,12 @@
             price_filter();
 
         })
-
-
-
         function price_filter() {
-
-
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
             var sort_by = jQuery('#sort_by').val();
-            var order_by= jQuery('#order_by').val();
-            var show_product= jQuery('#show_product').val();
+            var order_by = jQuery('#order_by').val();
+            var show_product = jQuery('#show_product').val();
             jQuery.ajax({
                 url: "{{ url('/products/price') }}",
                 type: "get",
@@ -253,11 +254,9 @@
                 }
             });
         }
-
         jQuery(document).ready(function() {
             price_filter();
         });
-
         jQuery('#grid_view').on("click", function() {
 
             jQuery("#grid_view").removeClass('redirectjs list').addClass('grid active');
@@ -265,7 +264,6 @@
 
             price_filter();
         });
-
         jQuery('#list_view').on("click", function() {
 
             jQuery("#list_view").removeClass('redirectjs list').addClass('grid active');
@@ -273,10 +271,14 @@
 
             price_filter();
         });
-
         jQuery("#onsubmit").click(function(e) {
             e.preventDefault();
             price_filter();
         });
-    </script>
+        jQuery("#sort_by, #order_by, #show_product").on("click", function() {
+            price_filter();
+        });
+
+        
+</script>
 @endsection

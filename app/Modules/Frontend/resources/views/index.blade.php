@@ -1,4 +1,7 @@
 @extends('Frontend::common')
+@section('title')
+Welcome
+@endsection
 @section('content')
     <div class="main-container col1-layout content-color color">
         <div class="alo-block-slide">

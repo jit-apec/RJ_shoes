@@ -1,4 +1,7 @@
 @extends('admin.master')
+@section('title')
+ Colors
+@endsection
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">

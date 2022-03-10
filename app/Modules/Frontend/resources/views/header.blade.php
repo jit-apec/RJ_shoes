@@ -3,7 +3,7 @@
         <div class="header">
             <div class="header-logo show-992">
                 <a href="index.html" class="logo"> <img class="img-responsive"
-                        src="{{ asset('assets/images/logo.png') }}" alt="" /></a>
+                        src="{{ asset('assets/images/white_logo.png') }}" alt="" /></a>
             </div>
             <!--- .header-logo -->
             <div class="header-bottom">
@@ -14,14 +14,14 @@
                                 <div class="custom-menu col-lg-12">
                                     <div class="header-logo hidden-992">
                                         <a href="index.html" class="logo"> <img class="img-responsive"
-                                                src="{{ asset('assets/images/logo.png') }}" alt="" /></a>
+                                                src="{{ asset('assets/images/white_logo.png') }}" alt="" /></a>
                                     </div>
                                     <!--- .header-logo -->
                                     <div class="magicmenu clearfix">
                                         <ul class="nav-desktop sticker">
                                             <li class="level0 logo display"><a class="level-top"
                                                     href="{{ url('/') }}"><img alt="logo"
-                                                        src="{{ asset('assets/images/logo.png') }}"></a>
+                                                        src="{{ asset('assets/images/white_logo.png') }}"></a>
                                             </li>
                                             <li class="level0 home">
                                                 <a class="level-top" href="{{ url('/') }}"><span

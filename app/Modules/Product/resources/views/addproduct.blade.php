@@ -1,4 +1,7 @@
 @extends('admin.master')
+@section('title')
+    Product
+@endsection
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
@@ -103,9 +106,8 @@
                                             <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                                         </div>
                                         <input type="text" class="form-control" name="price" placeholder=" Enter Price"
-                                            id="" pattern="[0-9]{1,6}"data-error="#errprice"
-                                            oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                           >
+                                            id="" pattern="[0-9]{1,6}" data-error="#errprice"
+                                            oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');">
 
                                     </div>
                                     <span id="errprice"></span>
@@ -135,8 +137,7 @@
                                         </div>
                                         <input type="text" class="form-control" name="upc" id=""
                                             placeholder="eg.123456789123" pattern="[0-9]{12,12}" data-error="#errupc"
-                                            oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
-                                           >
+                                            oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');">
 
                                     </div>
                                     <span id="errupc"></span>
@@ -151,7 +152,8 @@
                                             <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                                         </div>
                                         <input type="text" class="form-control" name="stock" id="" pattern="[0-9]{1,6}"
-                                        oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');" data-error="#errstock">
+                                            oninput="this.value = this.value.replace(/[^/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
+                                            data-error="#errstock">
 
                                     </div>
                                     <span id="errstock"></span>
@@ -360,20 +362,20 @@
                             },
                         }
                     },
-                    size:{
+                    size: {
                         required: true,
-                        maxlength:5,
+                        maxlength: 5,
                     },
-                    brand_id:{
+                    brand_id: {
                         required: true,
                     },
-                    color_id:{
+                    color_id: {
                         required: true,
                     },
                     price: {
                         required: true,
-                        minlength:2,
-                        maxlength:6,
+                        minlength: 2,
+                        maxlength: 6,
                     },
                     idealfor: {
                         required: true,
@@ -381,17 +383,16 @@
 
                     upc: {
                         required: true,
-                        minlength:12,
-                        maxlength:12,
+                        minlength: 12,
+                        maxlength: 12,
                     },
-                    stock:{
+                    stock: {
                         required: true,
-                        maxlength:6,
+                        maxlength: 6,
                     },
 
                 },
-                messages: {
-                },
+                messages: {},
                 errorPlacement: function(error, element) {
                     var placement = $(element).data('error');
                     if (placement) {

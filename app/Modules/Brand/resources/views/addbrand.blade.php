@@ -1,4 +1,8 @@
 @extends('admin.master')
+@section('title')
+ Brand
+@endsection
+
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">

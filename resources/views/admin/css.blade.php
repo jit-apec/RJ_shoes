@@ -1,7 +1,3 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shoes </title>
-<link rel="shortcut icon" type="image/x-icon" href="dist/img/favicon.ico">
 
 {{-- <link rel="icon" href="AdminLTELogo.png" type="image/icon type"> --}}
 

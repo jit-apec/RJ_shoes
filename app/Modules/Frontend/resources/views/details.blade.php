@@ -1,4 +1,5 @@
 @extends('Frontend::common')
+
 @section('content')
     <div class="page">
         <div class="main-container col2-left-layout ">
@@ -11,6 +12,9 @@
                 </div>
             </div>
             @foreach ($products as $product)
+                @section('title')
+                    {{ $product->name }}
+                @endsection
                 <div class="container">
                     <div class="main">
                         <div class="row">
@@ -40,14 +44,14 @@
                                                                 <li> <a class="thumb-link" href="#" title=""
                                                                         data-image-index="0"> <img class="img-responsive"
                                                                             src="{{ asset('storage/media/' . $product->image) }}"
-                                                                            alt="" /> </a>
+                                                                            alt="" id="main" /> </a>
                                                                 </li>
                                                                 @foreach ($subimage as $image)
                                                                     <li> <a class="thumb-link" href="#" title=""
                                                                             data-image-index="1"> <img
                                                                                 class="img-responsive"
                                                                                 src="{{ asset('storage/media/' . $image->images) }}"
-                                                                                alt="" /> </a>
+                                                                                alt="" onclick="change(this.src)" /> </a>
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
@@ -417,4 +421,23 @@
             @endforeach
         </div>
     </div>
+@endsection
+@section('custom_scripts')
+    <script>
+        const change = src => {
+            document.getElementById('main').src = src
+
+            //jQuery("#main").attr("src", "src");
+           // jQuery("#main").attr("src",src);
+           // $("#my_image").attr("src", "second.jpg");
+
+            alert(src);
+        }
+
+    // $(document).ready(function () {
+    //     $('img').click(function(){
+    //         $(this).attr('src','images/download.jpeg')
+    //       })
+    // })
+</script>
 @endsection

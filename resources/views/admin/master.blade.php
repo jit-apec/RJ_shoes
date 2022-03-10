@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> RJ SHOES | @yield('title')</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('dist/img/favicon.ico')}}">
     @include('admin.css');
 </head>
 
