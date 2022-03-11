@@ -14,31 +14,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        // dd('test');
+       
         if (! $request->expectsJson()) {
             return route('login');
         }
-        // elseif(!Auth::user())
-        // {
-        // return redirect('login'); // add your desire URL in redirect function
-        // }
-        // else
-        // {
-        //     return redirect('admin/dashboard');
-        // }
-    }
-    //     if(Auth::check())
-    // {
-    //     return View::make('admin/dashboard');
-    // }
 
-    // return redirect::route('login')->withInput()->with('errmessage', 'Please Login to access restricted area.');
-
-
-    // public function __construct(Guard $auth)
-    // {
-    //     $this->auth = $auth;
-    // }
 
     /**
      * Handle an incoming request.
@@ -47,16 +27,5 @@ class Authenticate extends Middleware
      * @param  \Closure  $next
      * @return mixed
      */
-    // public function handle($request, Closure $next)
-    // {
-    //     if ($this->auth->guest()) {
-    //         if ($request->ajax()) {
-    //             return response('Unauthorized.', 401);
-    //         } else {
-    //             return redirect()->guest('login');
-    //         }
-    //     }
-    //     return $next($request);
-    // }
-//}
+    }
 }

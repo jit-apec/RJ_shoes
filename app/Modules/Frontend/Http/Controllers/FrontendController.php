@@ -61,7 +61,6 @@ class FrontendController extends Controller
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->where('status', 'Y')
                 ->orderBy($request->sort_by,$request->order_by)
-
                 ->paginate($request->show_product);
         } elseif (isset($request->color) && (isset($request->size))) {
             $products = Product::whereIn('color_id', $request->color)
@@ -81,7 +80,6 @@ class FrontendController extends Controller
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->orderBy($request->sort_by,$request->order_by)
                 ->paginate($request->show_product);
-
                // ->get();
         } elseif (isset($request->size)) {
             $products = Product::whereIn('size', $request->size)->where('status', 'Y')
@@ -92,7 +90,6 @@ class FrontendController extends Controller
             $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
             ->orderBy($request->sort_by,$request->order_by)
             ->paginate($request->show_product);
-
             //->get();
         }
         if ($request->view == 'true') {

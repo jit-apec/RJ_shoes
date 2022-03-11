@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//use App\Modules\Brand\Http\Controllers\BrandController;
+
 
 /*
 |--------------------------------------------------------------------------

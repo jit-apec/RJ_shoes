@@ -25,37 +25,45 @@
                                             <form action="#" method="post" id="product_addtocart_form">
                                                 <div class="product-img-box clearfix col-md-5 col-sm-5 col-xs-12">
                                                     <div class="product-img-content">
-                                                        <div class="product-image product-image-zoom">
-                                                            <div class="product-image-gallery"> <span
-                                                                    class="sticker top-left"><span
-                                                                        class="labelnew">New</span></span><span
-                                                                    class="sticker top-right"><span
-                                                                        class="labelsale">Sale</span></span> <img
-                                                                    id="image-main"
+                                                        <div class="product-image example">
+                                                            <div class="product-image-gallery zoom-box">
+
+                                                                <img id="image-main"
                                                                     class="gallery-image visible img-responsive"
                                                                     src="{{ asset('storage/media/' . $product->image) }}"
-                                                                    alt="Short Sleeve Dress" title="Short Sleeve Dress" />
+                                                                    alt="Short Sleeve Dress" title="Short Sleeve Dress"
+                                                                    style="height:450px; width:500px" />
                                                             </div>
                                                         </div>
+
+
                                                         <!--- .product-image-->
                                                         <div class="more-views">
                                                             <h2>More Views</h2>
                                                             <ul class="product-image-thumbs">
-                                                                <li> <a class="thumb-link" href="#" title=""
-                                                                        data-image-index="0"> <img class="img-responsive"
+                                                                <li><a class="thumb-link zoom-box  " href="#" title=""
+                                                                        data-image-index="0"> <img
+                                                                            class="img-responsive sub_img"
                                                                             src="{{ asset('storage/media/' . $product->image) }}"
-                                                                            alt="" id="main" /> </a>
+                                                                            alt="" /> </a>
+
+                                                                    {{-- <a href="large.jpg" class="MagicZoom" data-options="zoomDistance: 150"><img src="small.jpg" /></a> --}}
                                                                 </li>
                                                                 @foreach ($subimage as $image)
                                                                     <li> <a class="thumb-link" href="#" title=""
                                                                             data-image-index="1"> <img
-                                                                                class="img-responsive"
+                                                                                class="img-responsive sub_img"
                                                                                 src="{{ asset('storage/media/' . $image->images) }}"
-                                                                                alt="" onclick="change(this.src)" /> </a>
+                                                                                alt="" onclick="change(this.src)"
+                                                                                id="sub_img" /> </a>
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
                                                         </div>
+                                                        <div class="container">
+
+                                                        </div>
+
                                                         <!--- .more-views -->
                                                     </div>
                                                     <!--- .product-img-content-->
@@ -87,9 +95,15 @@
                                                                         ₹{{ $product->price }}
                                                                     </span></p>
                                                             </div>
-                                                            <p class="availability in-stock">Availability: <span>In
-                                                                    stock</span>
-                                                            </p>
+
+                                                            @if ($product->stock == 0)
+                                                                <p class="availability out">Availability:
+                                                                    <span style="color:red">Out of stock</span>
+                                                                @else
+                                                                <p class="availability in-stock">Availability:
+                                                                    <span>In stock</span>
+                                                                </p>
+                                                            @endif
                                                             <div class="products-sku"> <span
                                                                     class="text-sku">Product
                                                                     Code:{{ $product->upc }}</span></div>
@@ -98,12 +112,13 @@
                                                             <h2>Short Description</h2>
                                                             <p>{{ $product->description }}</p>
                                                         </div>
-                                                        <div class="last odd">By Size</div>
+
                                                         <div class="last odd">
+                                                            <h5> Size</h5>
                                                             <ol class="configurable-swatch-list configurable-size">
                                                                 @foreach ($products as $p)
-                                                                    <li> <a href="#" class="swatch-link"> <span
-                                                                                class="swatch-label">
+                                                                    <li> <a href="#" class="swatch-link" selected> <span
+                                                                                class="swatch-label" >
                                                                                 {{ $p->size }}
                                                                             </span></a></li>
                                                                 @endforeach
@@ -114,14 +129,15 @@
                                                             <div class="product-qty">
                                                                 <label for="qty">Qty:</label>
                                                                 <div class="custom-qty"> <input type="text" name="qty"
-                                                                        id="qty" maxlength="12" value="1" title="Qty"
+                                                                        id="qty" min="1" max="5" value="1" title="Qty"
                                                                         class="input-text qty" /> <button type="button"
                                                                         class="increase items"
-                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;">
+                                                                        onclick="var result = document.getElementById('qty');   var qty = result.value; if( !isNaN( qty )) result.value++;return false;">
                                                                         <i class="fa fa-plus"></i> </button> <button
                                                                         type="button" class="reduced items"
                                                                         onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
-                                                                        <i class="fa fa-minus"></i> </button></div>
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button></div>
                                                             </div>
                                                             <div class="add-to-cart"> <button type="button"
                                                                     title="Add to Cart" class="button btn-cart"
@@ -158,9 +174,7 @@
                                         <ul class="toggle-tabs">
                                             <li class="item active" target=".box-description">Description</li>
                                             <li class="item " target=".box-additional">Additional Information</li>
-                                            <li class="item " target=".box-reviews">Reviews</li>
-                                            <li class="item " target=".box-customtab">Custom Tab</li>
-                                            <li class="item " target=".box-tags">Product Tags</li>
+
                                         </ul>
                                         <div class="product-collateral">
                                             <div class="box-collateral box-description active">
@@ -188,224 +202,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="box-collateral box-reviews">
-                                                <h2>Reviews</h2>
-                                                <div class=" box-reviews" id="customer-reviews">
-                                                    <h2>Customer Reviews</h2>
-                                                    <dl>
-                                                        <dt> <a href="#">simple product</a> Review by <span>simple
-                                                                product</span></dt>
-                                                        <dd>
-                                                            <table class="ratings-table">
-                                                                <col width="1" />
-                                                                <col />
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <th>Price</th>
-                                                                        <td>
-                                                                            <div class="rating-box">
-                                                                                <div class="rating"
-                                                                                    style="width:60%;">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Value</th>
-                                                                        <td>
-                                                                            <div class="rating-box">
-                                                                                <div class="rating"
-                                                                                    style="width:60%;">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Quality</th>
-                                                                        <td>
-                                                                            <div class="rating-box">
-                                                                                <div class="rating"
-                                                                                    style="width:60%;">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            simple product <small class="date">(Posted on
-                                                                2/3/2015)</small>
-                                                        </dd>
-                                                    </dl>
-                                                    <div class="form-add">
-                                                        <h2>Write Your Own Review</h2>
-                                                        <form action="#" method="post" id="review-form">
-                                                            <input name="form_key" type="hidden" value="12lVej6LJoICMdM7" />
-                                                            <fieldset>
-                                                                <h3>You're reviewing: <span>Short Sleeve Dress</span></h3>
-                                                                <h4>How do you rate this product? <em
-                                                                        class="required">*</em></h4>
-                                                                <span id="input-message-box"></span>
-                                                                <table class="data-table" id="product-review-table">
-                                                                    <col />
-                                                                    <col width="1" />
-                                                                    <col width="1" />
-                                                                    <col width="1" />
-                                                                    <col width="1" />
-                                                                    <col width="1" />
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>&nbsp;</th>
-                                                                            <th><span class="nobr">1 star</span>
-                                                                            </th>
-                                                                            <th><span class="nobr">2 stars</span>
-                                                                            </th>
-                                                                            <th><span class="nobr">3 stars</span>
-                                                                            </th>
-                                                                            <th><span class="nobr">4 stars</span>
-                                                                            </th>
-                                                                            <th><span class="nobr">5 stars</span>
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <th>Price</th>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[3]" id="Price_1"
-                                                                                    value="11" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[3]" id="Price_2"
-                                                                                    value="12" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[3]" id="Price_3"
-                                                                                    value="13" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[3]" id="Price_4"
-                                                                                    value="14" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[3]" id="Price_5"
-                                                                                    value="15" class="radio" />
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th>Value</th>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[2]" id="Value_1" value="6"
-                                                                                    class="radio" /></td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[2]" id="Value_2" value="7"
-                                                                                    class="radio" /></td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[2]" id="Value_3" value="8"
-                                                                                    class="radio" /></td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[2]" id="Value_4" value="9"
-                                                                                    class="radio" /></td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[2]" id="Value_5"
-                                                                                    value="10" class="radio" />
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th>Quality</th>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[1]" id="Quality_1"
-                                                                                    value="1" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[1]" id="Quality_2"
-                                                                                    value="2" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[1]" id="Quality_3"
-                                                                                    value="3" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[1]" id="Quality_4"
-                                                                                    value="4" class="radio" />
-                                                                            </td>
-                                                                            <td class="value"><input type="radio"
-                                                                                    name="ratings[1]" id="Quality_5"
-                                                                                    value="5" class="radio" />
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <ul class="form-list">
-                                                                    <li>
-                                                                        <label for="nickname_field"
-                                                                            class="required"><em>*</em>Nickname</label>
-                                                                        <div class="input-box"> <input type="text"
-                                                                                name="nickname" id="nickname_field"
-                                                                                class="input-text required-entry"
-                                                                                value="" />
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <label for="summary_field"
-                                                                            class="required"><em>*</em>Summary of
-                                                                            Your
-                                                                            Review</label>
-                                                                        <div class="input-box"> <input type="text"
-                                                                                name="title" id="summary_field"
-                                                                                class="input-text required-entry"
-                                                                                value="" />
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <label for="review_field"
-                                                                            class="required"><em>*</em>Review</label>
-                                                                        <div class="input-box"> <textarea
-                                                                                name="detail" id="review_field" cols="5"
-                                                                                rows="3" class="required-entry"></textarea>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </fieldset>
-                                                            <div class="buttons-set"> <button type="submit"
-                                                                    title="Submit Review"
-                                                                    class="button"><span><span>Submit
-                                                                            Review</span></span></button></div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="box-collateral box-customtab">
-                                                <h2>Custom Tab</h2>
-                                                <h3>Custom Static Block</h3>
-                                                <p>Custom CMS block displayed as a tab. You can use it to display info about
-                                                    returns and refunds, latest promotions etc. You can put your own content
-                                                    here: text, HTML, images - whatever you like. There are <strong>many
-                                                        similar
-                                                        blocks</strong> accross the store. All CMS blocks are editable from
-                                                    the
-                                                    admin panel.</p>
-                                            </div>
-                                            <div class="box-collateral box-tags">
-                                                <h2>Product Tags</h2>
-                                                <h3>Other people marked this product with these tags:</h3>
-                                                <ul class="product-tags">
-                                                    <li><a href="#">Menstyle</a> (1)</li>
-                                                </ul>
-                                                <form id="addTagForm" action="#" method="get">
-                                                    <div class="form-add">
-                                                        <label for="productTagName">Add Your Tags:</label>
-                                                        <div class="input-box"> <input type="text"
-                                                                class="input-text required-entry" name="productTagName"
-                                                                id="productTagName" /></div>
-                                                        <button type="button" title="Add Tags" class="button"
-                                                            onclick="submitTagForm()"> <span> <span>Add Tags</span> </span>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                                <p class="note">Use spaces to separate tags. Use single quotes
-                                                    (')
-                                                    for phrases.</p>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <!--- .product-wapper-tab-->
@@ -424,20 +221,57 @@
 @endsection
 @section('custom_scripts')
     <script>
+        var options1 = {
+            width: 400,
+            zoomWidth: 500,
+            offset: {
+                vertical: 0,
+                horizontal: 10
+            }
+        };
+        // If the width and height of the image are not known or to adjust the image to the container of it
+        var options2 = {
+            fillContainer: true,
+            offset: {
+                vertical: 0,
+                horizontal: 10
+            }
+        };
+        new ImageZoom(document.getElementById("img-container"), options2);
         const change = src => {
             document.getElementById('main').src = src
-
-            //jQuery("#main").attr("src", "src");
-           // jQuery("#main").attr("src",src);
-           // $("#my_image").attr("src", "second.jpg");
-
             alert(src);
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js">
+    </script>
+    <script src="{{ asset('assets/scripts/jquery.jqZoom.js') }}"></script>
+    <script>
+        $(function() {
+            $(".visible").jqZoom({
+                selectorWidth: 10,
+                selectorHeight: 10,
+                viewerWidth: 800,
+                viewerHeight: 500,
+            });
 
-    // $(document).ready(function () {
-    //     $('img').click(function(){
-    //         $(this).attr('src','images/download.jpeg')
-    //       })
-    // })
-</script>
+        })
+
+        $(document).ready(function() {
+            jQuery('.thumb-link').hover(function() {
+                jQuery('#image-main').attr('src', jQuery(this).children('.sub_img').attr('src'));
+            });
+
+
+        });
+    </script>
+    {{-- <script>
+        jQuery(document).ready(function() {
+            jQuery('.parent').css('width', jQuery('img').width());
+            jQuery('img').parent().zoom({
+                magnify: 3,
+                target: ('.contain').get(0)
+            });
+        });
+    </script> --}}
 @endsection
