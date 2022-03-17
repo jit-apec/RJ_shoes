@@ -28,7 +28,7 @@ Products
                                             <div id="price-range" class="slider-ui" slider-min="0" slider-max="25000"
                                                 slider-min-start="0" slider-max-start="25000"></div>
                                         </div>
-                                        <form action="" id="price_filter" class="price-range-form" method="">
+                                        <form action="" id="filter" class="price-range-form" method="">
                                             @csrf
                                             Min &nbsp;₹<input type="text" class="range_value range_value_min"
                                                 target="#price-range" name="minimum" id="minimum" />
@@ -141,17 +141,7 @@ Products
                                             <option value="100"> 100</option>
                                         </select>
                                     </div>
-                                    {{-- <div class="pager">
-                                        <div class="pages">
-                                            <strong>Page:</strong>
-                                            <ol>
-                                                <li class="current">1</li>
-                                                <li><a href="#">2</a></li>
-                                                <li class="bor-none"> <a class="next i-next" href="#" title="Next">
-                                                        <i class="fa fa-angle-right">&nbsp;</i> </a></li>
-                                            </ol>
-                                        </div>
-                                    </div> --}}
+                                   
                                 </div>
                             </div>
                             <!--- .toolbar-->
@@ -200,7 +190,7 @@ Products
                 var colors = jQuery(this).val()
                 color.pop(colors);
             }
-            price_filter();
+            filter();
         })
         jQuery('input#category').click(function() {
 
@@ -212,7 +202,7 @@ Products
                 brand.pop(brands);
             }
             console.log(brand);
-            price_filter();
+            filter();
 
         })
         jQuery('input#size').click(function() {
@@ -225,17 +215,17 @@ Products
                 size.pop(sizes);
             }
             console.log(size);
-            price_filter();
+            filter();
 
         })
-        function price_filter() {
+        function filter() {
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
             var sort_by = jQuery('#sort_by').val();
             var order_by = jQuery('#order_by').val();
             var show_product = jQuery('#show_product').val();
             jQuery.ajax({
-                url: "{{ url('/products/price') }}",
+                url: "{{ url('/products/filter') }}",
                 type: "get",
                 datatype: 'html',
                 data: {
@@ -255,30 +245,30 @@ Products
             });
         }
         jQuery(document).ready(function() {
-            price_filter();
+            filter();
         });
         jQuery('#grid_view').on("click", function() {
 
             jQuery("#grid_view").removeClass('redirectjs list').addClass('grid active');
             jQuery("#list_view").removeClass('grid active').addClass('redirectjs list');
 
-            price_filter();
+            filter();
         });
         jQuery('#list_view').on("click", function() {
 
             jQuery("#list_view").removeClass('redirectjs list').addClass('grid active');
             jQuery("#grid_view").removeClass('grid active').addClass('redirectjs list');
 
-            price_filter();
+            filter();
         });
         jQuery("#onsubmit").click(function(e) {
             e.preventDefault();
-            price_filter();
+            filter();
         });
         jQuery("#sort_by, #order_by, #show_product").on("click", function() {
-            price_filter();
+            filter();
         });
 
-        
+
 </script>
 @endsection

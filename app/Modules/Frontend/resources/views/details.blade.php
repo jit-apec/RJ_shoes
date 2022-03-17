@@ -74,21 +74,10 @@
                                                         <div class="product-name">
                                                             <h1>{{ $product->name }}</h1>
                                                         </div>
-                                                        <div class="ratings">
-                                                            <div class="rating-box">
-                                                                <div class="rating" style="width:60%"></div>
-                                                            </div>
-                                                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span
-                                                                    class="separator">|</span> <a href="#">Add Your
-                                                                    Review</a></p>
-                                                        </div>
+
                                                         <div class="product-type-data">
                                                             <div class="price-box">
-                                                                <p class="old-price"> <span
-                                                                        class="price-label">Regular
-                                                                        Price:</span> <span class="price">
-                                                                        ₹{{ $product->price }}
-                                                                    </span></p>
+                                                                             --}}
                                                                 <p class="special-price"> <span
                                                                         class="price-label">Special
                                                                         Price</span> <span class="price">
@@ -118,7 +107,7 @@
                                                             <ol class="configurable-swatch-list configurable-size">
                                                                 @foreach ($products as $p)
                                                                     <li> <a href="#" class="swatch-link" selected> <span
-                                                                                class="swatch-label" >
+                                                                                class="swatch-label">
                                                                                 {{ $p->size }}
                                                                             </span></a></li>
                                                                 @endforeach
@@ -129,34 +118,34 @@
                                                             <div class="product-qty">
                                                                 <label for="qty">Qty:</label>
                                                                 <div class="custom-qty"> <input type="text" name="qty"
-                                                                        id="qty" min="1" max="5" value="1" title="Qty"
-                                                                        class="input-text qty" /> <button type="button"
-                                                                        class="increase items"
-                                                                        onclick="var result = document.getElementById('qty');   var qty = result.value; if( !isNaN( qty )) result.value++;return false;">
-                                                                        <i class="fa fa-plus"></i> </button> <button
-                                                                        type="button" class="reduced items"
+                                                                        id="qty" maxlength="1" value="1" title="Qty"
+                                                                        class="input-text qty"
+                                                                        oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); " />
+                                                                    <button type="button" class="increase items" id="btnmax"
+                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty < 5) result.value++;return false;">
+                                                                        <i class="fa fa-plus"></i> </button>
+                                                                    <button type="button" class="reduced items" id="btnmin"
                                                                         onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
-                                                                        <i class="fas fa-minus"></i>
-                                                                    </button></div>
+                                                                        <i class="fa fa-minus"></i></button>
+                                                                </div>
                                                             </div>
                                                             <div class="add-to-cart"> <button type="button"
                                                                     title="Add to Cart" class="button btn-cart"
-                                                                    onclick="productAddToCartForm.submit(this)"> <span>
-                                                                        <span class="view-cart icon-handbag icons">Add to
+                                                                    id="addtocart" onclick="quantity({{ $product->id }})"> <span>
+                                                                        <span class="view-cart icon-handbag icons">Add
+                                                                            to
                                                                             Cart</span> </span> </button></div>
-                                                            <ul class="add-to-links">
-                                                                <li> <a href="#" rel="tooltip" title="Add to Wishlist"
-                                                                        onclick="productAddToCartForm.submitLight(this, this.href); return false;"
-                                                                        class="link-wishlist"> <i
-                                                                            class="icon-heart icons"></i>
-                                                                        Add to Wishlist </a></li>
-                                                                <li> <a href="#" class="link-compare"
-                                                                        title="Add to Compare">
-                                                                        <i class="icon-bar-chart icons"></i> Add to Compare
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
+
                                                         </div>
+                                                        @if (session()->has('status'))
+                                                            <p style="color: green;font-size: 20px; font-weight: bold;">
+                                                                {{ session('status') }}
+                                                            </p>
+                                                        @endif
+                                                        @error('name')
+                                                            <p style="color:red">{{ $message }} </p>
+                                                        @enderror
+                                                        <span class="alertMsg valid" id="alertMsg" value="success"></span>
                                                         <div class="addit">
                                                             <div class="alo-social-links clearfix">
 
@@ -173,7 +162,7 @@
                                     <div class="product-wapper-tab clearfix">
                                         <ul class="toggle-tabs">
                                             <li class="item active" target=".box-description">Description</li>
-                                            <li class="item " target=".box-additional">Additional Information</li>
+
 
                                         </ul>
                                         <div class="product-collateral">
@@ -183,24 +172,6 @@
                                                 <div class="std">
                                                     <p>{{ $product->description }}</p>
                                                 </div>
-                                            </div>
-                                            <div class="box-collateral box-additional">
-                                                <h2>Additional Information</h2>
-                                                <h2>Additional Information</h2>
-                                                <table class="data-table" id="product-attribute-specs-table">
-                                                    <col width="25%" />
-                                                    <col />
-                                                    <tbody>
-                                                        <tr>
-                                                            <th class="label">Type</th>
-                                                            <td class="data">Dresses</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th class="label">Occasion</th>
-                                                            <td class="data">Career</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
                                             </div>
 
                                         </div>
@@ -220,58 +191,38 @@
     </div>
 @endsection
 @section('custom_scripts')
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
-        var options1 = {
-            width: 400,
-            zoomWidth: 500,
-            offset: {
-                vertical: 0,
-                horizontal: 10
-            }
-        };
-        // If the width and height of the image are not known or to adjust the image to the container of it
-        var options2 = {
-            fillContainer: true,
-            offset: {
-                vertical: 0,
-                horizontal: 10
-            }
-        };
-        new ImageZoom(document.getElementById("img-container"), options2);
-        const change = src => {
-            document.getElementById('main').src = src
-            alert(src);
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js">
-    </script>
-    <script src="{{ asset('assets/scripts/jquery.jqZoom.js') }}"></script>
-    <script>
-        $(function() {
-            $(".visible").jqZoom({
-                selectorWidth: 10,
-                selectorHeight: 10,
-                viewerWidth: 800,
-                viewerHeight: 500,
-            });
-
-        })
-
         $(document).ready(function() {
             jQuery('.thumb-link').hover(function() {
                 jQuery('#image-main').attr('src', jQuery(this).children('.sub_img').attr('src'));
             });
-
-
         });
+
+        function quantity(id) {
+            //var quantity = getElementValue('quantity');
+            var quantity = jQuery('#qty').val();
+          //  var id = $(this).data('id');
+            //alert(id);
+            jQuery.ajax({
+                url: "/products/addcart",
+                type: "get",
+                datatype: "html",
+                data: {
+                    'id':id,
+                    'quantity': quantity
+                },
+                success: function(data) {
+                   // jQuery(".valid").html(data);
+                    console.log(data);
+                    console.log("Status Updated");
+                }
+            })
+        }
+        // jQuery("#addtocart").click(function(e) {
+        //    // alert("Please enter");
+        //     e.preventDefault();
+        //     quantity();
+        // });
     </script>
-    {{-- <script>
-        jQuery(document).ready(function() {
-            jQuery('.parent').css('width', jQuery('img').width());
-            jQuery('img').parent().zoom({
-                magnify: 3,
-                target: ('.contain').get(0)
-            });
-        });
-    </script> --}}
 @endsection

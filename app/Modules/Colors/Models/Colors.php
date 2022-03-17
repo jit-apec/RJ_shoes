@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Colors extends Model
 {
     use HasFactory;
+    protected $fillable="product_id";
    public $table="colors";
 }

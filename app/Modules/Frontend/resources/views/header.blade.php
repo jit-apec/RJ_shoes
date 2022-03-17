@@ -152,8 +152,8 @@
                                 </ol>
                                 <p class="subtotal"> <span class="label">Subtotal:</span> <span
                                         class="price">$687.00</span></p>
-                                <div class="actions"> <a href="#" class="view-cart"> View cart </a> <a
-                                        href="checkout-step1.html">Checkout</a></div>
+                                <div class="actions"> <a href="{{url('/product/cart')}}" class="view-cart"> View cart </a> <a
+                                        href="">Checkout</a></div>
                             </div>
                         </div>
                         <!--- .mini-contentCart -->

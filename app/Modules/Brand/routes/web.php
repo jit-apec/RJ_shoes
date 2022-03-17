@@ -20,5 +20,5 @@ Route::get('movetrash', [BrandController::class, 'delete']);
 Route::get('trashbrand', [BrandController::class, 'trash']);
 Route::get('restorebrand', [BrandController::class, 'restore']);
 Route::get('changebrandstatus', [BrandController::class, 'changestatus']);
-Route::get('uniquename', [BrandController::class, 'checkurl']);
+route::get('uniquename', [BrandController::class, 'checkurl']);
 });

@@ -112,6 +112,7 @@
             $('.toggle-class').change(function() {
                 var status = $(this).prop('checked') == true ? 'Y' : 'N';
                 var id = $(this).data('id');
+                alert(id);
                 $.ajax({
                     type: "GET",
                     dataType: "json",
