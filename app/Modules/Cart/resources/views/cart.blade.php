@@ -18,8 +18,7 @@ Cart
             <div class="container">
                 <div class="content-top no-border">
                     <h2>My Cart</h2>
-                    <div class="wish-list-notice"><i class="icon-check"></i>Product with Variants has been added to your
-                        wishlist. <a href="#">Click here</a> to continue shopping.</div>
+
                 </div>
 
                 <div class="table-responsive-wrapper">

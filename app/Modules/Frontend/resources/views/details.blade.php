@@ -77,7 +77,7 @@
 
                                                         <div class="product-type-data">
                                                             <div class="price-box">
-                                                                             --}}
+
                                                                 <p class="special-price"> <span
                                                                         class="price-label">Special
                                                                         Price</span> <span class="price">
@@ -200,10 +200,8 @@
         });
 
         function quantity(id) {
-            //var quantity = getElementValue('quantity');
             var quantity = jQuery('#qty').val();
-          //  var id = $(this).data('id');
-            //alert(id);
+
             jQuery.ajax({
                 url: "/products/addcart",
                 type: "get",
@@ -213,16 +211,10 @@
                     'quantity': quantity
                 },
                 success: function(data) {
-                   // jQuery(".valid").html(data);
                     console.log(data);
                     console.log("Status Updated");
-                }
+                },
             })
         }
-        // jQuery("#addtocart").click(function(e) {
-        //    // alert("Please enter");
-        //     e.preventDefault();
-        //     quantity();
-        // });
     </script>
 @endsection

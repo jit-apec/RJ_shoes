@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Product\Models\product;
-
+use Illuminate\Support\Facades\Session;
 class FrontendController extends Controller
 {
 
@@ -104,35 +104,32 @@ class FrontendController extends Controller
     }
     public function addcart(Request $request)
     {
-        // $request->validate([
-        //     'stock' => 'required|min:1|max:5' . $request->id,
-        // ]);
-        // dd($request->quantity);
+        $request->validate([
+            'quantity' => 'required|digits_between:1,5'
+        ]);
         $Uid = Auth::id();
-       // dd($request->quantity);
-        $data = Product::where('id', $request->id)->where('stock', '>=', $request->quantity)->get();
-        if ($data) {
-            Cart::create(['product_id' => $request->id, 'user_id' => $Uid, 'stock' => $request->quantity]);
-            // $cart = new Cart;
-            // $cart->product_id = $request->id;
-            // $cart->stock = $request->quantity;
-            // $cart->user_id=$Uid;
-            // $cart->save();
-            // $dt = [
-            //     'product_id' => $request->id,
-            //     'stock' => $request->quantity,
-            //     'user_id' => $Uid,
-            // ];
-            // // dd($dt);
-            // Cart::create($dt);
+        $data = Product::where('stock', '>=' ,$request->quantity)->where('id', $request->id)->get();
+        if (count($data)) {
+            //Cart::create(['product_id' => $request->id, 'user_id' => $Uid, 'quantity' => $request->quantity]);
+            session::put([
+                'cart' => json_encode([
+                    [
+                        'product_id'=>$request->id,
+                        'user_id'=>$Uid,
+                        'quantity'=>$request->quantity
+                    ]
+                ])
+              ]);
 
-            echo "done";
-            // $data=Product::where('stock','>=', $request->quantity)->get();
+           // Session::put('cart', $data);
+            $a=Session::get('cart');
+
+            session()->flash('success', 'Cart updated successfully');
+              return redirect('Cart::cart',compact('a'));
+           // return response()->json(['success' => 'data added successfully']);
         } else {
-            // $data = Product::where('stock', '>=', $request->quantity)->get();
-            echo "Error creating";
+
+            return response()->json(['success'=>'Invalid Input']);
         }
-        return $data;
-        // return  view("Cart::cart", compact('a'));
     }
 }
