@@ -105,12 +105,12 @@ class FrontendController extends Controller
     public function addcart(Request $request)
     {
         $request->validate([
-            'quantity' => 'required|digits_between:1,5'
+            'quantity' => 'required|digits_between:1,5',
         ]);
         $Uid = Auth::id();
         $data = Product::where('stock', '>=' ,$request->quantity)->where('id', $request->id)->get();
         if (count($data)) {
-            //Cart::create(['product_id' => $request->id, 'user_id' => $Uid, 'quantity' => $request->quantity]);
+            Cart::create(['product_id' => $request->id, 'user_id' => $Uid, 'quantity' => $request->quantity]);
             session::put([
                 'cart' => json_encode([
                     [
@@ -120,13 +120,17 @@ class FrontendController extends Controller
                     ]
                 ])
               ]);
-
-           // Session::put('cart', $data);
-            $a=Session::get('cart');
-
-            session()->flash('success', 'Cart updated successfully');
-              return redirect('Cart::cart',compact('a'));
-           // return response()->json(['success' => 'data added successfully']);
+            // Cart::session(array(
+            //     'product_id'=>$request->id,
+            //     'user_id'=>$Uid,
+            //     'quantity'=>$request->quantity
+            // ));
+          // Session::put('cart', $data);
+            //  $a=Session::get('cart');
+            //   echo $a;
+            // session()->flash('success', 'Cart updated successfully');
+            //   return redirect('Cart::cart',compact('a'));
+            return response()->json(['success' => 'data added successfully']);
         } else {
 
             return response()->json(['success'=>'Invalid Input']);

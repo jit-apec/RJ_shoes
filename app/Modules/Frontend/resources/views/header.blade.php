@@ -116,19 +116,19 @@
                     <div class="mini-maincart">
                         <div class="cartSummary">
                             <div class="crat-icon">
-                                <span class="icon-handbag icons"></span>
-                                <p class="mt-cart-title">My Cart</p>
+                            <a href="{{url('/product/cart')}}"  >  <span class="icon-handbag icons"></span></a>
+                                {{-- <p class="mt-cart-title">My Cart</p> --}}
                             </div>
-                            <div class="cart-header">
+                            {{-- <div class="cart-header">
                                 <span class="zero">0 </span>
                                 <p class="cart-tolatl">
                                     <span class="toltal">Total:</span>
                                     <span><span class="price">$0.00</span></span>
                                 </p>
-                            </div>
+                            </div> --}}
                         </div>
                         <!--- .cartSummary -->
-                        <div class="mini-contentCart" style="display: none">
+                        {{-- <div class="mini-contentCart" style="display: none">
                             <div class="block-content">
                                 <p class="block-subtitle">Recently added item(s)</p>
                                 <ol id="cart-sidebar" class="mini-products-list clearfix">
@@ -152,10 +152,11 @@
                                 </ol>
                                 <p class="subtotal"> <span class="label">Subtotal:</span> <span
                                         class="price">$687.00</span></p>
-                                <div class="actions"> <a href="{{url('/product/cart')}}" class="view-cart"> View cart </a> <a
-                                        href="">Checkout</a></div>
+                                <div class="actions"> <a href="{{url('/product/cart')}}" class="view-cart"> View cart </a>
+                                    <a href="">Checkout</a></div>
+
                             </div>
-                        </div>
+                        </div> --}}
                         <!--- .mini-contentCart -->
                     </div>
                     <!--- .mini-maincart -->
