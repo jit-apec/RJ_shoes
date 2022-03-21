@@ -122,7 +122,7 @@
                                                                         class="input-text qty"
                                                                         oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); " />
                                                                     <button type="button" class="increase items" id="btnmax"
-                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty < 5) result.value++;return false;">
+                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && (qty < 5)) result.value++;return false;">
                                                                         <i class="fa fa-plus"></i> </button>
                                                                     <button type="button" class="reduced items" id="btnmin"
                                                                         onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">

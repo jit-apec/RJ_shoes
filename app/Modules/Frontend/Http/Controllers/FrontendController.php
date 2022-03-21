@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Product\Models\product;
 use Illuminate\Support\Facades\Session;
-use RealRashid\SweetAlert\Facades\Alert;
 class FrontendController extends Controller
 {
 
@@ -109,14 +108,10 @@ class FrontendController extends Controller
             'quantity' => 'required|digits_between:1,5',
         ]);
         $Uid = Auth::id();
-        $data = Product::where(
-                'stock',
-                '>=',
-                $request->quantity
-            )
+        $data = Product::where('stock','>=',$request->quantity)
                 ->where('id', $request->id)
                 ->get();
-
+            //dd($data);
         if (count($data)) {
             Cart::updateOrInsert(
                 [
@@ -129,15 +124,15 @@ class FrontendController extends Controller
             );
 
 
-            session::put([
-                'cart' => json_encode([
-                    [
-                        'product_id' => $request->id,
-                        'user_id' => $Uid,
-                        'quantity' => $request->quantity
-                    ]
-                ])
-            ]);
+            // session::put([
+            //     'cart' => json_encode([
+            //         [
+            //             'product_id' => $request->id,
+            //             'user_id' => $Uid,
+            //             'quantity' => $request->quantity
+            //         ]
+            //     ])
+            // ]);
             // Cart::session(array(
             //     'product_id'=>$request->id,
             //     'user_id'=>$Uid,
@@ -146,13 +141,13 @@ class FrontendController extends Controller
             // Session::put('cart', $data);
             //  $a=Session::get('cart');
             //   echo $a;
-            Alert::success('Congrats', 'You\'ve Successfully Registered');
+            //Alert::success('Congrats', 'You\'ve Successfully Registered');
 
             return session()->flash('success', 'Cart updated successfully');
             //   return redirect('Cart::cart',compact('a'));
            // return response()->json(['success' => 'data added successfully']);
         } else {
-            return session()->flash('success', 'Cart updated successfully');
+            return session()->flash('success', 'few item remaining');
             //return response()->json(['success' => 'Invalid Input']);
         }
     }
