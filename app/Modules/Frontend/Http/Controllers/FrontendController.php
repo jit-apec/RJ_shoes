@@ -141,13 +141,12 @@ class FrontendController extends Controller
             // Session::put('cart', $data);
             //  $a=Session::get('cart');
             //   echo $a;
-            //Alert::success('Congrats', 'You\'ve Successfully Registered');
 
-            return session()->flash('success', 'Cart updated successfully');
-            //   return redirect('Cart::cart',compact('a'));
            // return response()->json(['success' => 'data added successfully']);
+           Session::flash('success', 'data added successfully in Cart!');
         } else {
-            return session()->flash('success', 'few item remaining');
+          //  return session()->flash('success', 'few item remaining');
+            Session::flash('error', 'invalid Input!');
             //return response()->json(['success' => 'Invalid Input']);
         }
     }

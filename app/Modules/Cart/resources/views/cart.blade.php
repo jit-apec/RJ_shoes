@@ -60,16 +60,21 @@
                                         </table>
                                     </td>
                                     <td class="wish-list-control">
-                                       <div id="price" >₹{{ $item->quantity * $item->price }}</div>
-                                        <div class="number-input">
+                                        <div id="price" class="price">₹{{ $item->quantity * $item->price }}</div>
+                                        <div class="number-input quantity">
                                             <button type="button" class="minus items"
                                                 value="{{ $item->id }}">-</button>
-                                            <input type="text" maxlength="1" value="{{ $item->quantity }}" name=""
-                                                class="qty"
-                                                oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); ">
+                                            <input type="text"value="{{ $item->quantity }}"
+                                                class="qty"oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); ">
                                             <button type="button" class="plus items"
                                                 value="{{ $item->id }}">+</button>
+                                                <input type="hidden" name="product_price" id="{{$item->price}}">
+
                                         </div>
+
+                                        {{-- <button type="button" class="btn-step">Place Order</button>
+                                        <div class="edit_control"><button type="button" class="btn-edit"><i
+                                                    class="icon-note"></i> Edit</button></div> --}}
                                         {{-- <button type="button" class="btn-step">Remove</button> --}}
                                         {{-- <div class="edit_control"><button type="button" class="btn-step"
                                                 onclick="#">Place
@@ -100,14 +105,23 @@
 
                                         </div>
                                     </td> --}}
+
                                 </tr>
                             </tbody>
                             {{-- <tr>
-                                <td colspan="5" class="text-right"><h3><strong>Total ${{ $total }}</strong></h3></td>
-                            </tr> --}}
+                                <div class="edit_control"><button type="button" class="btn-step"
+                                    onclick="#">Place
+                                    Order</button></div>
+                                {{-- <td colspan="5" class="text-right"><h3><strong>Total ${{ $total }}</strong></h3></td> --}}
+                            {{-- </tr> --}}
                         @endforeach
 
                     </table>
+                    <div class="form-group">
+                    <button type="button" class="btn-step float-right"
+                        onclick="#">Place
+                        Order</button>
+                    </div>
                 </div>
                 <!--- .table-responsive-wrapper-->
             </div>
@@ -119,7 +133,7 @@
 @section('custom_scripts')
     <script>
         function deleteietm(id) {
-           // alert(id);
+            // alert(id);
             jQuery.ajax({
                 url: "/cart/delete",
                 type: "get",
@@ -128,47 +142,51 @@
                 },
                 success: function(data) {
                     console.log("prodeuct remove successful!!");
-                  //  location.reload();
+                    //  location.reload();
                 }
             });
         }
         jQuery('.plus ,.minus ,.qty').on('click change', function() {
             var id = $(this).val();
             var quantity = $(this).parent().find('.qty').val();
+            var price=jQuery(this).parent().parent().find('.price');
+
             console.log(id);
             console.log(quantity);
             jQuery.ajax({
                 url: "/cart/edit",
                 type: "get",
-                datatype: 'html',
                 data: {
                     'id': id,
-                    'quantity': quantity
+                    'quantity': quantity,
+                    price:jQuery(this).parent().find("input[name='product_price']").attr('id'),
                 },
-                success: function(data) {
+                success: function(response) {
                     console.log("prodeuct update successful!!");
+                    price.html(response.price);
+                },
+            });
+        });
+        $(document).ready(function() {
 
+            $('.plus').click(function(e) {
+                e.preventDefault();
+                var incre_value = $(this).parents('.quantity').find('.qty').val();
+                var value = parseInt(incre_value, 6);
+                value = isNaN(value) ? 1 : value;
+                if (value <= 5) {
+                    $(this).parents('.quantity').find('.qty').val(value);
                 }
-                // $("#refresh").click(function(e) {
-                //     $("#randomdiv").load("index.php")
-                //     e.preventDefault();
-                //  });
+            });
+            $('.minus').click(function(e) {
+                e.preventDefault();
+                var decre_value = $(this).parents('.quantity').find('.qty').val();
+                var value = parseInt(decre_value, 1);
+                value = isNaN(value) ? 1 : value;
+                if (value >= 1) {
+                    $(this).parents('.quantity').find('.qty').val(value);
+                }
+            });
         });
-
-
-        });
-        // jQuery('.plus ,.minus ,.qty').on('click', function() {
-
-        //     let x = document.getElementByClass(".qty").value;
-
-        //     if (isNaN(x) || x < 1 || x > 5) {
-        //         console.log("Input not valid");
-        //     } else {
-        //         console.log("Input OK");
-        //     }
-
-        //    // document.getElementById("demo").innerHTML = text;
-        // }
-
     </script>
 @endsection

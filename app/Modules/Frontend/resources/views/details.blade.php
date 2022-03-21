@@ -145,6 +145,7 @@
                                                         @error('name')
                                                             <p style="color:red">{{ $message }} </p>
                                                         @enderror
+
                                                         <span class="alertMsg valid" id="alertMsg" value="success"></span>
                                                         <div class="addit">
                                                             <div class="alo-social-links clearfix">
@@ -210,10 +211,13 @@
                     'id':id,
                     'quantity': quantity
                 },
+                // success: function(data) {
+                //     console.log(data);
+                //     console.log("Status Updated");
+                // },
                 success: function(data) {
-                    console.log(data);
-                    console.log("Status Updated");
-                },
+        $('div.flash-message').html(data);
+    },
             })
         }
     </script>

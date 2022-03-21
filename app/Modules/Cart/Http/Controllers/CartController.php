@@ -34,10 +34,15 @@ class CartController extends Controller
         }
     public function update(Request $request)
     {
+        $request->validate([
+            'quantity' => 'required','regex:/[1-5]/',
+        ]);
         $data = Product::where('stock', '>=', $request->quantity)
             ->where('id', $request->id)
             ->get();
-          // dd($request->quantity  );
+        $price = $request->price * $request->quantity;
+
+          // dd($price);
         if (count($data)) {
             Cart::updateOrInsert(
                 [
@@ -48,6 +53,13 @@ class CartController extends Controller
                     'quantity' => $request->quantity
                 ]
             );
+            return response()->json([
+                'price'=>$price,
+               'message' => "Data Found",
+               'code' => 200,
+              // 'data' => $data,
+           ]);
+
         }
         else
         {
