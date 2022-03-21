@@ -57,8 +57,6 @@ class CartController extends Controller
        Cart::where('id',$request->id)->delete();
 
     //   if(isset($request->product_id) && isset($request->user_id))
-
-
       // where(['id' => $request->id])->where('product_id', $id)->delete();
        // Cart::where('id',$request->id)->update(['status'=>$r->status]);
     }
@@ -72,8 +70,13 @@ class CartController extends Controller
         // if (count($data)) {
        Cart::where('id',$request->id)
         ->update(['quantity' => $request->quantity]);
-
-        session()->flash('success', 'Cart updated successfully');
+       $qty =Cart::select('quantity','price')->join('products', 'products.id', '=', 'carts.product_id')->where('id',$request->id)->first();
+            //$price=$request->quantity * $qty->quantity;
+            echo $qty;
+           /// dd($price );
+          // var_dump($qty);
+            dd($qty);
+      //  session()->flash('success', 'Cart updated successfully');
        // return view("Cart::cart",compact("cart"));
        // }
     }

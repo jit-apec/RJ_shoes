@@ -88,7 +88,7 @@
     <script>
         function deleteietm($id) {
            // var quantity = jQuery('#qty').val();
-            alert($id);
+          //  alert('remove product'.$id);
             jQuery.ajax({
                 url: "/cart/delete",
                 type: "get",
@@ -100,7 +100,7 @@
                 },
                 success: function(data) {
                     console.log("prodeuct remove successful!!");
-                   // location.reload();
+                    location.reload();
                 }
             });
         }
@@ -119,6 +119,7 @@
                 },
                 success: function(data) {
                     console.log("prodeuct update successful!!");
+                    
 
                 }
             });
