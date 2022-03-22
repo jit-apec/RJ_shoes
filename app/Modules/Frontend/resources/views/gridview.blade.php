@@ -5,7 +5,7 @@
                 <div class="images-container">
                     <div class="product-hover">
                         {{-- <span class="sticker top-left"><span class="labelnew">New</span></span> --}}
-                        <a href="{{ url('/user', $product->url) }}" title="Configurable Product"
+                        <a href="{{ url('/product', $product->url) }}" title="Configurable Product"
                             class="product-image">
                             <img id="product-collection-image-8" class="img-responsive"
                                 src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355"

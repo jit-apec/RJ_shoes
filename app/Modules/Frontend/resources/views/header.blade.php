@@ -121,10 +121,7 @@
                             </div>
                             <div class="cart-header">
                                 <span class="zero">0 </span>
-                                <p class="cart-tolatl">
-                                    <span class="toltal">Total:</span>
-                                    <span><span class="price">$0.00</span></span>
-                                </p>
+
                             </div>
                         </div>
                         <!--- .cartSummary -->

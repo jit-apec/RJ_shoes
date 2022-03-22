@@ -19,8 +19,12 @@
                 <div class="content-top no-border">
                     <h2>My Cart</h2>
 
-                </div>
 
+
+                </div>
+                @if (Session::has('success'))
+                    <p class="alert alert-success">{{ Session::get('success') }}</p>
+                @endif
                 <div class="table-responsive-wrapper">
                     <table class="table-order table-wishlist ">
                         <thead>
@@ -30,10 +34,9 @@
                                 <td>Add to cart</td>
                             </tr>
                         </thead>
-
+                        @php $total = 0 @endphp
                         @foreach ($cart as $item)
-                            {{-- $total=0;
-                        @php $total += $item->quantity *  $item->price @endphp --}}
+                            @php $total += $item->quantity *  $item->price @endphp
                             <tbody>
                                 <tr>
                                     <td>
@@ -45,10 +48,10 @@
                                     <td>
                                         <table class="table-order-product-item">
                                             <tr>
-                                                <td><img height="100" width="100"
-                                                        src="{{ asset('storage/media/' . $item->image) }}" /></td>
+                                                <td><a href="{{ url('/product', $item->url) }}"><img height="100" width="100"
+                                                        src="{{ asset('storage/media/' . $item->image) }}" /></a></td>
                                                 <td>
-                                                    <a href="{{ url('/user', $item->url) }}">
+                                                    <a href="{{ url('/product', $item->url) }}">
                                                         <h3>{{ $item->name }}</h3>
                                                     </a>
 
@@ -64,21 +67,14 @@
                                         <div class="number-input quantity">
                                             <button type="button" class="minus items"
                                                 value="{{ $item->id }}">-</button>
-                                            <input type="text"value="{{ $item->quantity }}"
-                                                class="qty"oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); ">
+                                            <input type="text" value="{{ $item->quantity }}" class="qty"
+                                                maxlength="1"name="qty"
+                                                oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); ">
                                             <button type="button" class="plus items"
                                                 value="{{ $item->id }}">+</button>
-                                                <input type="hidden" name="product_price" id="{{$item->price}}">
+                                            <input type="hidden" name="product_price" id="{{ $item->price }}">
 
                                         </div>
-
-                                        {{-- <button type="button" class="btn-step">Place Order</button>
-                                        <div class="edit_control"><button type="button" class="btn-edit"><i
-                                                    class="icon-note"></i> Edit</button></div> --}}
-                                        {{-- <button type="button" class="btn-step">Remove</button> --}}
-                                        {{-- <div class="edit_control"><button type="button" class="btn-step"
-                                                onclick="#">Place
-                                                Order</button></div> --}}
                                     </td>
                                     {{-- <td>
                                         <div class="add-to-box">
@@ -112,81 +108,102 @@
                                 <div class="edit_control"><button type="button" class="btn-step"
                                     onclick="#">Place
                                     Order</button></div>
-                                {{-- <td colspan="5" class="text-right"><h3><strong>Total ${{ $total }}</strong></h3></td> --}}
+
                             {{-- </tr> --}}
                         @endforeach
+                        <tr>
+                            <td colspan="5" class="text-right">
+                                <h3><strong>Total ₹{{ $total }}</strong></h3>
+                                <span class="Amount"></span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-right">
+                                <button type="button" class="btn-step float-center" onclick="#">Place
+                                    Order</button>
+                            </td>
+                        </tr>
 
                     </table>
                     <div class="form-group">
-                    <button type="button" class="btn-step float-right"
-                        onclick="#">Place
-                        Order</button>
+
                     </div>
+                    <!--- .table-responsive-wrapper-->
                 </div>
-                <!--- .table-responsive-wrapper-->
+                <!--- .container-->
             </div>
-            <!--- .container-->
+            <!--- .main-container -->
         </div>
-        <!--- .main-container -->
-    </div>
-@endsection
-@section('custom_scripts')
-    <script>
-        function deleteietm(id) {
-            // alert(id);
-            jQuery.ajax({
-                url: "/cart/delete",
-                type: "get",
-                data: {
-                    'id': id,
-                },
-                success: function(data) {
-                    console.log("prodeuct remove successful!!");
-                    //  location.reload();
+    @endsection
+    @section('custom_scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            function deleteietm(id) {
+                // alert(id);
+                jQuery.ajax({
+                    url: "/cart/delete",
+                    type: "get",
+                    data: {
+                        'id': id,
+                    },
+                    success: function(data) {
+                        swal("prodeuct remove successful!!");
+                        location.reload();
+                    }
+                });
+            }
+            jQuery('.plus ,.minus ,.qty').on('click change', function() {
+                var total = 0;
+                var id = $(this).val();
+                var quantity = $(this).parent().find('.qty').val();
+                var price = jQuery(this).parent().parent().find('.price');
+                var tprice= jQuery(this).parent().find("input[name='product_price']").attr('id');
+               // alert(tprice);
+                total =total + tprice*quantity;
+                if(total)
+                {
+                    $(".Amount").text(total);
                 }
+                console.log(id);
+                console.log(quantity);
+                jQuery.ajax({
+                    url: "/cart/edit",
+                    type: "get",
+                    data: {
+                        'id': id,
+                        'quantity': quantity,
+                        price: jQuery(this).parent().find("input[name='product_price']").attr('id'),
+                    },
+                    success: function(response) {
+                        swal("prodeuct update successful!!");
+                        price.html(response.price);
+                        location.reload();
+                    },
+                });
             });
-        }
-        jQuery('.plus ,.minus ,.qty').on('click change', function() {
-            var id = $(this).val();
-            var quantity = $(this).parent().find('.qty').val();
-            var price=jQuery(this).parent().parent().find('.price');
+            $(document).ready(function() {
 
-            console.log(id);
-            console.log(quantity);
-            jQuery.ajax({
-                url: "/cart/edit",
-                type: "get",
-                data: {
-                    'id': id,
-                    'quantity': quantity,
-                    price:jQuery(this).parent().find("input[name='product_price']").attr('id'),
-                },
-                success: function(response) {
-                    console.log("prodeuct update successful!!");
-                    price.html(response.price);
-                },
+                $('.plus').click(function(e) {
+                    e.preventDefault();
+                    var incre_value = $(this).parents('.quantity').find('.qty').val();
+                    var value = parseInt(incre_value, 6);
+                    value = isNaN(value) ? 1 : value;
+                    if (value <= 5) {
+                        $(this).parents('.quantity').find('.qty').val(value);
+                    }
+                });
+                $('.minus').click(function(e) {
+                    e.preventDefault();
+                    var decre_value = $(this).parents('.quantity').find('.qty').val();
+                    var value = parseInt(decre_value, 1);
+                    value = isNaN(value) ? 1 : value;
+                    // alert(decre_value);
+                    if (value >= 1) {
+                        // value-;
+                        $(this).parents('.quantity').find('.qty').val(value);
+                    }
+                });
             });
-        });
-        $(document).ready(function() {
-
-            $('.plus').click(function(e) {
-                e.preventDefault();
-                var incre_value = $(this).parents('.quantity').find('.qty').val();
-                var value = parseInt(incre_value, 6);
-                value = isNaN(value) ? 1 : value;
-                if (value <= 5) {
-                    $(this).parents('.quantity').find('.qty').val(value);
-                }
-            });
-            $('.minus').click(function(e) {
-                e.preventDefault();
-                var decre_value = $(this).parents('.quantity').find('.qty').val();
-                var value = parseInt(decre_value, 1);
-                value = isNaN(value) ? 1 : value;
-                if (value >= 1) {
-                    $(this).parents('.quantity').find('.qty').val(value);
-                }
-            });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection

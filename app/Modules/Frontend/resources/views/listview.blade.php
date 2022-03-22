@@ -7,7 +7,7 @@
                         <div class="images-container">
                             <div class="product-hover">
                                 {{-- <span class="sticker top-left"><span class="labelnew">New</span></span> --}}
-                                <a href="{{ url('/user', $product->url) }}" title="" class="product-image">
+                                <a href="{{ url('/product', $product->url) }}" title="" class="product-image">
                                     <img id="product-collection-image-8" class="img-responsive"
                                         src="{{ asset('storage/media/' . $product->image) }}" width="278"
                                         height="355" alt="">
@@ -31,7 +31,7 @@
                 <div class="product-shop col-mobile-12 col-xs-7 col-md-8 col-sm-8 col-lg-8">
                     <div class="f-fix">
                         <div class="product-primary products-textlink clearfix">
-                            <h2 class="product-name"><a href="{{ url('/user', $product->url) }}"
+                            <h2 class="product-name"><a href="{{ url('/product', $product->url) }}"
                                     title="Configurable Product">{{ $product->name }}</a>
                             </h2>
                             </h2>

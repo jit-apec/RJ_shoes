@@ -129,24 +129,32 @@
                                                                         <i class="fa fa-minus"></i></button>
                                                                 </div>
                                                             </div>
+
                                                             <div class="add-to-cart"> <button type="button"
                                                                     title="Add to Cart" class="button btn-cart"
-                                                                    id="addtocart" onclick="quantity({{ $product->id }})"> <span>
+                                                                    id="addtocart"
+                                                                    onclick="quantity({{ $product->id }})"> <span>
                                                                         <span class="view-cart icon-handbag icons">Add
                                                                             to
                                                                             Cart</span> </span> </button></div>
 
                                                         </div>
-                                                        @if (session()->has('status'))
+                                                        {{-- @if (session()->has('status'))
                                                             <p style="color: green;font-size: 20px; font-weight: bold;">
                                                                 {{ session('status') }}
                                                             </p>
                                                         @endif
                                                         @error('name')
                                                             <p style="color:red">{{ $message }} </p>
-                                                        @enderror
+                                                        @enderror --}}
 
-                                                        <span class="alertMsg valid" id="alertMsg" value="success"></span>
+                                                        <div class="container">
+                                                            @if (session('success'))
+                                                                <div class="alert alert-success">
+                                                                    {{ session('success') }}
+                                                                </div>
+                                                            @endif
+                                                        </div>
                                                         <div class="addit">
                                                             <div class="alo-social-links clearfix">
 
@@ -193,6 +201,7 @@
 @endsection
 @section('custom_scripts')
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
             jQuery('.thumb-link').hover(function() {
@@ -208,16 +217,36 @@
                 type: "get",
                 datatype: "html",
                 data: {
-                    'id':id,
+                    'id': id,
                     'quantity': quantity
                 },
                 // success: function(data) {
                 //     console.log(data);
                 //     console.log("Status Updated");
                 // },
-                success: function(data) {
-        $('div.flash-message').html(data);
-    },
+                // success: function(data) {
+                //     //$('div.flash-message').html(data);
+                //    // alert("Product Add successfully!");
+                //    //alert( data);
+                //     if(count(data)) {
+                //         alert("Product Add successfully!");
+                //     }
+                //     else
+                //     {
+                //         alert("Product Add failed!");
+                //     }
+
+                // },
+                success: function (data) {
+                    if (data.status == true) {
+                        swal("Product Add successfully!");
+                        // toastr.success(data.message);
+                        // $('body').find('.price-section').append(data.html);
+                    } else {
+                             //oastr.error(data.message);
+                    }
+                },
+
             })
         }
     </script>

@@ -31,6 +31,7 @@ class CartController extends Controller
         public function remove_product(Request $request)
         {
             Cart::where('id', $request->id)->delete();
+            return redirect()->back()->with('success', 'Item removed from cart successfully.');
         }
     public function update(Request $request)
     {
@@ -59,7 +60,7 @@ class CartController extends Controller
                'code' => 200,
               // 'data' => $data,
            ]);
-
+        session()->flash('success', 'Product Quantity update  successfully');
         }
         else
         {
