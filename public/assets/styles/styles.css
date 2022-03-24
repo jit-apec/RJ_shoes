@@ -618,7 +618,7 @@ tr.summary-details-excluded{font-style:italic}
 .demo-notice .notice-inner{width:auto;padding:0;background:none;text-align:center}
 .demo-notice .notice-inner p{padding:0;border:0}
 /* Demo 404 */
-.cms-no-route .page-not-found {padding: 240px 0 10em;text-align: center;}
+.cms-no-route .page-not-found {padding: 200px 0 5em;text-align: center;}
 .cms-no-route .page-not-found .page-title h1,.cms-no-route .page-not-found .page-title h1 span{font-size: 300px;font-weight: 300;line-height: 300px;}
 .cms-no-route .page-not-found .page-title h1 span{color: #242628;font-weight: bold;}
 .page-not-found h2{ color: #252525;font-size: 25px;font-weight: 300;margin-bottom: 80px;text-transform: uppercase;}
@@ -627,10 +627,10 @@ tr.summary-details-excluded{font-style:italic}
 .page-not-found .form-search .button{position: absolute;top: 2px;right: 2px;border: 0 none;height: 41px;line-height: 41px;}
 .page-not-found .form-search .button span{height: 43px;line-height: 45px;background-color: transparent;}
 .page-not-found .form-search .button span .fa{font-size: 17px;}
-.page-not-found .previus-page{color: #b86f6f;height: 45px;line-height: 45px;padding:0 29px;font-size: 14px;text-transform: uppercase;margin-top:60px;display: inline-block;border: 2px solid #b86f6f;}
+.page-not-found .previus-page{color: #b86f6f;height: 45px;line-height: 45px;padding:0 29px;font-size: 14px;text-transform: uppercase;margin-top:1px;display: inline-block;border: 2px solid #b86f6f;}
 .page-not-found .previus-page:hover{background-color: #b86f6f;color: #fff;}
 .page-not-found .form-search #search-inp{width: 500px;border: 2px solid #242628;height: 45px;line-height: 45px;padding: 0 60px 0 9px;}
-.cms-no-route.main-container {background-image: url("../images/bg-404.jpg");background-repeat: no-repeat;background-size: cover;bottom: 0;left: 0;position: relative;right: 0;top: 0;width: 100%;}
+.cms-no-route.main-container {background-image: url("../images/bg-404.jpeg");background-repeat: no-repeat;background-size: cover;bottom: 0;left: 0;position: relative;right: 0;top: 0;width: 100%;}
 
 /*------------------------------------------------------------------
 [2. Navigation ]
@@ -7182,7 +7182,7 @@ img.cover{position: absolute;top: 0px;left: 0px;width: auto;height: 100%;max-wid
 .page-not-found .form-search #search::-moz-placeholder{ color:  #252525;}
 .page-not-found .form-search #search-inp:-ms-input-placeholder{ color:  #252525;}
 .page-not-found .form-search #search-inp:focus{border-color: #955251;}
-.cms-no-route .page-not-found{padding-top: 10em}
+.cms-no-route .page-not-found{padding-top: 3em}
 .page-not-found-2{text-align:center;background-color: #fff;margin-top: 25px;padding: 40px 15px 45px;}
 .page-not-found-2 h1{font-size:45px;line-height:60px;font-weight:400}
 .page-not-found-2 p{font-size:18px;line-height:29px;margin-bottom:45px}

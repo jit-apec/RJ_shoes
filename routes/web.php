@@ -17,10 +17,20 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/admin/dashboard', function () {
 //     return view('admin.dashboard');
 // });
+// Route::group(['middleware' => ['auth', 'user'], 'prefix' => '/user'], function () {
+//    // Route::get('/', 'HomeController@index')->name('user_dashboard');
+//   // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// });
 
-Auth::routes();
+// // admin protected routes
+// Route::group(['middleware' => ['auth', 'admin'], 'prefix' => '/admin'], function () {
+//     //Route::get('/', 'HomeController@index')->name('admin_dashboard');
+//     Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// });
+ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
- Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//  Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin_home');
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'frontend']);
 

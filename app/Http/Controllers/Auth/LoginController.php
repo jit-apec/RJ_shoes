@@ -20,7 +20,21 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    protected function authenticated($request,$user)
+    {
+        //dd("logincontroller");
+        // to admin dashboard
+        if($user->isAdmin()) {
+            return redirect(route('home'));
+        }
 
+        // to user dashboard
+        else if($user->isUser()) {
+            return redirect(route('frontend'));
+        }
+
+        abort(404);
+    }
     /**
      * Where to redirect users after login.
      *
@@ -45,7 +59,7 @@ class LoginController extends Controller
         } else {
             $field = 'username';
         }
- 
+
         request()->merge([$field => $login]);
 
         return $field;

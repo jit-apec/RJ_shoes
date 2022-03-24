@@ -56,15 +56,17 @@ class CartController extends Controller
             );
             return response()->json([
                 'price'=>$price,
-               'message' => "Data Found",
+               'success' => "Data Found",
                'code' => 200,
               // 'data' => $data,
            ]);
-        session()->flash('success', 'Product Quantity update  successfully');
+      //  session()->flash('success', 'Product Quantity update  successfully');
         }
         else
         {
-            return response()->json(['success' => 'Invalid Input']);
+        //    return response()->json(['success' => 'Invalid Input']);
+            return response()->json(['status' => 'success','data'=>'data']);
         }
     }
 }
+

@@ -88,7 +88,7 @@ class ProductController extends Controller
             ->join('brands', 'brands.id', '=', 'products.brand_id')
             ->where('products.status', array('Y'))
             ->orWhere('products.status', array('N'))
-            ->get(['products.*', 'colors.name as cname', 'brands.name as bna.me']);
+            ->get(['products.*', 'colors.name as cname', 'brands.name as bname']);
         return view("Product::display", ['products' => $Product]);
     }
     public function changestatus(Request $r)

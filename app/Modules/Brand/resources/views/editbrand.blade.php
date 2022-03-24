@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('title')
- Brand
+    Brand
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -19,16 +19,17 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center m-5 pb-5">
-            <div class="col-md-8">
+        <div class="d-flex justify-content-center m-2 pb-4">
+            <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Edit Brand</h3>
-                    </div>
-                    <div class="text-center mt-0 mb-0 p-1">
-                        <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                            href="{{ url('/admin/brand/display') }}"><i class="fa fa-arrow-left"
-                                aria-hidden="true"></i>Back</a>&nbsp;
+
+                        <div class="text-center mt-0 mb-0 p-1">
+                            <a class="btn btn-success bg-gradient-success  btn-sm float-right "
+                                href="{{ url('/admin/brand/display') }}"><i class="fa fa-arrow-left"
+                                    aria-hidden="true"></i>&nbsp;Back</a>&nbsp;
+                        </div>
                     </div>
                     <form method="POST" action="{{ url('/admin/brand/editbrand/' . $brand->id) }}" id="validation">
                         @csrf

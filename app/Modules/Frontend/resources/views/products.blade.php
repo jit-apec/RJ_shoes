@@ -48,7 +48,8 @@ Products
                                                 <li>
                                                     <input type="checkbox" id="category" name="brand"
                                                         value="{{ $brands->id }}">
-                                                    <span>{{ $brands->name }}</span>
+                                                        <label for="brand">{{ $brands->name }}</label>
+                                                    {{-- <span>{{ $brands->name }}</span> --}}
                                                 </li>
                                             </ul>
                                         @endforeach
@@ -59,9 +60,12 @@ Products
                                         <ol class="configurable-swatch-list">
 
                                             @foreach ($color as $colors)
-                                                <li> <input type="checkbox" id="checkbox" name="color"
+                                                <li>
+
+                                                    <input type="checkbox" id="checkbox" name="color"
                                                         value="{{ $colors->id }}">
-                                                    <span class="count">{{ $colors->name }}</span>
+                                                        <label for="color">{{ $colors->name }}</label>
+                                                    {{-- <span class="count">{{ $colors->name }}</span> --}}
                                                 </li>
                                             @endforeach
 
@@ -73,10 +77,13 @@ Products
 
                                         <ol class="configurable-swatch-list configurable-size">
                                             @foreach ($products as $p)
-                                                <li><input type="checkbox" id="size" name="color" class="swatch-link"
-                                                        value="{{ $p->size }}"> <span class="swatch-label">
+                                                <li><input type="checkbox" id="size" name="size" class="swatch-link"
+                                                        value="{{ $p->size }}">
+                                                        <label for="size"> {{ $p->size }}</label>
+                                                        {{-- <span class="swatch-label">
                                                         {{ $p->size }}
-                                                    </span></li>
+                                                    </span> --}}
+                                                </li>
                                             @endforeach
                                         </ol>
 
@@ -117,7 +124,7 @@ Products
                                     <div class="sort-by">
                                         <label>Sort By</label>
                                         <select id="sort_by" name="sort_by">
-                                            <option value="name"> Position</option>
+
                                             <option value="name"> Name</option>
                                             <option value="price"> Price</option>
                                         </select>
@@ -125,7 +132,6 @@ Products
                                     <div class="sort-by">
                                         <label>Order By</label>
                                         <select id="order_by" name="order_by">
-                                            <option value="ASC"> Position</option>
                                             <option value="ASC"> Acending</option>
                                             <option value="DESC"> Decending</option>
                                         </select>
@@ -141,7 +147,7 @@ Products
                                             <option value="100"> 100</option>
                                         </select>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <!--- .toolbar-->

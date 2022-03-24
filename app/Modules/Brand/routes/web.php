@@ -7,7 +7,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('profile', function () {
     //this code is user to access denied  to unauthorize user and redirect to login page
 })->middleware('auth');
-
+// Route::Middleware(['Auth','Admin]'])->group(function() {
+//     Route::get('/admin',function() {
+//         return view('admin.dashboard');
+//     });
+// });
+// route::get('protected', ['middleware' => ['auth', 'admin'], function() {
+//     return "this page requires that you be logged in and an Admin";
+// }]);
 Route::group(['prefix'=>'/admin/brand/'] ,function(){
 
 Route::get('display', [BrandController::class, 'display']);

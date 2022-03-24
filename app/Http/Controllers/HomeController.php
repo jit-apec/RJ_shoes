@@ -16,7 +16,6 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
@@ -24,9 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+       // dd("test home");
         $role = Auth::user()->role;
+
         if($role=='A')
         {
+           // dd($role);
             return view('admin.dashboard');
         }
         else

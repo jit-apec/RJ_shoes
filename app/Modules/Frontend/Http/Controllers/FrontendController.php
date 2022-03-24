@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Product\Models\product;
 use Illuminate\Support\Facades\Session;
+
 class FrontendController extends Controller
 {
 
@@ -43,6 +44,7 @@ class FrontendController extends Controller
     public function filter(Request $request)
     {
         //dd($request->color);
+        
         if (isset($request->color) && (isset($request->brand)) && (isset($request->size))) {
             $products = Product::whereIn('color_id', $request->color)
                 ->where('size', $request->size)
@@ -95,19 +97,24 @@ class FrontendController extends Controller
                 ->paginate($request->show_product);
             //->get();
         }
-        if ($request->view == 'true') {
-            return view('Frontend::gridview', compact('products'));
-        } else {
-            return view('Frontend::listview', compact('products'));
+        if (count($products))
+         {
+            if ($request->view == 'true') {
+                return view('Frontend::gridview', compact('products'));
+            } else {
+                return view('Frontend::listview', compact('products'));
+            }
+            return  view("Frontend::products", compact('products'));
+        } else{
+            return view('Frontend::productnotfound');
         }
-        return  view("Frontend::products", compact('products'));
     }
     public function addcart(Request $request)
     {
         $Uid = Auth::id();
-        $data = Product::where('stock','>=',$request->quantity)
-                ->where('id', $request->id)
-                ->get();
+        $data = Product::where('stock', '>=', $request->quantity)
+            ->where('id', $request->id)
+            ->get();
         if (count($data)) {
             Cart::updateOrInsert(
                 [
@@ -118,32 +125,32 @@ class FrontendController extends Controller
                     'quantity' => $request->quantity
                 ]
             );
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
-           // session()->flash('success', 'Product Add successfully!');
-            // session::put([
-            //     'cart' => json_encode([
-            //         [
-            //             'product_id' => $request->id,
-            //             'user_id' => $Uid,
-            //             'quantity' => $request->quantity
-            //         ]
-            //     ])
-            // ]);
+            //return redirect()->back()->with('success', 'Product added to cart successfully!');
+            // session()->flash('success', 'Product Add successfully!');
+            session::put([
+                'cart' => json_encode([
+                    [
+                        'product_id' => $request->id,
+                        'user_id' => $Uid,
+                        'quantity' => $request->quantity
+                    ]
+                ])
+            ]);
             // Cart::session(array(
             //     'product_id'=>$request->id,
             //     'user_id'=>$Uid,
             //     'quantity'=>$request->quantity
             // ));
             // Session::put('cart', $data);
-            //  $a=Session::get('cart');
-            //   echo $a;
+            $a = Session::get('cart');
+            echo $a;
 
-           // return response()->json(['success' => 'data added successfully']);
-          // Session::flash('success', 'data added successfully in Cart!');
+            return response()->json(['success' => 'data added successfully']);
+            // Session::flash('success', 'data added successfully in Cart!');
         } else {
             return redirect()->back()->with('success', 'Invalid Input!');
-         /// session()->flash('success', 'Invalid Input!');
-          //  Session::flash('error', 'invalid Input!');
+            /// session()->flash('success', 'Invalid Input!');
+            //  Session::flash('error', 'invalid Input!');
             //return response()->json(['success' => 'Invalid Input']);
         }
     }

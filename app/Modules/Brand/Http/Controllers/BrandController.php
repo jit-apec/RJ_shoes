@@ -7,10 +7,6 @@ use App\Modules\Brand\models\Brand;
 use Illuminate\Support\Facades\Auth;
 class BrandController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display the module welcome screen
      *

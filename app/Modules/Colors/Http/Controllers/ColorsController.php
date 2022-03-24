@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ColorsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display the module display screen
      *

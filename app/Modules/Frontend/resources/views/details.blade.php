@@ -84,13 +84,22 @@
                                                                         ₹{{ $product->price }}
                                                                     </span></p>
                                                             </div>
+                                                            @if ($product->stock >= 5)
 
-                                                            @if ($product->stock == 0)
-                                                                <p class="availability out">Availability:
-                                                                    <span style="color:red">Out of stock</span>
-                                                                @else
                                                                 <p class="availability in-stock">Availability:
                                                                     <span>In stock</span>
+                                                                </p>
+                                                            @elseif ($product->stock >= 1 && $product->stock < 5)
+                                                                <p class="availability out">Availability:
+                                                                    <span style="color:red">{{ $product->stock }}
+                                                                        left!</span>
+                                                                @else
+                                                                <p class="availability in-stock">Availability:
+                                                                    <span >
+                                                                        <h2 style="color:red">Sold Out
+                                                                        </h2>
+                                                                        <h4 style="color:red"> This item is currently out of stock</h4>
+                                                                    </span>
                                                                 </p>
                                                             @endif
                                                             <div class="products-sku"> <span
@@ -114,52 +123,59 @@
                                                             </ol>
 
                                                         </div>
-                                                        <div class="add-to-box">
-                                                            <div class="product-qty">
-                                                                <label for="qty">Qty:</label>
-                                                                <div class="custom-qty"> <input type="text" name="qty"
-                                                                        id="qty" maxlength="1" value="1" title="Qty"
-                                                                        class="input-text qty"
-                                                                        oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); " />
-                                                                    <button type="button" class="increase items" id="btnmax"
-                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && (qty < 5)) result.value++;return false;">
-                                                                        <i class="fa fa-plus"></i> </button>
-                                                                    <button type="button" class="reduced items" id="btnmin"
-                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
-                                                                        <i class="fa fa-minus"></i></button>
+                                                        @if ($product->stock > 0)
+                                                        {
+                                                            <div class="add-to-box">
+                                                                <div class="product-qty">
+                                                                    <label for="qty">Qty:</label>
+                                                                    <div class="custom-qty"> <input type="text"
+                                                                            name="qty" id="qty" maxlength="1" value="1"
+                                                                            title="Qty" class="input-text qty"
+                                                                            oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); " />
+                                                                        <button type="button" class="increase items"
+                                                                            id="btnmax"
+                                                                            onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && (qty < 5)) result.value++;return false;">
+                                                                            <i class="fa fa-plus"></i> </button>
+                                                                        <button type="button" class="reduced items"
+                                                                            id="btnmin"
+                                                                            onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
+                                                                            <i class="fa fa-minus"></i></button>
+                                                                    </div>
                                                                 </div>
+
+                                                                <div class="add-to-cart"> <button type="button"
+                                                                        title="Add to Cart" class="button btn-cart"
+                                                                        id="addtocart"
+                                                                        onclick="quantity({{ $product->id }})"> <span>
+                                                                            <span class="view-cart icon-handbag icons">Add
+                                                                                to
+                                                                                Cart</span> </span> </button></div>
+
                                                             </div>
 
-                                                            <div class="add-to-cart"> <button type="button"
-                                                                    title="Add to Cart" class="button btn-cart"
-                                                                    id="addtocart"
-                                                                    onclick="quantity({{ $product->id }})"> <span>
-                                                                        <span class="view-cart icon-handbag icons">Add
-                                                                            to
-                                                                            Cart</span> </span> </button></div>
-
-                                                        </div>
-                                                        {{-- @if (session()->has('status'))
+                                                        }
+                                                        @endif
+                                                         {{-- @if (session()->has('status'))
                                                             <p style="color: green;font-size: 20px; font-weight: bold;">
                                                                 {{ session('status') }}
                                                             </p>
-                                                        @endif
                                                         @error('name')
                                                             <p style="color:red">{{ $message }} </p>
                                                         @enderror --}}
 
-                                                        <div class="container">
-                                                            @if (session('success'))
-                                                                <div class="alert alert-success">
-                                                                    {{ session('success') }}
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                        <div class="addit">
-                                                            <div class="alo-social-links clearfix">
-
+                                                            <div class="container">
+                                                                @if (session()->has('success'))
+                                                                    <div class="alert alert-success">
+                                                                        {{-- {{ session('success') }} --}}
+                                                                        {{ session()->get('message') }}
+                                                                    </div>
+                                                                @endif
                                                             </div>
-                                                        </div>
+                                                            <div class="addit">
+                                                                <div class="alo-social-links clearfix">
+
+                                                                </div>
+                                                            </div>
                                                     </div>
                                                     <!--- .product-shop-content-->
                                                 </div>
@@ -201,7 +217,9 @@
 @endsection
 @section('custom_scripts')
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
             jQuery('.thumb-link').hover(function() {
@@ -211,7 +229,7 @@
 
         function quantity(id) {
             var quantity = jQuery('#qty').val();
-
+            
             jQuery.ajax({
                 url: "/products/addcart",
                 type: "get",
@@ -237,13 +255,13 @@
                 //     }
 
                 // },
-                success: function (data) {
+                success: function(data) {
                     if (data.status == true) {
                         swal("Product Add successfully!");
                         // toastr.success(data.message);
                         // $('body').find('.price-section').append(data.html);
                     } else {
-                             //oastr.error(data.message);
+                        //oastr.error(data.message);
                     }
                 },
 

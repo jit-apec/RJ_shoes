@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use App\Http\Middleware\View;
+
 class Authenticate extends Middleware
 {
     /**
@@ -14,18 +16,19 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-       
-        if (! $request->expectsJson()) {
+        //   dd('test');
+        if (!$request->expectsJson()) {
             return route('login');
         }
 
 
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
+        /**
+         * Handle an incoming request.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  \Closure  $next
+         * @return mixed
+         */
     }
+
 }

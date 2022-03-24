@@ -52,6 +52,3 @@
     @endforeach
 
 </ul>
-<div class="d-flex justify-content-center">
-    {{$products->render()}}
-</div>
