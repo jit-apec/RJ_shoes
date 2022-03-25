@@ -1,6 +1,6 @@
 @extends('Frontend::common')
 @section('title')
-Products
+    Products
 @endsection
 @section('content')
     <div class="main-container col2-left-layout ">
@@ -35,9 +35,12 @@ Products
                                             To
                                             ₹<input type="text" class="range_value range_value_max" target="#price-range"
                                                 name="maximum" id="maximum" /> Max &nbsp; <br><br>
-                                            <div class="text-right">
+                                            <div class="text-center">
                                                 <input type="submit" class="btn-submit text-center" value="ok" id="onsubmit"
                                                     onclick="save();">
+
+                                                <input type="button" class="btn-submit text-center" value="Reset"
+                                                    id="reset">
                                             </div>
                                         </form>
                                     </dd>
@@ -48,7 +51,7 @@ Products
                                                 <li>
                                                     <input type="checkbox" id="category" name="brand"
                                                         value="{{ $brands->id }}">
-                                                        <label for="brand">{{ $brands->name }}</label>
+                                                    <label for="brand">{{ $brands->name }}</label>
                                                     {{-- <span>{{ $brands->name }}</span> --}}
                                                 </li>
                                             </ul>
@@ -64,7 +67,7 @@ Products
 
                                                     <input type="checkbox" id="checkbox" name="color"
                                                         value="{{ $colors->id }}">
-                                                        <label for="color">{{ $colors->name }}</label>
+                                                    <label for="color">{{ $colors->name }}</label>
                                                     {{-- <span class="count">{{ $colors->name }}</span> --}}
                                                 </li>
                                             @endforeach
@@ -79,8 +82,8 @@ Products
                                             @foreach ($products as $p)
                                                 <li><input type="checkbox" id="size" name="size" class="swatch-link"
                                                         value="{{ $p->size }}">
-                                                        <label for="size"> {{ $p->size }}</label>
-                                                        {{-- <span class="swatch-label">
+                                                    <label for="size"> {{ $p->size }}</label>
+                                                    {{-- <span class="swatch-label">
                                                         {{ $p->size }}
                                                     </span> --}}
                                                 </li>
@@ -137,24 +140,13 @@ Products
                                         </select>
 
                                     </div>
-                                    <div class="limiter">
-                                        <label>Show</label>
-                                        <select id="show_product" name="show_product">
-                                            <option value="5" selected="selected"> 5</option>
-                                            <option value="10"> 10</option>
-                                            <option value="20"> 20</option>
-                                            <option value="50"> 50</option>
-                                            <option value="100"> 100</option>
-                                        </select>
-                                    </div>
-
                                 </div>
                             </div>
                             <!--- .toolbar-->
                             <div id="content">
 
                             </div>
-                                {{-- <div class="d-flex justify-content-center">
+                            {{-- <div class="d-flex justify-content-center">
                                     {!! $products->links() !!}
                                 </div> --}}
                             {{-- <div class="page-nav-bottom">
@@ -224,12 +216,12 @@ Products
             filter();
 
         })
+
         function filter() {
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
             var sort_by = jQuery('#sort_by').val();
             var order_by = jQuery('#order_by').val();
-            var show_product = jQuery('#show_product').val();
             jQuery.ajax({
                 url: "{{ url('/products/filter') }}",
                 type: "get",
@@ -241,7 +233,6 @@ Products
                     'size': size,
                     'sort_by': sort_by,
                     'order_by': order_by,
-                    'show_product': show_product,
                     'minimum': minimum,
                     'maximum': maximum,
                 },
@@ -274,7 +265,21 @@ Products
         jQuery("#sort_by, #order_by, #show_product").on("click", function() {
             filter();
         });
-
-
-</script>
+        //     $("#reset").click(function () {
+        //       //  alert("hello");
+        //       $(this).val( $(this).find("chackbox[selected]").val() );
+        //    // $("#container").reset();
+        //     return false; // prevent submitting
+        //     });
+            $('#reset').click(function(event) {
+                event.preventDefault();
+                $('#main :input').each(function() {
+                    if ($(this).is('select')) {
+                        $(this).val($(this).find('option[selected]').val());
+                    } else {
+                        $(this).val(this.defaultValue);
+                    }
+                });
+            });
+    </script>
 @endsection

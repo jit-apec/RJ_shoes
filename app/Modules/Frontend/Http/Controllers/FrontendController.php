@@ -44,7 +44,7 @@ class FrontendController extends Controller
     public function filter(Request $request)
     {
         //dd($request->color);
-        
+
         if (isset($request->color) && (isset($request->brand)) && (isset($request->size))) {
             $products = Product::whereIn('color_id', $request->color)
                 ->where('size', $request->size)
@@ -52,50 +52,48 @@ class FrontendController extends Controller
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
+                ->get();
         } elseif (isset($request->color) && (isset($request->brand))) {
             $products = Product::whereIn('color_id', $request->color)
                 ->where('brand_id', $request->brand)
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
+                ->get();
         } elseif (isset($request->brand) && (isset($request->size))) {
             $products = Product::whereIn('brand_id', $request->brand)
                 ->where('size', $request->size)
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
+                ->get();
         } elseif (isset($request->color) && (isset($request->size))) {
             $products = Product::whereIn('color_id', $request->color)
                 ->where('size', $request->size)
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
+                ->get();
         } elseif (isset($request->brand)) {
             $products = Product::where('brand_id', $request->brand)
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
+                ->get();
         } elseif (isset($request->color)) {
             $products = Product::whereIn('color_id', $request->color)->where('status', 'Y')
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
-            // ->get();
+                ->get();
         } elseif (isset($request->size)) {
             $products = Product::whereIn('size', $request->size)->where('status', 'Y')
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
+                ->get();
         } else {
             $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
                 ->orderBy($request->sort_by, $request->order_by)
-                ->paginate($request->show_product);
-            //->get();
+                ->get();
         }
         if (count($products))
          {

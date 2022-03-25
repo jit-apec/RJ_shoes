@@ -20,8 +20,6 @@ class Authenticate extends Middleware
         if (!$request->expectsJson()) {
             return route('login');
         }
-
-
         /**
          * Handle an incoming request.
          *
@@ -30,5 +28,8 @@ class Authenticate extends Middleware
          * @return mixed
          */
     }
-
+    protected function redirectLoginUser($request)
+    {
+        return redirect('/');
+    }
 }

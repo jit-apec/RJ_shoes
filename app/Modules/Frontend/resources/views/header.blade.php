@@ -96,11 +96,17 @@
                                         {{-- <li class=" last"><a href="{{ route('login') }}" title="Log In">Log
                                                 In</a></li> --}}
                                         <li>
-                                            <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                                class="nav-link ">Logout
+                                            @if (Auth::check())
+                                                <a href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                                    class="nav-link ">Logout
+                                                </a>
+                                            @else
+                                                <a href="{{ route('login') }}">Login
 
-                                            </a>
+                                                </a>
+                                            @endif
+
                                         </li>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
@@ -121,7 +127,7 @@
                     <div class="mini-maincart">
                         <div class="cartSummary">
                             <div class="crat-icon">
-                            <a href="{{url('/product/cart')}}"  >  <span class="icon-handbag icons"></span></a>
+                                <a href="{{ url('/product/cart') }}"> <span class="icon-handbag icons"></span></a>
                                 <p class="mt-cart-title">My Cart</p>
                             </div>
                             <div class="cart-header">

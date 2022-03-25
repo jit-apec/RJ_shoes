@@ -4,9 +4,6 @@ use App\Modules\Product\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('profile', function () {
-    //this code is user to access denied  to unauthorize user and redirect to login page
-})->middleware('auth');
 
 Route::get('/admin/product/addproduct', [ProductController::class, 'create']);
 Route::post('/admin/product/addproduct', [ProductController::class, 'insert']);

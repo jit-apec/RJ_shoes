@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /*
@@ -20,21 +20,18 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-    protected function authenticated($request,$user)
-    {
-        //dd("logincontroller");
-        // to admin dashboard
-        if($user->isAdmin()) {
-            return redirect(route('home'));
-        }
+    // protected function authenticated()
+    // {
+    //     if(Auth::user()->role=='A')
+    //     {
+    //         return redirect(route('admin_home'));
+    //     }
+    //     else
+    //     {
+    //         return redirect(route('home'));
+    //     }
+    // }
 
-        // to user dashboard
-        else if($user->isUser()) {
-            return redirect(route('frontend'));
-        }
-
-        abort(404);
-    }
     /**
      * Where to redirect users after login.
      *
