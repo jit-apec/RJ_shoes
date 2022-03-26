@@ -15,7 +15,7 @@ Route::get('profile', function () {
 // route::get('protected', ['middleware' => ['auth', 'admin'], function() {
 //     return "this page requires that you be logged in and an Admin";
 // }]);
-Route::group(['prefix'=>'/admin/brand/'] ,function(){
+Route::group(['prefix'=>'/admin/brand/','middleware'=>['auth']] ,function(){
 
 Route::get('display', [BrandController::class, 'display']);
 Route::get('addBrands', [BrandController::class, 'create']);

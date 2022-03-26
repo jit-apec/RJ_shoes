@@ -3,16 +3,17 @@
 use App\Modules\Product\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-
-
-Route::get('/admin/product/addproduct', [ProductController::class, 'create']);
-Route::post('/admin/product/addproduct', [ProductController::class, 'insert']);
-Route::get('/admin/product/display', [ProductController::class, 'display']);
-Route::get('/admin/product/changestatus', [ProductController::class, 'changestatus']);
-Route::get('/admin/product/edit/{id}', [ProductController::class, 'edit']);
-Route::post('/admin/product/edit/{id}', [ProductController::class, 'update']);
-Route::get('/admin/product/trash', [ProductController::class, 'trash']);
-Route::get('/admin/product/move_trash', [ProductController::class, 'delete']);
-Route::get('/admin/product/restore', [ProductController::class, 'restore']);
-Route::get('/admin/products/checkurl', [ProductController::class, 'checkurl']);
-Route::get('/admin/product/product_view/{url}', [ProductController::class, 'product_view']);
+Route::group(['prefix'=>'/admin/product','middleware'=>['auth']], function()
+{
+Route::get('/addproduct', [ProductController::class, 'create']);
+Route::post('/addproduct', [ProductController::class, 'insert']);
+Route::get('/display', [ProductController::class, 'display']);
+Route::get('/changestatus', [ProductController::class, 'changestatus']);
+Route::get('/edit/{id}', [ProductController::class, 'edit']);
+Route::post('/edit/{id}', [ProductController::class, 'update']);
+Route::get('/trash', [ProductController::class, 'trash']);
+Route::get('/move_trash', [ProductController::class, 'delete']);
+Route::get('/restore', [ProductController::class, 'restore']);
+Route::get('s/checkurl', [ProductController::class, 'checkurl']);
+Route::get('/product_view/{url}', [ProductController::class, 'product_view']);
+});

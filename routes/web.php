@@ -15,5 +15,5 @@ use App\Modules\Frontend\Http\Controllers\FrontendController;
 */
 
 Auth::routes();
-Route::get('admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin_home');
+Route::get('admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin_home')->middleware('auth');
 Route::get('/', [FrontendController::class, 'frontend']);

@@ -16,8 +16,9 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        //   dd('test');
+          
         if (!$request->expectsJson()) {
+          //  dd("test");
             return route('login');
         }
         /**
@@ -30,6 +31,7 @@ class Authenticate extends Middleware
     }
     protected function redirectLoginUser($request)
     {
+        //dd('test');     
         return redirect('/');
     }
 }
