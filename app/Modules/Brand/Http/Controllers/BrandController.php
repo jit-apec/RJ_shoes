@@ -32,7 +32,7 @@ class BrandController extends Controller
         $brand->name = $req->name;
         $brand->user_id = $id;
         $brand->save();
-        return back()->with('status', 'data add successfully');
+        return redirect('/admin/brand/add')->with('status', 'data add successfully');
     }
     public function edit($id)
     {
@@ -53,32 +53,22 @@ class BrandController extends Controller
     }
     public function trash()
     {
-        $branddisp = brand::join('users', 'users.id', '=', 'brands.user_id')->where('status', array('T'))
-            ->get(['brands.*', 'users.username']);
+        $branddisp = brand::join('users', 'users.id', '=', 'brands.user_id')->where('status', array('T')) ->get(['brands.*', 'users.username']);
         return view('Brand::trashbrand', ['list' => $branddisp]);
     }
     public function delete(Request $r)
     {
-        $update = brand::find($r->id);
-        $update->status = 'T';
-        $update->save();
-        return brand::all();
+        brand::where('id',$r->id)->update(['status'=>'T']);
+        return response()->json(['status'=>'Brand deleted successfully!!']);
     }
     public function restore(Request $r)
     {
-        $update = brand::find($r->id);
-        $update->status = 'Y';
-        $update->save();
-        return brand::all();
+      brand::where('id',$r->id)->update(['status'=>'Y']);
+      return response()->json(['status'=>'Brand restored successfully']);
     }
     public function changestatus(Request $r)
     {
-        $brand = new brand();
-        $Aid = Auth::id();
-        $brand->user_id = $Aid;
-        $brand = brand::find($r->id);
-        $brand->status = $r->status;
-        $brand->save();
+        brand::where('id',$r->id)->update(['status'=>$r->status,'user_id'=>Auth::id()]);
         return response()->json(['success' => 'Status change successfully.']);
     }
     public function checkUrl(Request $request)

@@ -83,15 +83,18 @@ class FrontendController extends Controller
         } elseif (isset($request->color)) {
             $products = Product::whereIn('color_id', $request->color)->where('status', 'Y')
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
                 ->get();
         } elseif (isset($request->size)) {
             $products = Product::whereIn('size', $request->size)->where('status', 'Y')
                 ->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+                ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
                 ->get();
         } else {
             $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
+            ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
                 ->get();
         }

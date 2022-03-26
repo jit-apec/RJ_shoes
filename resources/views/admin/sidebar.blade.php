@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="/admin/dashboard" class="brand-link">
         <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="Shoes Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">Shoes Shop</span>
@@ -53,7 +53,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/admin/color/displaycolor') }}" class="nav-link">
+                                    <a href="{{ url('/admin/color/') }}" class="nav-link">
                                         <i class="fa fa-list nav-icon"></i>
                                         <p>Colors</p>
                                     </a>
@@ -67,13 +67,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ url('/admin/brand/addBrands') }}" class="nav-link">
+                                            <a href="{{ url('/admin/brand/add') }}" class="nav-link">
                                                 <i class="fa fa-plus-square nav-icon"></i>
                                                 <p>Add Brand</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ url('/admin/brand/display') }}" class="nav-link">
+                                            <a href="{{ url('/admin/brand/') }}" class="nav-link">
                                                 <i class="fa fa-list nav-icon"></i>
                                                 <p>Brand</p>
                                             </a>
@@ -95,7 +95,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="{{ url('/admin/product/display') }}"
+                                                    <a href="{{ url('/admin/product/') }}"
                                                         class="nav-link">
                                                         {{-- <i class="far fa-list-alt nav-icon"></i> --}}
                                                         <i class="fa fa-list nav-icon"></i>

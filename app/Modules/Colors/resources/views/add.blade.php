@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('title')
- Colors
+    Colors
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -12,7 +12,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('/admin/color/displaycolor') }}">Color</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin/color/') }}">Color</a></li>
                             <li class="breadcrumb-item active">Add</li>
                         </ol>
                     </div>
@@ -20,14 +20,11 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Add Colors</h3>
-                    </div>
-                    <div class="text-center mt-0 mb-0 p-1">
-                        <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                            href="{{ url('/admin/color/displaycolor') }}"><i class="fa fa-arrow-left"
+                        <a class="btn   btn-sm float-right " href="{{ url('/admin/color/') }}"><i class="fa fa-arrow-left"
                                 aria-hidden="true"></i> Back</a>&nbsp;
                     </div>
                     <form method="POST" action="addcolor" id="addcolor">
@@ -66,37 +63,26 @@
         $("#addcolor").validate({
             rules: {
                 name: {
-
                     required: true,
                     minlength: 2,
                     maxlength: 15,
                     remote: {
-                        url: '/admin/color/uniquename',
+                        url: "{{ url('/admin/color/uniquename') }}",
                         type: "GET",
                         Data: {
                             colorname: function() {
-
                                 return $("#name").val();
-
                             }
                         }
-
-
-
                     },
-
                 },
             },
-
             messages: {
-
                 name: {
                     required: "Name field is required",
                     remote: "The Name has already been taken!!!",
                 },
-
             },
-
         });
     </script>
 @endsection

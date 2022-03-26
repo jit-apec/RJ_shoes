@@ -1,24 +1,19 @@
 <?php
 
 namespace App\Modules\Product\Http\Controllers;
-
-use App\Modules\Product\Models\product;
-use App\Modules\Product\Models\Productimage;
-use App\Modules\Colors\Models\Colors;
-use App\Modules\Brand\Models\Brand;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Modules\Brand\Models\Brand;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Modules\Colors\Models\Colors;
+use App\Modules\Product\Models\product;
+use App\Modules\Product\Models\Productimage;
+use App\Modules\Frontend\Http\Controllers\FrontendController;
 
 class ProductController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display the module welcome screen
      *
@@ -91,16 +86,6 @@ class ProductController extends Controller
             ->get(['products.*', 'colors.name as cname', 'brands.name as bname']);
         return view("Product::display", ['products' => $Product]);
     }
-    public function changestatus(Request $r)
-    {
-        $product = Product::find($r->id);
-        $product->status = $r->status;
-        $product->save();
-
-       // Product::where('id',$r->id)->update(['status'=>$r->status]);
-        return response()->json(['success' => 'Status change successfully.']);
-    }
-
     public function trash()
     {
         $Product = Product::join('colors', 'colors.id', '=', 'products.color_id')
@@ -109,21 +94,21 @@ class ProductController extends Controller
             ->get(['products.*', 'colors.name as cname', 'brands.name as bname']);
         return view("Product::trash", ['product' => $Product]);
     }
-
+    public function changestatus(Request $r)
+    {
+        Product::where('id',$r->id)->update(['status'=>$r->status]);
+        return response()->json(['success' => 'Status change successfully.']);
+    }
     public function delete(Request $r)
     {
-        $update = Product::find($r->id);
-        $update->status = 'T';
-        $update->save();
-        return Product::all();
+        Product::where('id', $r->id)->update(['status' => 'T']);
+        return response()->json(['status'=>'product delete successfully!!']);
     }
 
     public function restore(Request $r)
     {
-        $update = Product::find($r->id);
-        $update->status = 'Y';
-        $update->save();
-        return Product::all();
+        Product::where('id', $r->id)->update(['status'=>'Y']);
+        return response()->json(['status'=>'product restore successfully!!']);
     }
     public function edit($id)
     {
@@ -218,10 +203,10 @@ class ProductController extends Controller
         }
     }
 
-    public function product_view($url)
+    public function product_view()
     {
-        $product = Product::where('url', $url)
-            ->get();
-        return view("Product::productdisplay", compact('product'));
+        dd("hello");
+        $product_view=new FrontendController();
+      //  $product_view->view($url);
     }
 }

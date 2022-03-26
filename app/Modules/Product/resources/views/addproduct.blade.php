@@ -12,9 +12,9 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active"><a href="{{ url('/admin/product/display') }}">Product</a>
+                            <li class="breadcrumb-item "><a href="{{ url('/admin/product/') }}">Product</a>
                             </li>
-                            <li class="breadcrumb-item">Add</li>
+                            <li class="breadcrumb-item active">Add</li>
                         </ol>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                             @endif
                             <div class="text-center mt-0 mb-0 p-1">
                                 <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                                    href="{{ url('/admin/product/display') }}"><i class="fa fa-arrow-left"
+                                    href="{{ url('/admin/product/') }}"><i class="fa fa-arrow-left"
                                         aria-hidden="true"></i> Back</a>&nbsp;
                             </div>
                             <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
@@ -353,7 +353,7 @@
                     name: {
                         required: true,
                         remote: {
-                            url: '/admin/products/checkurl',
+                            url: "{{url('/admin/products/checkurl')}}",
                             type: "GET",
                             data: {
                                 colorname: function() {

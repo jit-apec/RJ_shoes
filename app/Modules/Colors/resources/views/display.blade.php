@@ -20,14 +20,13 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="col-md-12 ">
-                <div class="card card-primary p-1">
-                    <div class="card-header">
-                        <h3 class="card-title">Colors</h3>
-                    </div>
-                    <div class="text-center mt-2 mb-2 p-1">
-                        <a class="btn btn-success bg-gradient-success  btn-sm float-right "
+                <div class="card card-primary p-2">
+                    <div class="card-header  mt-2 mb-2 p-1">
+                        <h2 class="card-title">Colors</h2>
+                    
+                        <a class="btn   btn-lg float-right "
                             href="{{ url('/admin/color/add') }}">Add<i class="fa fa-plus-circle"aria-hidden="true"></i></a>&nbsp;
-                        <a class="btn btn-danger bg-gradient-danger float-right btn-sm"
+                        <a class="btn  float-right btn-lg"
                             href="{{ url('/admin/color/trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash"
                                 aria-hidden="true"></i></a>
                     </div>
@@ -35,8 +34,9 @@
                         <thead>
                             <tr>
                                 <th class="text-center"> id </th>
-                                <th>User Name</th>
+                                <th>Created By</th>
                                 <th>Color Name</th>
+                                <th>Updated</th>
                                 <th>Status</th>
                                 <th>action</th>
                             </tr>
@@ -48,6 +48,7 @@
                                     <td class="text-center">{{ $count += 1 }}</td>
                                     <td>{{ $col->username }}</td>
                                     <td>{{ $col->name }}</td>
+                                    <td>{{ $col->updated_at }}</td>
                                     <td>
                                         @if ($col->status == 'Y')
                                             <input data-id="{{ $col->id }}" class="toggle-class btn-xs" type="checkbox"
@@ -60,9 +61,9 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ url('/admin/color/edit/' . $col->id) }}" class="fas fa-pencil-alt"></a>
+                                        <a href="{{ url('/admin/color/edit/' . $col->id) }}" class="fas fa-pencil-alt fa-2x"></a>
                                         <a href="javascript:void(0);" onclick="delete_Question({{ $col->id }})"
-                                            class="fas fa-trash-alt"></a>
+                                            class="fas fa-trash-alt fa-2x"></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -78,7 +79,7 @@
         function delete_Question(id) {
             if (confirm('are your sure do you want to delete !!!! ?')) {
                 jQuery.ajax({
-                    url: '/admin/color/movetotrash',
+                    url: "{{url('/admin/color/movetotrash')}}",
                     type: 'GET',
                     data: {
                         'id': id
@@ -97,7 +98,7 @@
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '/admin/color/changeStatus',
+                    url: "{{url('/admin/color/changeStatus')}}",
                     data: {
                         'status': status,
                         'id': id

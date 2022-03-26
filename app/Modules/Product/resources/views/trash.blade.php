@@ -11,8 +11,9 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item">Product</li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin/product/')}}">Product</a></li>
+                            <li class="breadcrumb-item active">Trash</li>
                         </ol>
                     </div>
                 </div>
@@ -21,12 +22,11 @@
         <div class="d-flex justify-content-center">
             <div class="col-md-12 ">
                 <div class="card card-danger p-2">
-                    <div class="card-header">
+                    <div class="card-header mt-2 mb-2 p-1">
                         <h3 class="card-title">Trash Product</h3>
-                    </div>
-                    <div class="text-center mt-2 mb-2 p-1">
-                        <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                            href="{{ url('/admin/product/display') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    
+                        <a class="btn  btn-lg float-right "
+                            href="{{ url('/admin/product/') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>
                             Back</a>&nbsp;
                     </div>
                     <table id="myTable" class="display">
@@ -62,8 +62,8 @@
                                     <td>{{ $product->bname }}</td>
                                     <td>
                                         <a href="#" onclick="restore_product({{ $product->id }})"
-                                            class="fas fa-trash-restore-alt " style='font-size:24px'></a>&nbsp;&nbsp;
-                                        <a href="{{ url('delete/') }}" class="fas fa-trash-alt" style='font-size:24px'></a>
+                                            class="fas fa-trash-restore-alt fa-2x " style='font-size:24px'></a>&nbsp;&nbsp;
+                                        {{-- <a href="{{ url('delete/') }}" class="fas fa-trash-alt" style='font-size:24px'></a> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -79,7 +79,7 @@
         function restore_product(id) {
             if (confirm('are your sure!! do  you want to Restore?')) {
                 jQuery.ajax({
-                    url: '/admin/product/restore',
+                    url: "{{url('/admin/product/restore')}}",
                     type: 'GET',
                     data: {
                         'id': id

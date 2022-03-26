@@ -13,7 +13,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('/admin/brand/display') }}">Brand</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin/brand/') }}">Brand</a></li>
                             <li class="breadcrumb-item active">Add</li>
                         </ol>
                     </div>
@@ -25,13 +25,11 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Add Brand</h3>
+                        <a class="btn  btn-lg float-right "
+                            href="{{ url('/admin/brand/') }}"><i class="fa fa-arrow-left"
+                                aria-hidden="true"></i>&nbsp;Back</a>&nbsp;
                     </div>
-                    <div class="text-center mt-0 mb-0 p-1">
-                        <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                            href="{{ url('/admin/brand/display') }}"><i class="fa fa-arrow-left"
-                                aria-hidden="true"></i>Back</a>&nbsp;
-                    </div>
-                    <form method="POST" action="addbrand" id="validation">
+                    <form method="POST" action="{{url('/admin/brand/add')}}" id="validation">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
@@ -73,7 +71,7 @@
                     minlength: 3,
                     maxlength: 10,
                     remote: {
-                        url: '/admin/brand/uniquename',
+                        url: "{{url('/admin/brand/uniquename')}}",
                         type: "GET",
                         Data: {
                             colorname: function() {

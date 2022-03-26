@@ -12,7 +12,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active"><a href="{{ url('/admin/product/display') }}">Product</a>
+                            <li class="breadcrumb-item active"><a href="{{ url('/admin/product/') }}">Product</a>
                             </li>
                             <li class="breadcrumb-item">Edit</li>
                         </ol>
@@ -26,17 +26,17 @@
                 @csrf
                 <div class="container-fluid">
                     <div class="card card-primary ">
-                        <div class="card-header">
+                        <div class="card-header  mt-0 mb-0 p-1">
                             <h3 class="card-title">Update Product</h3>
+                        
+                            <a class="btn  btn-lg float-right "
+                            href="{{ url('/admin/product/') }}"><i class="fa fa-arrow-left"aria-hidden="true"></i> Back</a>&nbsp;
                         </div>
                         <div class="card-body">
                             @if (session()->has('status'))
                                 <div class="text-success"> {{ session('status') }}</div>
                             @endif
-                            <div class="text-center mt-0 mb-0 p-1">
-                                <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                                href="{{ url('/admin/product/display') }}"><i class="fa fa-arrow-left"aria-hidden="true"></i> Back</a>&nbsp;
-                            </div>
+                            
                             <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
                             <div class="row">
                                 <input type="hidden" class=" access_url" id="url">
@@ -402,7 +402,7 @@
                     name: {
                         required: true,
                         // remote: {
-                        //     url: '/admin/products/checkurl',
+                        //     url: "{{url('/admin/products/checkurl')}}",
                         //     type: "GET",
                         //     data: {
                         //         colorname: function() {

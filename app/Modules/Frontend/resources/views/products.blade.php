@@ -49,9 +49,9 @@
                                         @foreach ($brand as $brands)
                                             <ul style="" class="nav-accordion">
                                                 <li>
-                                                    <input type="checkbox" id="category" name="brand"
+                                                    <label > <input type="checkbox" id="category" name="brand"
                                                         value="{{ $brands->id }}">
-                                                    <label for="brand">{{ $brands->name }}</label>
+                                                    {{ $brands->name }}</label>
                                                     {{-- <span>{{ $brands->name }}</span> --}}
                                                 </li>
                                             </ul>
@@ -64,10 +64,10 @@
 
                                             @foreach ($color as $colors)
                                                 <li>
-
+                                                    <label>
                                                     <input type="checkbox" id="checkbox" name="color"
                                                         value="{{ $colors->id }}">
-                                                    <label for="color">{{ $colors->name }}</label>
+                                                    {{ $colors->name }}</label>
                                                     {{-- <span class="count">{{ $colors->name }}</span> --}}
                                                 </li>
                                             @endforeach
@@ -80,9 +80,10 @@
 
                                         <ol class="configurable-swatch-list configurable-size">
                                             @foreach ($products as $p)
-                                                <li><input type="checkbox" id="size" name="size" class="swatch-link"
+                                                <li>
+                                                    <label><input type="checkbox" id="size" name="size" class="swatch-link"
                                                         value="{{ $p->size }}">
-                                                    <label for="size"> {{ $p->size }}</label>
+                                                     {{ $p->size }}</label>
                                                     {{-- <span class="swatch-label">
                                                         {{ $p->size }}
                                                     </span> --}}

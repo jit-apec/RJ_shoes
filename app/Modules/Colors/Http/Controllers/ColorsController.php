@@ -35,7 +35,7 @@ class ColorsController extends Controller
         $colors->name = $request->name;
         $colors->user_id = $id;
         $colors->save();
-        return back()->with('status', 'data add successfully');
+        return redirect('/admin/color/add')->with('status', 'data add successfully');
     }
     public function edit($id)
     {
@@ -61,17 +61,13 @@ class ColorsController extends Controller
     }
     public function delete(Request $r)
     {
-        $update = Colors::find($r->id);
-        $update->status = 'T';
-        $update->save();
-        return Colors::all();
+        Colors::where('id',$r->id)->update(['status'=>'T']);
+        return response()->json(['success' => 'color  Delete successfully.']);
     }
     public function restore(Request $r)
     {
-        $update = Colors::find($r->id);
-        $update->status = 'Y';
-        $update->save();
-        return colors::all();
+        Colors::where('id',$r->id)->update(['status'=>'Y']);
+        return response()->json(['success' => 'Color  restore successfully.']);
     }
     public function changeStatus(Request $r)
     {

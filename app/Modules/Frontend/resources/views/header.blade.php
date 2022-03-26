@@ -2,7 +2,7 @@
     <div class="header_full">
         <div class="header">
             <div class="header-logo show-992">
-                <a href="index.html" class="logo"> <img class="img-responsive"
+                <a href="{{ url('/') }}" class="logo"> <img class="img-responsive"
                         src="{{ asset('assets/images/white_logo.png') }}" alt="" /></a>
             </div>
             <!--- .header-logo -->
@@ -13,7 +13,7 @@
                             <div class="header-wrapper-bottom">
                                 <div class="custom-menu col-lg-12">
                                     <div class="header-logo hidden-992">
-                                        <a href="index.html" class="logo"> <img class="img-responsive"
+                                        <a href="{{ url('/') }}" class="logo"> <img class="img-responsive"
                                                 src="{{ asset('assets/images/white_logo.png') }}" alt="" /></a>
                                     </div>
                                     <!--- .header-logo -->

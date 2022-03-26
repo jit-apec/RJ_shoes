@@ -12,22 +12,21 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('/admin/color/displaycolor') }}">Color</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin/color/') }}">Color</a></li>
                             <li class="breadcrumb-item active">Edit</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center m-5 pb-5">
-            <div class="col-md-8">
-                <div class="card card-primary">
-                    <div class="card-header">
+        <div class="d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="card card-primary  p-1">
+                    <div class="card-header mt-2 mb-2 p-1">
                         <h3 class="card-title">Edit Colors</h3>
-                    </div>
-                    <div class="text-center mt-2 mb-2 p-1">
-                        <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                            href="{{ url('/admin/color/displaycolor') }}"><i class="fa fa-arrow-left"aria-hidden="true"></i> Back</a>&nbsp;
+                   
+                        <a class="btn   btn-sm float-right "
+                            href="{{ url('/admin/color/') }}"><i class="fa fa-arrow-left"aria-hidden="true"></i> Back</a>&nbsp;
                     </div>
                     <form method="POST" action="{{url('/admin/color/edit/'.$colors->id)}}" id="addcolor">
                         @csrf
@@ -70,7 +69,7 @@
                    minlength: 2,
                    maxlength: 15,
                 //    remote:{
-                //        url:'/admin/color/uniquename',
+                //        url:"{{url('/admin/color/uniquename')}}",
                 //        type:"GET",
                 //        Data:{
                 //            colorname: function(){
