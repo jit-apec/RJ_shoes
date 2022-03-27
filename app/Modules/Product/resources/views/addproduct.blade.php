@@ -25,18 +25,18 @@
                 @csrf
                 <div class="container-fluid">
                     <div class="card card-primary ">
-                        <div class="card-header">
+                        <div class="card-header mt-0 mb-0 p-1">
                             <h3 class="card-title">Add Product</h3>
+
+                            <a class="btn  btn-sm float-right "
+                                href="{{ url('/admin/product/') }}"><i class="fa fa-arrow-left"
+                                    aria-hidden="true"></i> Back</a>&nbsp;
                         </div>
                         <div class="card-body">
                             @if (session()->has('status'))
                                 <div class="text-success"> {{ session('status') }}</div>
                             @endif
-                            <div class="text-center mt-0 mb-0 p-1">
-                                <a class="btn btn-success bg-gradient-success  btn-sm float-right "
-                                    href="{{ url('/admin/product/') }}"><i class="fa fa-arrow-left"
-                                        aria-hidden="true"></i> Back</a>&nbsp;
-                            </div>
+
                             <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
                             <div class="row">
                                 <input type="hidden" class=" access_url" id="url">

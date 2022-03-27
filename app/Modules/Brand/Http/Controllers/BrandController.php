@@ -59,12 +59,17 @@ class BrandController extends Controller
     public function delete(Request $r)
     {
         brand::where('id',$r->id)->update(['status'=>'T']);
-        return response()->json(['status'=>'Brand deleted successfully!!']);
+        return response()->json(['status'=>'Brand move to trash successfully!!']);
     }
     public function restore(Request $r)
     {
       brand::where('id',$r->id)->update(['status'=>'Y']);
       return response()->json(['status'=>'Brand restored successfully']);
+    }
+    public function destroyed(Request $request){
+        dd($request->id);
+        brand::where('id',$request->id)->delete();
+        return response()->json(['status'=>'Brand delete successfully']);
     }
     public function changestatus(Request $r)
     {

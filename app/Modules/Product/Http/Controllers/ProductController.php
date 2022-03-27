@@ -202,11 +202,4 @@ class ProductController extends Controller
             return json_encode(true);
         }
     }
-
-    public function product_view()
-    {
-        dd("hello");
-        $product_view=new FrontendController();
-      //  $product_view->view($url);
-    }
 }

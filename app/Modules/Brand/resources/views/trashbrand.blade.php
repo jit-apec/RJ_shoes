@@ -23,8 +23,8 @@
             <div class="col-md-12 ">
                 <div class="card card-danger p-2">
                     <div class="card-header mt-2 mb-2 p-1">
-                        <h3 class="card-title">Trash Colors</h3>
-                   
+                        <h3 class="card-title">Trash Brand</h3>
+
                         <a class="btn btn-lg float-right  "
                             href="{{ url('/admin/brand/') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>&nbsp;
                     </div>
@@ -48,7 +48,7 @@
                                     <td>{{ $brand->updated_at }}</td>
                                     <td>
                                         <a href="#" onclick="restore_Brand({{ $brand->id }})"class="fas fa-trash-restore-alt "style='font-size:24px'></a>&nbsp;&nbsp;
-                                        <a href="{{ url('delete/') }}" class="fas fa-trash-alt" style='font-size:24px'></a>
+                                        <a href="" onclick="delete_brand({{$brand->id}})" class="fas fa-trash-alt" style='font-size:24px'></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -72,6 +72,21 @@
                     success: function(result) {
                         console.log("Status Changed successfully ");
                         window.location.reload();
+                    }
+                });
+            }
+        }
+        function delete_brand(id) {
+            if (confirm('are your sure!! do  you want to Permanently Delete?')) {
+                jQuery.ajax({
+                    url: "{{url('/admin/brand/delete')}}",
+                    type: 'get',
+                    data: {
+                        'id': id
+                    },
+                    success: function(result) {
+                        console.log("Record delete successfully!");
+                       // window.location.reload();
                     }
                 });
             }

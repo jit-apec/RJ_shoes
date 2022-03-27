@@ -9,7 +9,8 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="#" class="h1"><b>Admin</b>LTE</a>
+                <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="Shoes Logo" height="50" width="50">
+                <h2 style="color:blue;"><b>RJ Shoes</b></h2>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
