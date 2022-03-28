@@ -28,22 +28,20 @@ class CartController extends Controller
             ->get(['products.*', 'carts.id as cid', 'carts.quantity as quantity']);
         return view("Cart::cart", compact("cart"));
     }
-        public function remove_product(Request $request)
-        {
-            Cart::where('id', $request->id)->delete();
-            return redirect()->back()->with('success', 'Item removed from cart successfully.');
-        }
+    public function remove_product(Request $request)
+    {
+        Cart::where('id', $request->id)->delete();
+        return redirect()->back()->with('success', 'Item removed from cart successfully.');
+    }
     public function update(Request $request)
     {
         $request->validate([
-            'quantity' => 'required','regex:/[1-5]/',
+            'quantity' => 'required', 'regex:/[1-5]/',
         ]);
         $data = Product::where('stock', '>=', $request->quantity)
             ->where('id', $request->id)
             ->get();
         $price = $request->price * $request->quantity;
-
-          // dd($price);
         if (count($data)) {
             Cart::updateOrInsert(
                 [
@@ -55,18 +53,14 @@ class CartController extends Controller
                 ]
             );
             return response()->json([
-                'price'=>$price,
-               'success' => "Data Found",
-               'code' => 200,
-              // 'data' => $data,
-           ]);
-      //  session()->flash('success', 'Product Quantity update  successfully');
-        }
-        else
-        {
-        //    return response()->json(['success' => 'Invalid Input']);
-            return response()->json(['status' => 'success','data'=>'data']);
+                'price' => $price,
+                'success' => "Data Found",
+                'code' => 200,
+            ]);
+            //  session()->flash('success', 'Product Quantity update  successfully');
+        } else {
+            //    return response()->json(['success' => 'Invalid Input']);
+            return response()->json(['status' => 'success', 'data' => 'data']);
         }
     }
 }
-

@@ -63,14 +63,18 @@
                                     <td>{{ $product->bname }}</td>
                                     <td>
                                         @if ($product->status == 'Y')
-                                            <input data-id="{{ $product->id }}" class="toggle-class btn-xs"
-                                                type="checkbox" data-onstyle="success" data-offstyle="danger"
-                                                data-toggle="toggle" data-size="sm" checked data-on="Active">
-                                        @else
-                                            <input data-id="{{ $product->id }}" class="toggle-class btn-xs"
-                                                type="checkbox" data-onstyle="success" data-offstyle="danger"
-                                                data-toggle="toggle" data-size="sm" data-on="Active">
-                                        @endif
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $product->id }}"  class="toggle-class"{{ $product->status ? 'checked' : '' }}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
+
+                                          @if ($product->status == 'N')
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $product->id }}"  class="toggle-class"{{ $product->status}}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
                                     </td>
                                     <td>
                                         <a href="{{ url('/admin/product/edit', $product->id) }}"

@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Product\Models\product;
 use Illuminate\Support\Facades\Session;
-
+use Response;
 class FrontendController extends Controller
 {
 
@@ -94,19 +94,18 @@ class FrontendController extends Controller
                 ->get();
         } else {
             $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])
-            ->where('status', 'Y')
+                ->where('status', 'Y')
                 ->orderBy($request->sort_by, $request->order_by)
                 ->get();
         }
-        if (count($products))
-         {
+        if (count($products)) {
             if ($request->view == 'true') {
                 return view('Frontend::gridview', compact('products'));
             } else {
                 return view('Frontend::listview', compact('products'));
             }
             return  view("Frontend::products", compact('products'));
-        } else{
+        } else {
             return view('Frontend::productnotfound');
         }
     }
@@ -115,44 +114,60 @@ class FrontendController extends Controller
         $Uid = Auth::id();
         $data = Product::where('stock', '>=', $request->quantity)
             ->where('id', $request->id)
-            ->get();
-        if (count($data)) {
-            Cart::updateOrInsert(
-                [
-                    'product_id' => $request->id,
-                    'user_id' => $Uid,
-                ],
-                [
-                    'quantity' => $request->quantity
-                ]
-            );
-            //return redirect()->back()->with('success', 'Product added to cart successfully!');
-            // session()->flash('success', 'Product Add successfully!');
+            ->get()->toArray();
+        if (Auth::check())
+        {
+            if (count($data)) {
+                Cart::updateOrInsert(
+                    [
+                        'product_id' => $request->id,
+                        'user_id' => $Uid,
+                    ],
+                    [
+                        'quantity' => $request->quantity
+                    ]
+                );
+
+              //  return response()->json(['success' => 'data added successfully']);
+            }
+            else
+             {
+              //  return response()->json('success', 'Invalid Input!');
+                echo "invalid data.";
+            }
+        }
+        else
+        {
             session::put([
                 'cart' => json_encode([
                     [
                         'product_id' => $request->id,
-                        'user_id' => $Uid,
-                        'quantity' => $request->quantity
+                        'name' => $data[0]['name'],
+                        'price' => $data[0]['price'],
+                        'quantity' => $request->quantity,
+                        'image'=>$data[0]['image'],
+                        'url'=>$data[0]['url'],
+                        'cid'=>$data[0]['id'],
                     ]
                 ])
             ]);
+            $a = Session::get('cart');
+            echo $a;
             // Cart::session(array(
             //     'product_id'=>$request->id,
             //     'user_id'=>$Uid,
             //     'quantity'=>$request->quantity
             // ));
             // Session::put('cart', $data);
-            $a = Session::get('cart');
-            echo $a;
 
-            return response()->json(['success' => 'data added successfully']);
-            // Session::flash('success', 'data added successfully in Cart!');
-        } else {
-            return redirect()->back()->with('success', 'Invalid Input!');
-            /// session()->flash('success', 'Invalid Input!');
-            //  Session::flash('error', 'invalid Input!');
-            //return response()->json(['success' => 'Invalid Input']);
+           // echo "session data added";
+          //  return response()->json()->with('status','data added');
+          // return redirect("")->with('status', 'Profile updated!');
+        //    return redirect("")->json([
+        //        'message'=>'Profile updated',
+
+        //    ]);
         }
+
     }
 }

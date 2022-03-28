@@ -87,14 +87,6 @@
                             <div class="top-links-alo">
                                 <div class="header-top-link">
                                     <ul class="links">
-                                        {{-- <li><a href="#" title="My Account">My Account</a></li>
-                                        <li><a href="my-wish-list.html" title="My Wishlist">My Wishlist</a></li>
-                                        <li><a href="compare.html" title="Compare Products">Compare Products</a></li>
-                                        <li><a href="#" title="My Cart">My Cart</a></li> --}}
-                                        {{-- <li><a href="checkout-step1.html" title="Checkout"
-                                                class="top-link-checkout">Checkout</a></li> --}}
-                                        {{-- <li class=" last"><a href="{{ route('login') }}" title="Log In">Log
-                                                In</a></li> --}}
                                         <li>
                                             @if (Auth::check())
                                                 <a href="{{ route('logout') }}"
@@ -106,7 +98,6 @@
 
                                                 </a>
                                             @endif
-
                                         </li>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
@@ -127,24 +118,53 @@
                     <div class="mini-maincart">
                         <div class="cartSummary">
                             <div class="crat-icon">
-                                <a href="{{ url('/product/cart') }}"> <span class="icon-handbag icons"></span></a>
+                                <span class="icon-handbag icons"></span>
                                 <p class="mt-cart-title">My Cart</p>
-                            </div>
-                            <div class="cart-header">
-                                <span class="zero">0 </span>
-
                             </div>
                         </div>
                         <!--- .cartSummary -->
-                        <div id="minicart">
-
+                        <div class="mini-contentCart" style="display: none">
+                            <div class="block-content">
+                                <p class="block-subtitle">Recently added item(s)</p>
+                                <ol id="cart-sidebar" class="mini-products-list clearfix">
+                                    @php $total = 0 @endphp
+                                    @foreach ($cartt as $items)
+                                    @php $total += $items->quantity *  $items->product->price @endphp
+                                 {{-- @php   echo $items->product->image; @endphp --}}
+                                    <li class="item clearfix">
+                                        <div class="cart-content-top">
+                                            <a href="{{ url('/products',$items->product->url)}}"
+                                                title="{{ $items->product->name }}" class="product-image">
+                                                <img src="{{asset('storage/media/'.$items->product->image)}}"
+                                                    width="60" height="77" alt="Brown Arrows Cushion">
+                                            </a>
+                                            <div class="product-details">
+                                                <p class="product-name">
+                                                    <a href="{{ url('/products', $items->product->url)}}"
+                                                        title="{{ $items->product->name }}">{{ $items->product->name }}</a>
+                                                </p>
+                                                <strong>{{ $items->quantity }}</strong> x <span
+                                                    class="price">₹{{$items->product->price}}</span>
+                                                <p class="price"><strong>=
+                                                         ₹{{ $items->quantity * $items->product->price }}
+                                                        </strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                                </ol>
+                                <p class="subtotal"> <span class="label">Subtotal:</span> <span
+                                        class="price">Total ₹{{ $total }}</span></p>
+                                <div class="actions"> <a href="{{ url("/product/cart") }}" class="view-cart"> View cart </a> <a
+                                        href="#">Checkout</a></div>
+                            </div>
                         </div>
                         <!--- .mini-contentCart -->
                     </div>
                     <!--- .mini-maincart -->
                 </div>
                 <!--- .miniCartWrap -->
-
             </div>
             <!--- .header-page -->
         </div>

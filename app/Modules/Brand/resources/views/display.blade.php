@@ -50,20 +50,24 @@
                                     <td>{{ $brand->updated_at }}</td>
                                     <td>
                                         @if ($brand->status == 'Y')
-                                            <input data-id="{{ $brand->id }}" class="toggle-class btn-xs" type="checkbox"
-                                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                data-size="sm" checked data-on="Active">
-                                        @else
-                                            <input data-id="{{ $brand->id }}" class="toggle-class btn-xs" type="checkbox"
-                                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                data-size="sm" data-on="Active">
-                                        @endif
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $brand->id }}"  class="toggle-class"{{ $brand->status ? 'checked' : '' }}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
+
+                                          @if ($brand->status == 'N')
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $brand->id }}"  class="toggle-class"{{ $brand->status}}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
                                     </td>
                                     <td>
                                         <a href="{{ url('/admin/brand/editbrand', $brand->id) }}"
-                                            class="fas fa-pencil-alt fa-2x"></a>
+                                            class="fas fa-pencil-alt "></a>
                                         <a href="javascript:void(0);" onclick="move_to_trash({{ $brand->id }})"
-                                            class="fas fa-trash-alt fa-2x"></a>
+                                            class="fas fa-trash-alt "></a>
                                     </td>
                                 </tr>
                             @endforeach

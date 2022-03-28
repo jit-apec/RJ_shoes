@@ -23,7 +23,7 @@
                 <div class="card card-primary p-2">
                     <div class="card-header  mt-2 mb-2 p-1">
                         <h2 class="card-title">Colors</h2>
-                    
+
                         <a class="btn   btn-lg float-right "
                             href="{{ url('/admin/color/add') }}">Add<i class="fa fa-plus-circle"aria-hidden="true"></i></a>&nbsp;
                         <a class="btn  float-right btn-lg"
@@ -51,19 +51,24 @@
                                     <td>{{ $col->updated_at }}</td>
                                     <td>
                                         @if ($col->status == 'Y')
-                                            <input data-id="{{ $col->id }}" class="toggle-class btn-xs" type="checkbox"
-                                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                data-size="sm" checked data-on="Active">
-                                        @else
-                                            <input data-id="{{ $col->id }}" class="toggle-class btn-xs" type="checkbox"
-                                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                data-size="sm" data-on="Active">
-                                        @endif
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $col->id }}"  class="toggle-class"{{ $col->status ? 'checked' : '' }}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
+
+                                          @if ($col->status == 'N')
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $col->id }}"  class="toggle-class"{{ $col->status}}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
                                     </td>
+
                                     <td>
-                                        <a href="{{ url('/admin/color/edit/' . $col->id) }}" class="fas fa-pencil-alt fa-2x"></a>
+                                        <a href="{{ url('/admin/color/edit/' . $col->id) }}" class="fas fa-pencil-alt"></a>
                                         <a href="javascript:void(0);" onclick="delete_Question({{ $col->id }})"
-                                            class="fas fa-trash-alt fa-2x"></a>
+                                            class="fas fa-trash-alt"></a>
                                     </td>
                                 </tr>
                             @endforeach

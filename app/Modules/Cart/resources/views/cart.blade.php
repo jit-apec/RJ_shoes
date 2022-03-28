@@ -18,9 +18,6 @@
             <div class="container">
                 <div class="content-top no-border">
                     <h2>My Cart</h2>
-
-
-
                 </div>
                 @if (Session::has('success'))
                     <p class="alert alert-success">{{ Session::get('success') }}</p>
@@ -34,13 +31,19 @@
                                 <td>Add to cart</td>
                             </tr>
                         </thead>
+                     {{-- @php   $cart = json_decode(Session::get('cart'),true);
+                      //  echo json_decode($a);
+                     //   var_dump($cart);
+                    @endphp
+                        @foreach ($cart as $cart)
+                            {{ $cart['name'] }}
+                        @endforeach --}}
                         @php $total = 0 @endphp
                         @foreach ($cart as $item)
                             @php $total += $item->quantity *  $item->price @endphp
                             <tbody>
                                 <tr>
                                     <td>
-
                                         <button type="button" class="button-remove" id="remove"
                                             onclick="deleteietm({{ $item->cid }})"><i
                                                 class="icon-close"></i></button>
@@ -77,33 +80,6 @@
 
                                         </div>
                                     </td>
-
-                                    {{-- <td>
-                                        <div class="add-to-box">
-                                            <div class="product-qty">
-                                                <label for="qty">Qty:</label>
-                                                <div class="custom-qty"> <input type="text" name="qty"
-                                                        id="qty" maxlength="1" value="1" title="Qty"
-                                                        class="input-text qty"
-                                                        oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); " />
-                                                    <button type="button" class="increase items" id="btnmax"
-                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty < 5) result.value++;return false;">
-                                                        <i class="fa fa-plus"></i> </button>
-                                                    <button type="button" class="reduced items" id="btnmin"
-                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
-                                                        <i class="fa fa-minus"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart"> <button type="button"
-                                                    title="Add to Cart" class="button btn-cart"
-                                                    id="addtocart" onclick="quantity({{ $item->id }})"> <span>
-                                                        <span class="view-cart icon-handbag icons">Add
-                                                            to
-                                                            Cart</span> </span> </button></div>
-
-                                        </div>
-                                    </td> --}}
-
                                 </tr>
                             </tbody>
                             {{-- <tr>
@@ -157,7 +133,7 @@
             }
             jQuery('.plus ,.minus ,.qty').on('click change', function() {
                 var decre_value = $(this).parents('.quantity').find('.qty').val();
-                var value = parseInt(decre_value, 6);
+                var value = Math.abs(parseInt(decre_value, 6));
 
                 var total = 0;
                 var id = $(this).val();
@@ -169,7 +145,7 @@
                 if (value >= 1) {
                     $(this).parents('.quantity').find('.qty').val(value);
                 }
-                total = total + tprice * quantity;
+                total = Math.abs(total + tprice * quantity);
                 if (total) {
                     $(".Amount").text(total);
                 }
@@ -185,7 +161,7 @@
                     },
                     success: function(response) {
                         // swal("prodeuct update successful!!");
-                        price.html(response.price);
+                        price.html(Math.abs(response.price));
                         // location.reload();
                     },
                 });

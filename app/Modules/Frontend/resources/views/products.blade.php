@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--- .toolbar-->
+                            <!--- .toolbar-->   
                             <div id="content">
 
                             </div>
