@@ -62,32 +62,23 @@
                                             <td width="14">Total</td>
                                         </tr>
                                     </thead>
+                                    @php $total = 0 @endphp
+                                    @foreach ($product as $product)
+                                    @php $total += $product->quantity *  $product->price @endphp
                                     <tbody>
                                         <tr>
-                                            <td class="name">Product name here</td>
-                                            <td>£220.00</td>
-                                            <td>1</td>
-                                            <td class="price">£220.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="name">Product name here</td>
-                                            <td>£220.00</td>
-                                            <td>1</td>
-                                            <td class="price">£220.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="name">Product name here</td>
-                                            <td>£220.00</td>
-                                            <td>1</td>
-                                            <td class="price">£220.00</td>
+                                            <td class="name">{{$product->name}}</td>
+                                            <td>₹{{$product->price}}</td>
+                                            <td>{{$product->quantity}}</td>
+                                            <td class="price">₹{{$product->quantity * $product->price}}</td>
                                         </tr>
                                     </tbody>
+                                    @endforeach
                                 </table>
                                 <table class="table-order table-order-review-bottom">
-
                                     <tr>
                                         <td class="first large" width="80%">Total Payment</td>
-                                        <td class="price large" width="20%">£540.00</td>
+                                        <td class="price large" width="20%">₹{{ $total }}</td>
                                     </tr>
                                     <tfoot>
                                         <td colspan="2">
@@ -109,21 +100,24 @@
                                     <li>
                                         <div class="title-step">Billing Address
                                             <!-- <a href="#">CHANGE</a></div> -->
-                                            <p><strong>John Doe</strong><br>
-                                                abc<br>
-                                                Street number, AZ.Bulding, NY, USA <br>
-                                                New York, 1000<br>
-                                                +91 234 567 89
+                                            @foreach ($billing_address as $address)
+                                            @endforeach
+                                            <p><strong>{{$address->first_name}} {{$address->last_name}}</strong><br>
+                                                {{$address->address}}<br>Pin Code:
+                                               {{$address->pincode}}<br>Contect no:
+                                               {{$address->phone_number}}
                                             </p>
+
                                     </li>
                                     <li>
                                         <div class="title-step">Shipping Address
                                             <!-- <a href="#">CHANGE</a></div> -->
-                                            <p><strong>John Doe</strong><br>
-                                                abc<br>
-                                                Street number, AZ.Bulding, NY, USA <br>
-                                                New York, 1000<br>
-                                                +91 234 567 89
+                                            @foreach ($billing_address as $address)
+                                            @endforeach
+                                            <p><strong>{{$address->first_name}} {{$address->last_name}}</strong><br>
+                                                {{$address->address}}<br>Pin Code:
+                                               {{$address->pincode}}<br>Contect no:
+                                               {{$address->phone_number}}
                                             </p>
                                     </li>
 

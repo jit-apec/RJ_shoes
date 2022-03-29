@@ -131,7 +131,7 @@
                                     @php $total = 0 @endphp
                                     @foreach ($cartt as $items)
                                     @php $total += $items->quantity *  $items->product->price @endphp
-                                  
+
                                  {{-- @php   echo $items->product->image; @endphp --}}
                                     <li class="item clearfix">
                                         <div class="cart-content-top">
@@ -159,7 +159,7 @@
                                 <p class="subtotal"> <span class="label">Subtotal:</span> <span
                                         class="price">Total ₹{{ $total }}</span></p>
                                 <div class="actions"> <a href="{{ url("/product/cart") }}" class="view-cart"> View cart </a> <a
-                                        href="#">Checkout</a></div>
+                                        href="{{url('/biling_address')}}">Checkout</a></div>
                             </div>
                         </div>
                         <!--- .mini-contentCart -->

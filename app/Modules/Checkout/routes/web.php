@@ -6,6 +6,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/biling_address', [CheckoutController::class, 'create_biling']);
     Route::post('/biling_addres',[CheckoutController::class, 'store_biling']);
     Route::get('/shiping_address', [CheckoutController::class, 'shiping_address']);
-    Route::get('/order_review', [CheckoutController::class, 'order_review']);
+    Route::get('/order_review', [CheckoutController::class, 'create_order_review']);
     Route::get('/payment', [CheckoutController::class, 'payment']);
 });

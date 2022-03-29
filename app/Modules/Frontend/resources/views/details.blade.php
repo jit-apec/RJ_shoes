@@ -230,12 +230,12 @@
         function quantity(id) {
             var quantity = jQuery('#qty').val();
 
-            var change_url=$(this).parent().find('.change').val();
-         //   var anchors = document.querySelectorAll('a[href*="google.com"]');
-                Array.prototype.forEach.call(anchors, function (element, index) {
-                    element.href = "http://stackoverflow.com";
-                });
-                die("test");
+        //     var change_url=$(this).parent().find('.change').val();
+        //  //   var anchors = document.querySelectorAll('a[href*="google.com"]');
+        //         Array.prototype.forEach.call(anchors, function (element, index) {
+        //             element.href = "http://stackoverflow.com";
+        //         });
+        //         die("test");
             jQuery.ajax({
                 url: "/products/addcart",
                 type: "get",
