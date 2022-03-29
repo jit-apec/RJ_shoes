@@ -25,4 +25,12 @@ class HomeController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function index2()
+    {
+        return view('viewnot');
+    }
+
+
+
 }

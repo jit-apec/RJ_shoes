@@ -127,9 +127,11 @@
                             <div class="block-content">
                                 <p class="block-subtitle">Recently added item(s)</p>
                                 <ol id="cart-sidebar" class="mini-products-list clearfix">
+
                                     @php $total = 0 @endphp
                                     @foreach ($cartt as $items)
                                     @php $total += $items->quantity *  $items->product->price @endphp
+                                  
                                  {{-- @php   echo $items->product->image; @endphp --}}
                                     <li class="item clearfix">
                                         <div class="cart-content-top">

@@ -49,9 +49,9 @@
                                         @foreach ($brand as $brands)
                                             <ul style="" class="nav-accordion">
                                                 <li>
-                                                    <label > <input type="checkbox" id="category" name="brand"
-                                                        value="{{ $brands->id }}">
-                                                    {{ $brands->name }}</label>
+                                                    <label> <input type="checkbox" id="category" name="brand"
+                                                            value="{{ $brands->id }}">
+                                                        {{ $brands->name }}</label>
                                                     {{-- <span>{{ $brands->name }}</span> --}}
                                                 </li>
                                             </ul>
@@ -65,9 +65,9 @@
                                             @foreach ($color as $colors)
                                                 <li>
                                                     <label>
-                                                    <input type="checkbox" id="checkbox" name="color"
-                                                        value="{{ $colors->id }}">
-                                                    {{ $colors->name }}</label>
+                                                        <input type="checkbox" id="checkbox" name="color"
+                                                            value="{{ $colors->id }}">
+                                                        {{ $colors->name }}</label>
                                                     {{-- <span class="count">{{ $colors->name }}</span> --}}
                                                 </li>
                                             @endforeach
@@ -81,9 +81,9 @@
                                         <ol class="configurable-swatch-list configurable-size">
                                             @foreach ($products as $p)
                                                 <li>
-                                                    <label><input type="checkbox" id="size" name="size" class="swatch-link"
-                                                        value="{{ $p->size }}">
-                                                     {{ $p->size }}</label>
+                                                    <label><input type="checkbox" id="size" name="size"
+                                                            class="swatch-link" value="{{ $p->size }}">
+                                                        {{ $p->size }}</label>
                                                     {{-- <span class="swatch-label">
                                                         {{ $p->size }}
                                                     </span> --}}
@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--- .toolbar-->   
+                            <!--- .toolbar-->
                             <div id="content">
 
                             </div>
@@ -272,15 +272,16 @@
         //    // $("#container").reset();
         //     return false; // prevent submitting
         //     });
-            $('#reset').click(function(event) {
-                event.preventDefault();
-                $('#main :input').each(function() {
-                    if ($(this).is('select')) {
-                        $(this).val($(this).find('option[selected]').val());
-                    } else {
-                        $(this).val(this.defaultValue);
-                    }
-                });
+        $('#reset').click(function(event) {
+            event.preventDefault();
+            $('#main :input').each(function() {
+                if ($(this).is('select')) {
+                    $(this).val($(this).find('option[selected]').val());
+                } else {
+                    $(this).val(this.defaultValue);
+                }
             });
+        });
+        
     </script>
 @endsection

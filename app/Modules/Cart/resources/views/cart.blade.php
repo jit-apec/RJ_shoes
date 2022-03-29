@@ -98,8 +98,8 @@
                         </tr>
                         <tr>
                             <td colspan="5" class="text-right">
-                                <button type="button" class="btn-step float-center" onclick="#">Place
-                                    Order</button>
+                                <a class="btn-step float-center" href="{{url('/biling_address')}}">Place Order</a>
+
                             </td>
                         </tr>
 
@@ -138,14 +138,14 @@
                 var total = 0;
                 var id = $(this).val();
                 var quantity = $(this).parent().find('.qty').val();
-                var price = jQuery(this).parent().parent().find('.price');
-                var tprice = jQuery(this).parent().find("input[name='product_price']").attr('id');
+                var price = $(this).parent().parent().find('.price');
+                var tprice = $(this).parent().find("input[name='product_price']").attr('id');
                 // alert(tprice);
                 value = isNaN(value) ? 1 : value;
                 if (value >= 1) {
                     $(this).parents('.quantity').find('.qty').val(value);
                 }
-                total = Math.abs(total + tprice * quantity);
+                total = Math.abs(total + tprice * quantity);x
                 if (total) {
                     $(".Amount").text(total);
                 }
