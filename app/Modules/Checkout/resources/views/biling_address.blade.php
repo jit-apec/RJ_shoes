@@ -53,16 +53,23 @@
                         </div>
                         <!--- .checkout-step-process --->
                         <form name="checkout" method="post" class="checkout woocommerce-checkout form-in-checkout"
-                            action="{{('/biling_addres')}}">
+                            action="{{ '/store_address' }}">
                             @csrf
                             <ul class="row">
                                 <li class="col-md-9">
                                     <div class="checkout-info-text">
                                         <h3>Billing Address</h3>
                                     </div>
-
+                                    @foreach ($billing_address as $address)
+                                        <span class="form-radio">
+                                            <input type="radio" name="addresses" class="biling"
+                                                value="{{ $address->id }}" checked><label for="rs1">
+                                                {{ $address->address }}</label></span><br>
+                                    @endforeach
+                                    <span class="form-radio"><input type="radio" name="addresses" id="show"
+                                            value="0"><label for="rs1"> Add New Address</label></span><br>
                                     <div class="woocommerce-billing-fields">
-                                        <ul class="row">
+                                        <ul class="row" id="form">
                                             <li class="col-md-6">
                                                 <p class="form-row validate-required" id="first_name_field">
                                                     <label for="first_name" class="">First Name <abbr
@@ -83,8 +90,8 @@
                                                 <p class="form-row  validate-required validate-email" id="email">
                                                     <label for="email" class="">Email ID <abbr
                                                             class="required" title="required">*</abbr></label>
-                                                    <input type="text" class="input-text " name="email"
-                                                        id="email" placeholder="" value="">
+                                                    <input type="text" class="input-text " name="email" id="email"
+                                                        placeholder="" value="">
                                                 </p>
                                             </li>
                                             <li class="col-md-12  col-left-12">
@@ -100,8 +107,8 @@
                                                     id="pincode_field">
                                                     <label for="pincode" class="">Pin code <abbr
                                                             class="required" title="required">*</abbr></label>
-                                                    <input type="text" class="input-text " name="pincode"
-                                                        id="pincode" value="">
+                                                    <input type="text" class="input-text " name="pincode" id="pincode"
+                                                        value="">
                                                 </p>
                                             </li>
 
@@ -114,37 +121,53 @@
                                                         id="phone_number" placeholder="" value="">
                                                 </p>
                                             </li>
-                                            <li class="col-md-12 col-left-12 form-radios">
-                                                <span class="form-radio"><input type="radio" name="shipping_method"
-                                                        id="rs1" value="1" checked><label for="rs1">Ship to this
-                                                        address</label></span>
-                                                <span class="form-radio"><input type="radio" name="shipping_method"
-                                                        id="rs2" value="0"><label for="rs2">Ship to different address</label></span>
-                                            </li>
+
                                         </ul>
+
                                     </div>
-                                    <!--- .woocommerce-billing-fields--->
-                                    <div class="checkout-col-footer">
-                                        {{-- <a class="btn-step" href="{{ url('/shiping_address') }}">Continue</a> --}}
-                                        <input type="submit" value="Continue" class="btn-step">
-                                        <div class="note">(<span>*</span>) Required fields</div>
-                                    </div>
-                                    <!--- .checkout-col-footer--->
+                                    <div>
+                                <li class="col-md-12 col-left-12 form-radios">
+                                    <span class="form-radio"><input type="radio" name="shipping_method" id="rs1"
+                                            value="1" checked><label for="rs1">Ship to this
+                                            address</label></span>
+                                    <span class="form-radio"><input type="radio" name="shipping_method" id="rs2"
+                                            value="0"><label for="rs2">Ship to different
+                                            address</label></span>
                                 </li>
-                            </ul>
-                        </form>
-                        <!--- form.checkout--->
-                        <div class="line-bottom"></div>
                     </div>
-                    <!--- .container--->
+                    <!--- .woocommerce-billing-fields--->
+                    <div class="checkout-col-footer">
+                        {{-- <a class="btn-step" href="{{ url('/shiping_address') }}">Continue</a> --}}
+                        <input type="submit" value="Continue" class="btn-step">
+                        <div class="note">(<span>*</span>) Required fields</div>
+                    </div>
+                    <!--- .checkout-col-footer--->
+                    </li>
+                    </ul>
+                    </form>
+                    <!--- form.checkout--->
+                    <div class="line-bottom"></div>
                 </div>
-                <!--- .woocommerce--->
+                <!--- .container--->
             </div>
-            <!--- .main-container -->
+            <!--- .woocommerce--->
         </div>
-        <!--- .page -->
+        <!--- .main-container -->
+    </div>
+    <!--- .page -->
     </div>
     <!--- .wrapper -->
 @endsection
 @section('custom_scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form').hide();
+            $(".biling").click(function() {
+                $("#form").hide();
+            });
+            $('#show').on('click', function() {
+                $('#form').toggle(300);
+            });
+        });
+    </script>
 @endsection
