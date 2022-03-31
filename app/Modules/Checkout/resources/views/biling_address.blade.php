@@ -36,19 +36,18 @@
                                     <div class="step-process-item"><i class="step-icon-truck step-icon"></i><span
                                             class="text">Shipping</span></div>
                                 </li>
-                                <li>
-                                    <div class="step-process-item"><i data-href="checkout-step5.html"
-                                            class="redirectjs  step-icon icon-notebook"></i><span
-                                            class="text">Order Review</span></div>
-                                </li>
+                                
                                 <li>
                                     <div class="step-process-item"><i data-href="checkout-step4.html"
                                             class="redirectjs  step-icon icon-wallet"></i><span
                                             class="text">Delivery & Payment</span></div>
                                 </li>
                                 <li>
-
+                                    <div class="step-process-item"><i data-href="checkout-step5.html"
+                                            class="redirectjs  step-icon icon-notebook"></i><span
+                                            class="text">Order Review</span></div>
                                 </li>
+                               
                             </ul>
                         </div>
                         <!--- .checkout-step-process --->

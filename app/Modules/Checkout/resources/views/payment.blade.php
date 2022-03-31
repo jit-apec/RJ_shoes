@@ -34,19 +34,18 @@
                                     <div class="step-process-item"><i class="fa fa-check step-icon"></i><span
                                             class="text">Shipping</span></div>
                                 </li>
-                                <li>
-                                    <div class="step-process-item"><i data-href="checkout-step5.html"
-                                            class="redirectjs  step-icon fa fa-check"></i><span
-                                            class="text">Order Review</span></div>
-                                </li>
+
                                 <li>
                                     <div class="step-process-item active"><i data-href="checkout-step4.html"
                                             class="redirectjs  step-icon icon-wallet"></i><span
                                             class="text">Delivery & Payment</span></div>
                                 </li>
                                 <li>
-
+                                    <div class="step-process-item"><i data-href="checkout-step5.html"
+                                            class="redirectjs  step-icon icon-notebook"></i><span
+                                            class="text">Order Review</span></div>
                                 </li>
+
                             </ul>
                         </div>
                         <!--- .checkout-step-process --->
@@ -60,10 +59,10 @@
                         </div>
                         <div class="content-radio">
                             <input type="radio" name="payment-radio" checked id="pr1">
-                            <label for="pr1" class="label-radio">Cash On delivary</label>
+                            <label for="pr1" class="label-radio" >Cash On delivary</label>
                             <p>Pay for the package when you recieve it.</p>
                         </div>
-                        <div class="content-radio">
+                        {{-- <div class="content-radio">
                             <input type="radio" name="payment-radio" id="pr2">
                             <label for="pr2" class="label-radio">Credit Card</label>
                             <p>Pay with a credit card</p>
@@ -77,21 +76,19 @@
                             <input type="radio" name="payment-radio" id="pr4">
                             <label for="pr4" class="label-radio">Other Payment Gateway</label>
                             <p>Pay via other payment gateway</p>
-                        </div>
+                        </div> --}}
                         <div class="checkout-col-footer">
-                            <a class="btn-step " href="{{ url('/order_review') }}">Back</a>
+                            <a class="btn-step " href="{{ url('/shiping_address') }}">Back</a>
+                            <a class="btn-step " href="{{ url('/order_review') }}">Continue</a>
                             {{-- <input type="button" value="Back" class="btn-step"> --}}
-                            <input type="button" value="Continue" class="btn-step btn-highligh">
+                            {{-- <input type="button" value="Continue" class="btn-step btn-highligh"> --}}
                         </div>
                         <div class="line-bottom"></div>
                     </div>
                 </div>
                 <!--- .woocommerce-->
-
-
             </div>
             <!--- .main-container -->
-
         </div>
         <!--- .page -->
     </div>

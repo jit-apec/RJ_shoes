@@ -37,23 +37,21 @@
                                             class="text">Shipping</span></div>
                                 </li>
                                 <li>
-                                    <div class="step-process-item"><i data-href="checkout-step5.html"
-                                            class="redirectjs  step-icon icon-notebook"></i><span
-                                            class="text">Order Review</span></div>
-                                </li>
-                                <li>
                                     <div class="step-process-item"><i data-href="checkout-step4.html"
                                             class="redirectjs  step-icon icon-wallet"></i><span
                                             class="text">Delivery & Payment</span></div>
                                 </li>
                                 <li>
-
+                                    <div class="step-process-item"><i data-href="checkout-step5.html"
+                                            class="redirectjs  step-icon icon-notebook"></i><span
+                                            class="text">Order Review</span></div>
                                 </li>
+                           
                             </ul>
                         </div>
                         <!--- .checkout-step-process --->
                         <form name="checkout" method="post" class="checkout woocommerce-checkout form-in-checkout"
-                            action="{{url('/store_address')}}">
+                            action="{{url('/shipping_address')}}">
                             @csrf
                             <ul class="row">
                                 <li class="col-md-9">
