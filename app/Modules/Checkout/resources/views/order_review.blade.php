@@ -79,11 +79,9 @@
                                                 <tr>
                                                     <input type="hidden" name="product_id[]" value="{{ $product->id }}">
                                                     <input type="hidden" name="quantity[]" value="{{ $product->quantity }}">
-                                                    <input type="hidden" name="total_quantity"
-                                                        value="{{ $quantity_total }}">
+                                                    <input type="hidden" name="total_quantity"value="{{ $quantity_total }}">
                                                     <input type="hidden" name="price[]"
                                                         value="{{ $product->quantity * $product->price }}">
-
                                                     <td class="name">{{ $product->name }}</td>
                                                     <td>₹{{ $product->price }}</td>
                                                     <td>{{ $product->quantity }}</td>
@@ -101,7 +99,6 @@
                                         </tr>
                                         <tfoot>
                                             <td colspan="2">
-
                                                 <div class="right">
                                                     {{-- <input type="button" value="Back" class="btn-step"> --}}
                                                     <a class="btn-step btn-highligh"

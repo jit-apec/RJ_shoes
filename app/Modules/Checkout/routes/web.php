@@ -11,4 +11,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/payment', [CheckoutController::class, 'store_payment']);
     Route::get('/order_review', [CheckoutController::class, 'create_order_review']);
     Route::post('/order',[CheckoutController::class, 'create_order']);
+    Route::get('/thanks', [CheckoutController::class, 'thank_you']);
 });

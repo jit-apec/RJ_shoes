@@ -175,7 +175,10 @@ class CheckoutController extends Controller
         }
         Cart::where('user_id',Auth::id())->delete();
         Session::flash('checkout','payment');
-        return redirect('/')->with('success','Order Successfull!!');
+        return redirect('/thanks')->with('success','Order Successfull!!');
     }
 
+    public function thank_you() {
+        return view('Checkout::order_success');
+    }
 }

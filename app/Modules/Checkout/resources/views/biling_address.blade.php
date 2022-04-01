@@ -36,7 +36,7 @@
                                     <div class="step-process-item"><i class="step-icon-truck step-icon"></i><span
                                             class="text">Shipping</span></div>
                                 </li>
-                                
+
                                 <li>
                                     <div class="step-process-item"><i data-href="checkout-step4.html"
                                             class="redirectjs  step-icon icon-wallet"></i><span
@@ -47,7 +47,7 @@
                                             class="redirectjs  step-icon icon-notebook"></i><span
                                             class="text">Order Review</span></div>
                                 </li>
-                               
+
                             </ul>
                         </div>
                         <!--- .checkout-step-process --->
@@ -136,9 +136,10 @@
                     </div>
                     <!--- .woocommerce-billing-fields--->
                     <div class="checkout-col-footer">
-                        {{-- <a class="btn-step" href="{{ url('/shiping_address') }}">Continue</a> --}}
-                        <input type="submit" value="Continue" class="btn-step">
-                        <div class="note">(<span>*</span>) Required fields</div>
+                        <a class="btn-step ">Back</a>
+                        {{-- <a class="btn-step " href="{{ url('/order_review') }}">Continue</a> --}}
+                        {{-- <input type="button" value="Back" class="btn-step"> --}}
+                        <input type="submit" value="Continue" class="btn-step btn-highligh">
                     </div>
                     <!--- .checkout-col-footer--->
                     </li>
