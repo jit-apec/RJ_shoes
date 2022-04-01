@@ -7,8 +7,10 @@ use App\Modules\Cart\Models\Cart;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Modules\Checkout\Models\order;
+use App\Modules\Product\Models\Product;
 use Illuminate\Support\Facades\Session;
 use App\Modules\Checkout\Models\address;
+use App\Modules\Checkout\Models\payment;
 use App\Modules\Checkout\Models\orderdetail;
 use App\Modules\Cart\Http\Controllers\CartController;
 
@@ -23,6 +25,7 @@ class CheckoutController extends Controller
 
     public function create_biling()
     {
+
         $billing_address = address::where('user_id', Auth::id())->get();
         return view("Checkout::biling_address", compact("billing_address"));
     }
@@ -41,6 +44,7 @@ class CheckoutController extends Controller
                 'pincode' => $request->pincode,
             ];
             $checkout = address::create($data);
+
             $billing_id = $checkout->id;
         }else{
             $billing_id = $request->addresses;
@@ -53,11 +57,9 @@ class CheckoutController extends Controller
             'billing_id'=> $billing_id,
             'shipping_id'=> $shipping_id,
         ];
-
+      //  session()->put('user_details', $data );
         session()->put('checkout', $checkout_arr);
-
         if ($request->shipping_method == '1') {
-
             return redirect('/payment')->with('status', 'data successfully added');
         } else {
             return redirect('/shiping_address')->with('status', 'data successfully added');
@@ -98,16 +100,34 @@ class CheckoutController extends Controller
         ];
 
         session()->put('checkout', $checkout_arr);
+
         return redirect('/payment')->with('status', 'data successfully added');
     }
     public function payment()
     {
         return view("Checkout::payment");
     }
+    public function store_payment(Request $request)
+    {
+        $billing_id = Session::get('checkout');
+        $id  = $billing_id['billing_id'];
+        $user_details=address::where('id',$id)->get()->toArray();
+        $data = [
+            'user_id'=>Auth::id(),
+            'first_name'=>$user_details[0]["first_name"],
+            'last_name'=>$user_details[0]["last_name"],
+            'status'=>$request->payment_method,
+        ];
+        $payment_data= payment::create($data);
+
+        $payment=[
+            'payment_id'=>$payment_data->id,
+        ];
+        session()->put('payment', $payment );
+        return redirect('/order_review')->with('status', 'payment method  successfully added');
+    }
     public function create_order_review()
      {
-    //         $products= new CartController();
-    //        $product= $products->create_cart();
         $a = Session::get('checkout');
         $billing_id  =(int) $a['billing_id'];
         $shipping_id=(int) $a['shipping_id'];
@@ -124,42 +144,38 @@ class CheckoutController extends Controller
         ));
     }
     public function create_order(Request $request){
-        $a = Session::get('checkout');
-        $billing_id  =(int) $a['billing_id'];
-        $shipping_id=(int) $a['shipping_id'];
-        // $product = Cart::join('products', 'products.id', '=', 'carts.product_id')
-        // ->where('carts.user_id', Auth::id())
-        // ->get(['products.*', 'carts.id as cid', 'carts.quantity as quantity']);
-        // $cart=Cart::where('user_id', Auth::id())->get();
-        // dd($cart)
-      //  dd($request->quantity);
+
+        $session_id = Session::get('checkout');
+        $payment_method = Session::get('payment');
+
+        $billing_id  =(int) $session_id['billing_id'];
+        $shipping_id=(int) $session_id['shipping_id'];
+        $payment_id=(int) $payment_method['payment_id'];
+
         $data=[
             'user_id'=>Auth::id(),
             'billing_id'=>$billing_id,
             'shipping_id'=>$shipping_id,
+            'payment_id'=>$payment_id,
             'quantity'=>$request->total_quantity,
             'total_price'=>$request->total_price,
         ];
-
        $order= order::create($data);
-       $data=[];
-       foreach ($request->product_id as $id)
+       foreach ($request->product_id as $key=>$value)
        {
-           $data[]=[
-               'product_id' =>$request->product_id,
-               'quantity' =>$request->quantity,
-               'total_price'=>$request->price,
-           ];
-           break;
-       }
-       dd($data);
-       $data1=[
-                'order_id'=> $order->id,
-                'total_price'=>$request->total_price,
-
-       ];
-       orderdetail::create($data);
-       // $qty = $product->quantity;
+           $tmp = [
+               'order_id'=> $order->id,
+               'product_id' =>$value,
+               'quantity' =>$request->quantity[$key],
+               'total_price'=>$request->price[$key]
+            ];
+             orderdetail::create($tmp);
+             Product:: where('id',$value)->
+             decrement('stock',$request->quantity[$key]);
+        }
+        Cart::where('user_id',Auth::id())->delete();
+        Session::flash('checkout','payment');
+        return redirect('/')->with('success','Order Successfull!!');
     }
 
 }

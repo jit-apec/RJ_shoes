@@ -8,6 +8,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/shiping_address', [CheckoutController::class, 'shiping_address']);
     Route::post('shipping_address',[CheckoutController::class, 'store_shipping_address']);
     Route::get('/payment', [CheckoutController::class, 'payment']);
+    Route::post('/payment', [CheckoutController::class, 'store_payment']);
     Route::get('/order_review', [CheckoutController::class, 'create_order_review']);
     Route::post('/order',[CheckoutController::class, 'create_order']);
 });

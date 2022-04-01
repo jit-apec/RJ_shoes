@@ -145,12 +145,10 @@
                 if (value >= 1) {
                     $(this).parents('.quantity').find('.qty').val(value);
                 }
-                total = Math.abs(total + tprice * quantity);x
+                total = Math.abs(total + tprice * quantity);
                 if (total) {
                     $(".Amount").text(total);
                 }
-                // console.log(id);
-                // console.log(quantity);
                 jQuery.ajax({
                     url: "/cart/edit",
                     type: "get",

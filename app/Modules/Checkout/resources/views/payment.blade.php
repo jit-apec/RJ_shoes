@@ -49,20 +49,21 @@
                             </ul>
                         </div>
                         <!--- .checkout-step-process --->
-
                         <div class="checkout-info-text">
                             <h3>Delivery</h3>
                         </div>
-
                         <div class="checkout-info-text">
                             <h3>Payment Method</h3>
                         </div>
-                        <div class="content-radio">
-                            <input type="radio" name="payment-radio" checked id="pr1">
-                            <label for="pr1" class="label-radio" >Cash On delivary</label>
-                            <p>Pay for the package when you recieve it.</p>
-                        </div>
-                        {{-- <div class="content-radio">
+                        <form name="checkout" method="post" class="checkout woocommerce-checkout form-in-checkout"
+                            action="{{ '/payment' }}">
+                            @csrf
+                            <div class="content-radio">
+                                <input type="radio" name="payment_method" value="1" checked id="pr1">
+                                <label for="pr1" class="label-radio">Cash On delivary</label>
+                                <p>Pay for the package when you recieve it.</p>
+                            </div>
+                            {{-- <div class="content-radio">
                             <input type="radio" name="payment-radio" id="pr2">
                             <label for="pr2" class="label-radio">Credit Card</label>
                             <p>Pay with a credit card</p>
@@ -77,13 +78,14 @@
                             <label for="pr4" class="label-radio">Other Payment Gateway</label>
                             <p>Pay via other payment gateway</p>
                         </div> --}}
-                        <div class="checkout-col-footer">
-                            <a class="btn-step " href="{{ url('/shiping_address') }}">Back</a>
-                            <a class="btn-step " href="{{ url('/order_review') }}">Continue</a>
-                            {{-- <input type="button" value="Back" class="btn-step"> --}}
-                            {{-- <input type="button" value="Continue" class="btn-step btn-highligh"> --}}
-                        </div>
-                        <div class="line-bottom"></div>
+                            <div class="checkout-col-footer">
+                                <a class="btn-step " href="{{ url('/shiping_address') }}">Back</a>
+                                {{-- <a class="btn-step " href="{{ url('/order_review') }}">Continue</a> --}}
+                                {{-- <input type="button" value="Back" class="btn-step"> --}}
+                                <input type="submit" value="Continue" class="btn-step btn-highligh">
+                            </div>
+                            <div class="line-bottom"></div>
+                        </form>
                     </div>
                 </div>
                 <!--- .woocommerce-->

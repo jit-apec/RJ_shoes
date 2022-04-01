@@ -23,6 +23,13 @@
                             <p>Need to Help? Call us: +9 123 456 789 or Email: <a
                                     href="mailto:Support@Rosi.com">Support@Rosi.com</a></p>
                         </div>
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">
+                                <ul>
+                                    <li>{{ Session::get('success') }}</li>
+                                </ul>
+                            </div>
+                        @endif
                         <div class="checkout-step-process">
                             <ul>
                                 <li>
@@ -48,9 +55,8 @@
                             </ul>
                         </div>
                         <!--- .checkout-step-process --->
-                        <form name="checkout" method="post"
-                        action="{{url('/order')}}">
-                        @csrf
+                        <form name="checkout" method="post" action="{{ url('/order') }}">
+                            @csrf
                             <ul class="row">
                                 <li class="col-md-9 col-padding-right">
                                     <table class="table-order table-order-review">
@@ -62,26 +68,29 @@
                                                 <td width="14">Total</td>
                                             </tr>
                                         </thead>
-                                        @php $total = 0; $quantity_total = 0; @endphp
+                                        @php
+                                            $total = 0;
+                                            $quantity_total = 0;
+                                        @endphp
                                         @foreach ($product as $product)
-                                        @php $total += $product->quantity *  $product->price @endphp
-                                        @php $quantity_total = $quantity_total+ $product->quantity @endphp
+                                            @php $total += $product->quantity *  $product->price @endphp
+                                            @php $quantity_total = $quantity_total+ $product->quantity @endphp
+                                            <tbody>
+                                                <tr>
+                                                    <input type="hidden" name="product_id[]" value="{{ $product->id }}">
+                                                    <input type="hidden" name="quantity[]" value="{{ $product->quantity }}">
+                                                    <input type="hidden" name="total_quantity"
+                                                        value="{{ $quantity_total }}">
+                                                    <input type="hidden" name="price[]"
+                                                        value="{{ $product->quantity * $product->price }}">
 
-                                    $items[]={{$product->quantity}}
-
-                                        <tbody>
-                                            <tr>
-                                                <input type="hidden" name="product_id[]" value="{{$product->id}}">
-                                                <input type="hidden" name="quantity[]" value="{{$product->quantity}}">
-                                                <input type="hidden" name="total_quantity" value="{{$quantity_total}}">
-                                                <input type="hidden" name="price[]" value="{{$product->quantity * $product->price}}">
-
-                                                <td class="name">{{$product->name}}</td>
-                                                <td>₹{{$product->price}}</td>
-                                                <td>{{$product->quantity}}</td>
-                                                <td class="price">₹{{$product->quantity * $product->price}}</td>    
-                                            </tr>
-                                        </tbody>
+                                                    <td class="name">{{ $product->name }}</td>
+                                                    <td>₹{{ $product->price }}</td>
+                                                    <td>{{ $product->quantity }}</td>
+                                                    <td class="price">₹{{ $product->quantity * $product->price }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         @endforeach
                                     </table>
                                     <table class="table-order table-order-review-bottom">
@@ -112,10 +121,11 @@
                                                 <!-- <a href="#">CHANGE</a></div> -->
                                                 @foreach ($billing_address as $address)
                                                 @endforeach
-                                                <p><strong>{{$address->first_name}} {{$address->last_name}}</strong><br>
-                                                    {{$address->address}}<br>Pin Code:
-                                                {{$address->pincode}}<br>Contect no:
-                                                {{$address->phone_number}}
+                                                <p><strong>{{ $address->first_name }}
+                                                        {{ $address->last_name }}</strong><br>
+                                                    {{ $address->address }}<br>Pin Code:
+                                                    {{ $address->pincode }}<br>Contect no:
+                                                    {{ $address->phone_number }}
                                                 </p>
                                         </li>
                                         <li>
@@ -123,10 +133,11 @@
                                                 <!-- <a href="#">CHANGE</a></div> -->
                                                 @foreach ($shiping_address as $address)
                                                 @endforeach
-                                                <p><strong>{{$address->first_name}} {{$address->last_name}}</strong><br>
-                                                    {{$address->address}}<br>Pin Code:
-                                                {{$address->pincode}}<br>Contect no:
-                                                {{$address->phone_number}}
+                                                <p><strong>{{ $address->first_name }}
+                                                        {{ $address->last_name }}</strong><br>
+                                                    {{ $address->address }}<br>Pin Code:
+                                                    {{ $address->pincode }}<br>Contect no:
+                                                    {{ $address->phone_number }}
                                                 </p>
                                         </li>
 
