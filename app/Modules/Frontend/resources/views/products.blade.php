@@ -17,7 +17,7 @@
             <div class="main">
                 <div class="row">
                     <div class="col-left sidebar col-lg-3 col-md-3 col-sm-3 left-color color">
-                        <div class="block block-layered-nav block-layered-nav--no-filters">
+                        <div class="block block-layered-nav block-layered-nav--no-filters" id="filters">
                             <div class="block-title"> <strong><span>Shop By</span></strong></div>
                             <div class="block-content toggle-content">
                                 <p class="block-subtitle block-subtitle--filter">Filter</p>
@@ -181,7 +181,6 @@
         var brand = [];
         var size = [];
         jQuery('input#checkbox').click(function() {
-
             if (jQuery(this).is(':checked')) {
                 var colors = jQuery(this).val()
                 color.push(colors);
@@ -217,8 +216,8 @@
             filter();
 
         })
-
         function filter() {
+
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
             var sort_by = jQuery('#sort_by').val();
@@ -266,22 +265,27 @@
         jQuery("#sort_by, #order_by, #show_product").on("click", function() {
             filter();
         });
-        //     $("#reset").click(function () {
-        //       //  alert("hello");
-        //       $(this).val( $(this).find("chackbox[selected]").val() );
-        //    // $("#container").reset();
-        //     return false; // prevent submitting
-        //     });
-        $('#reset').click(function(event) {
-            event.preventDefault();
-            $('#main :input').each(function() {
-                if ($(this).is('select')) {
-                    $(this).val($(this).find('option[selected]').val());
-                } else {
-                    $(this).val(this.defaultValue);
-                }
-            });
+        $("#reset").click(function() {
+            $('input[type=checkbox]').prop('checked',false);
+
+            filter();
         });
-        
+        function quantity(id) {
+            var quantity = 1;
+            jQuery.ajax({
+                url: "/products/addcart",
+                type: "get",
+                datatype: "json",
+                data: {
+                    'id': id,
+                    'quantity': quantity
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log("Status Updated");
+                    swal("Product Add successfully!");
+                },
+            })
+        }
     </script>
 @endsection

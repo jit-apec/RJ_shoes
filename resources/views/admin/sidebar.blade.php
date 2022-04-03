@@ -9,8 +9,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('dist/img/avatar4.png') }}" class="img-circle elevation-2"
-                    alt="User Image">
+                <img src="{{ asset('dist/img/avatar4.png') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -95,8 +94,24 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="{{ url('/admin/product/') }}"
-                                                        class="nav-link">
+                                                    <a href="{{ url('/admin/product/') }}" class="nav-link">
+                                                        {{-- <i class="far fa-list-alt nav-icon"></i> --}}
+                                                        <i class="fa fa-list nav-icon"></i>
+                                                        <p>products</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                    </ul>
+                                    <ul class="nav ">
+                                        <li class="nav-item">
+                                            <a href="" class="nav-link">
+                                                <i class="fa fa-truck nav-icon"></i>
+                                                <p>Orders<i class="fas fa-angle-left right"></i></p>
+                                            </a>
+                                            <ul class="nav nav-treeview">
+
+                                                <li class="nav-item">
+                                                    <a href="{{ url('/admin/order/') }}" class="nav-link">
                                                         {{-- <i class="far fa-list-alt nav-icon"></i> --}}
                                                         <i class="fa fa-list nav-icon"></i>
                                                         <p>products</p>

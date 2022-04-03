@@ -72,9 +72,18 @@ class CheckoutController extends Controller
     }
     public function store_shipping_address(Request $request)
     {
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'pincode' => 'required',
+            'phone_number' => 'required',
+        ]);
         $a = Session::get('checkout');
         $billing_id  = $a['billing_id'];
         if ($request->addresses == 0) {
+
             $data = [
                 'user_id' => Auth::id(),
                 'first_name' => $request->first_name,
@@ -128,9 +137,9 @@ class CheckoutController extends Controller
     }
     public function create_order_review()
      {
-        $a = Session::get('checkout');
-        $billing_id  =(int) $a['billing_id'];
-        $shipping_id=(int) $a['shipping_id'];
+        $checkout = Session::get('checkout');
+        $billing_id  =(int) $checkout['billing_id'];
+        $shipping_id=(int) $checkout['shipping_id'];
         $product = Cart::join('products', 'products.id', '=', 'carts.product_id')
             ->where('carts.user_id', Auth::id())
             ->get(['products.*', 'carts.id as cid', 'carts.quantity as quantity']);

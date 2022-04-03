@@ -17,7 +17,7 @@
                     </div>
                     <div class="actions-no hover-box ">
                         <div class="actions">
-                            <button type="button" title="Add to Cart" class="button btn-cart "><span><i
+                            <button type="button" title="Add to Cart"  onclick="quantity({{ $product->id }})" class="button btn-cart "><span><i
                                         class="icon-handbag icons"></i><span>Add to
                                         Cart</span></span></button>
                             {{-- <ul class="add-to-links pull-left">

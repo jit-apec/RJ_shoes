@@ -9,8 +9,8 @@
                 <div class="breadcrumbs">
                     <div class="container">
                         <ul>
-                            <li class="home"> <a href="#" title="Go to Home Page">Home</a></li>
-                            <li> <strong>Checkout</strong></li>
+                            <li class="home"> <a href="{{url('/')}}" title="Go to Home Page">Home</a></li>
+                            <li> <strong>My Orders</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -19,44 +19,10 @@
                 <div class="woocommerce">
                     <div class="container">
                         <div class="content-top">
-                            <h2>Checkout</h2>
-                            <p>Need to Help? Call us: +9 123 456 789 or Email: <a
-                                    href="mailto:Support@Rosi.com">Support@Rosi.com</a></p>
-                        </div>
-                        @if (Session::has('success'))
-                            <div class="alert alert-success">
-                                <ul>
-                                    <li>{{ Session::get('success') }}</li>
-                                </ul>
-                            </div>
-                        @endif
-                        <div class="checkout-step-process">
-                            <ul>
-                                <li>
-                                    <div class="step-process-item"><i data-href="checkout-step2.html"
-                                            class="redirectjs  step-icon fa fa-check"></i><span
-                                            class="text">Address</span></div>
-                                </li>
-                                <li>
-                                    <div class="step-process-item"><i class="fa fa-check step-icon"></i><span
-                                            class="text">Shipping</span></div>
-                                </li>
+                            <h2>MY Order</h2>
 
-                                <li>
-                                    <div class="step-process-item "><i data-href="checkout-step4.html"
-                                            class="redirectjs  step-icon fa fa-check"></i><span
-                                            class="text">Delivery & Payment</span></div>
-                                </li>
-                                <li>
-                                    <div class="step-process-item active"><i data-href="checkout-step5.html"
-                                            class="redirectjs  step-icon icon-notebook"></i><span
-                                            class="text">Order Review</span></div>
-                                </li>
-                            </ul>
                         </div>
-                        <!--- .checkout-step-process --->
-                        <form name="checkout" method="post" action="{{ url('/order') }}">
-                            @csrf
+
                             <ul class="row">
                                 <li class="col-md-9 col-padding-right">
                                     <table class="table-order table-order-review">
@@ -68,20 +34,12 @@
                                                 <td width="14">Total</td>
                                             </tr>
                                         </thead>
-                                        @php
-                                            $total = 0;
-                                            $quantity_total = 0;
-                                        @endphp
+
                                         @foreach ($product as $product)
-                                            @php $total += $product->quantity *  $product->price @endphp
-                                            @php $quantity_total = $quantity_total+ $product->quantity @endphp
+
                                             <tbody>
                                                 <tr>
-                                                    <input type="hidden" name="product_id[]" value="{{ $product->id }}">
-                                                    <input type="hidden" name="quantity[]" value="{{ $product->quantity }}">
-                                                    <input type="hidden" name="total_quantity"value="{{ $quantity_total }}">
-                                                    <input type="hidden" name="price[]"
-                                                        value="{{ $product->quantity * $product->price }}">
+
                                                     <td class="name">{{ $product->name }}</td>
                                                     <td>₹{{ $product->price }}</td>
                                                     <td>{{ $product->quantity }}</td>
@@ -94,21 +52,10 @@
                                     <table class="table-order table-order-review-bottom">
                                         <tr>
                                             <td class="first large" width="80%">Total Payment</td>
-                                            <td class="price large" width="20%">₹{{ $total }}</td>
-                                            <input type="hidden" name="total_price" value="{{ $total }}">
+                                            <td class="price large" width="20%">₹</td>
+
                                         </tr>
-                                        <tfoot>
-                                            <td colspan="2">
-                                                <div class="right">
-                                                    {{-- <input type="button" value="Back" class="btn-step"> --}}
-                                                    <a class="btn-step btn-highligh"
-                                                        href="{{ url('/payment') }}">Back</a>
-                                                    {{-- <a class="btn-step btn-highligh" href="{{ url('') }}">Place
-                                                        Holder</a> --}}
-                                                    <input type="submit" value="Place Holder" class="btn-step btn-highligh">
-                                                </div>
-                                            </td>
-                                        </tfoot>
+
                                     </table>
                                 </li>
                                 <li class="col-md-3">
@@ -147,7 +94,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </form>
+
                         <div class="line-bottom"></div>
                     </div>
                     <!--- .container-->

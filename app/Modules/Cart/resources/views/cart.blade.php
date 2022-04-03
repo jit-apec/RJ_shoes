@@ -118,7 +118,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <script>
             function deleteietm(id) {
-                // alert(id);
+
                 jQuery.ajax({
                     url: "/cart/delete",
                     type: "get",
@@ -126,6 +126,7 @@
                         'id': id,
                     },
                     success: function(data) {
+
                         swal("prodeuct remove successful!!");
                         location.reload();
                     }
@@ -158,7 +159,8 @@
                         price: jQuery(this).parent().find("input[name='product_price']").attr('id'),
                     },
                     success: function(response) {
-                        // swal("prodeuct update successful!!");
+
+                         swal("prodeuct update successful!!");
                         price.html(Math.abs(response.price));
                         // location.reload();
                     },

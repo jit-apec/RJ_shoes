@@ -55,7 +55,7 @@
                                         oninput="this.value = this.value.replace(/[^A-Za-z/0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
                                         data-error="#errname"><span id="errname"></span><br>
                                     <a href="#"> http//localhost/<span id="url" name="url"></span> </a>
-                                    <input type="text" class="border  border-0 text-primary  input-sm access_url"
+                                    <input type="text" class="border  border-0 text-primary  input-sm access_url" placeholder="&#xf044;"
                                         id="edit_url" name="url">
                                 </div>
 
@@ -197,7 +197,7 @@
                                         <div class="input-group mb-3">
                                             <input type="file" name="subimage[1]" id="subupload"
                                                 onchange="imagepreview(this);" class="form-control m-input"
-                                                autocomplete="off" accept="image/*">
+                                                autocomplete="off" accept="image/*" >
                                             <div class="col-lg-3">
                                                 <input type="number" name="sort[1]" class="form-control m-input"
                                                     autocomplete="off" placeholder="Sort number" pattern="[0-9]{1,2}"
@@ -389,6 +389,13 @@
                     stock: {
                         required: true,
                         maxlength: 6,
+                    },
+                    image:{
+                        required: true,
+                    },
+                    discription:{
+                        required: true,
+                        maxlength:1000,
                     },
 
                 },

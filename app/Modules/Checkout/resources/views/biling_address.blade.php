@@ -5,7 +5,6 @@
 @section('content')
     <div class="wrapper">
         <div class="page">
-
             <div class="main-container col1-layout content-color color">
                 <div class="breadcrumbs">
                     <div class="container">
@@ -16,7 +15,6 @@
                     </div>
                 </div>
                 <!--- .breadcrumbs-->
-
                 <div class="woocommerce">
                     <div class="container">
                         <div class="content-top">
@@ -36,7 +34,6 @@
                                     <div class="step-process-item"><i class="step-icon-truck step-icon"></i><span
                                             class="text">Shipping</span></div>
                                 </li>
-
                                 <li>
                                     <div class="step-process-item"><i data-href="checkout-step4.html"
                                             class="redirectjs  step-icon icon-wallet"></i><span
@@ -52,7 +49,7 @@
                         </div>
                         <!--- .checkout-step-process --->
                         <form name="checkout" method="post" class="checkout woocommerce-checkout form-in-checkout"
-                            action="{{ '/store_address' }}">
+                            id="checkout" action="{{ '/store_address' }}">
                             @csrf
                             <ul class="row">
                                 <li class="col-md-9">
@@ -63,10 +60,13 @@
                                         <span class="form-radio">
                                             <input type="radio" name="addresses" class="biling"
                                                 value="{{ $address->id }}" checked><label for="rs1">
-                                                {{ $address->address }}</label></span><br>
+                                                {{ $address->address }}</label>
+                                        </span><br>
                                     @endforeach
-                                    <span class="form-radio"><input type="radio" name="addresses" id="show"
-                                            value="0"><label for="rs1"> Add New Address</label></span><br>
+                                    <span class="form-radio">
+                                        <input type="radio" name="addresses" id="show" value="0"><label for="rs1"> Add New
+                                            Address</label>
+                                    </span><br>
                                     <div class="woocommerce-billing-fields">
                                         <ul class="row" id="form">
                                             <li class="col-md-6">
@@ -122,41 +122,31 @@
                                             </li>
 
                                         </ul>
-
                                     </div>
                                     <div>
-                                <li class="col-md-12 col-left-12 form-radios">
-                                    <span class="form-radio"><input type="radio" name="shipping_method" id="rs1"
-                                            value="1" checked><label for="rs1">Ship to this
-                                            address</label></span>
-                                    <span class="form-radio"><input type="radio" name="shipping_method" id="rs2"
-                                            value="0"><label for="rs2">Ship to different
-                                            address</label></span>
+                                        <ul class="row">
+                                            <li class="col-md-12 col-left-12 form-radios">
+                                                <span class="form-radio"><input type="radio" name="shipping_method"
+                                                        id="rs1" value="1" checked><label for="rs1">Ship to this
+                                                        address</label></span>
+                                                <span class="form-radio"><input type="radio" name="shipping_method"
+                                                        id="rs2" value="0"><label for="rs2">Ship to different
+                                                        address</label></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="checkout-col-footer">
+                                        <input type="submit" value="Continue" class="btn-step btn-highligh">
+                                    </div>
                                 </li>
+                            </ul>
+                        </form>
+                        <div class="line-bottom"></div>
                     </div>
-                    <!--- .woocommerce-billing-fields--->
-                    <div class="checkout-col-footer">
-                        <a class="btn-step ">Back</a>
-                        {{-- <a class="btn-step " href="{{ url('/order_review') }}">Continue</a> --}}
-                        {{-- <input type="button" value="Back" class="btn-step"> --}}
-                        <input type="submit" value="Continue" class="btn-step btn-highligh">
-                    </div>
-                    <!--- .checkout-col-footer--->
-                    </li>
-                    </ul>
-                    </form>
-                    <!--- form.checkout--->
-                    <div class="line-bottom"></div>
                 </div>
-                <!--- .container--->
             </div>
-            <!--- .woocommerce--->
         </div>
-        <!--- .main-container -->
     </div>
-    <!--- .page -->
-    </div>
-    <!--- .wrapper -->
 @endsection
 @section('custom_scripts')
     <script>
@@ -169,5 +159,33 @@
                 $('#form').toggle(300);
             });
         });
+        // $('#checkout').validate({
+        //     rules: {
+        //         first_name: 'required',
+        //         last_name: 'required',
+        //         email: {
+        //             required: true,
+        //             email: true,
+        //         },
+        //         address: {
+        //             required: true,
+        //             minlength: 10,
+        //         }
+        //         pincode: {
+        //             required: true,
+        //             minlength: 6,
+        //             maxlength:6,
+        //         }
+        //         phone_number: {
+        //             required: true,
+        //             minlength: 10,
+        //             maxlength:15,
+        //         }
+        //     },
+
+        //     submitHandler: function(form) {
+        //         form.submit();
+        //     }
+        // });
     </script>
 @endsection

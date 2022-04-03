@@ -85,7 +85,6 @@
                                                                     </span></p>
                                                             </div>
                                                             @if ($product->stock >= 5)
-
                                                                 <p class="availability in-stock">Availability:
                                                                     <span>In stock</span>
                                                                 </p>
@@ -95,10 +94,11 @@
                                                                         left!</span>
                                                                 @else
                                                                 <p class="availability in-stock">Availability:
-                                                                    <span >
+                                                                    <span>
                                                                         <h2 style="color:red">Sold Out
                                                                         </h2>
-                                                                        <h4 style="color:red"> This item is currently out of stock</h4>
+                                                                        <h4 style="color:red"> This item is currently out of
+                                                                            stock</h4>
                                                                     </span>
                                                                 </p>
                                                             @endif
@@ -124,38 +124,49 @@
 
                                                         </div>
                                                         @if ($product->stock > 0)
-                                                        {
                                                             <div class="add-to-box">
-                                                                <div class="product-qty">
-                                                                    <label for="qty">Qty:</label>
-                                                                    <div class="custom-qty"> <input type="text"
-                                                                            name="qty" id="qty" maxlength="1" value="1"
-                                                                            title="Qty" class="input-text qty"
-                                                                            oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); " />
-                                                                        <button type="button" class="increase items"
-                                                                            id="btnmax"
-                                                                            onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && (qty < 5)) result.value++;return false;">
-                                                                            <i class="fa fa-plus"></i> </button>
-                                                                        <button type="button" class="reduced items"
-                                                                            id="btnmin"
-                                                                            onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
-                                                                            <i class="fa fa-minus"></i></button>
+                                                                @if (count($cart))
+                                                                    <div class="add-to-cart">
+                                                                        <button type="button" title="Add to Cart"
+                                                                            class="button btn-cart" onclick="location.href='{{url('/product/cart')}}'"> <span>
+                                                                                <span class="view-cart icon-handbag icons">Go
+                                                                                    to Cart</span> </span>
+                                                                        </button>
                                                                     </div>
-                                                                </div>
-
-                                                                <div class="add-to-cart"> <button type="button"
-                                                                        title="Add to Cart" class="button btn-cart"
-                                                                        id="addtocart"
-                                                                        onclick="quantity({{ $product->id }})"> <span>
-                                                                            <span class="view-cart icon-handbag icons">Add
-                                                                                to
-                                                                                Cart</span> </span> </button></div>
+                                                                @else
+                                                                    <div class="product-qty">
+                                                                        <label for="qty">Qty:</label>
+                                                                        <div class="custom-qty"> <input type="text"
+                                                                                name="qty" id="qty" maxlength="1" value="1"
+                                                                                title="Qty" class="input-text qty"
+                                                                                oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); " />
+                                                                            <button type="button" class="increase items"
+                                                                                id="btnmax"
+                                                                                onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && (qty < 5)) result.value++;return false;">
+                                                                                <i class="fa fa-plus"></i> </button>
+                                                                            <button type="button" class="reduced items"
+                                                                                id="btnmin"
+                                                                                onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
+                                                                                <i class="fa fa-minus"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="add-to-cart">
+                                                                         <button type="button"
+                                                                            title="Add to Cart" class="button btn-cart"
+                                                                            id="addtocart"
+                                                                            onclick="quantity({{ $product->id }})">
+                                                                            <span>
+                                                                                <span class="view-cart icon-handbag icons">
+                                                                                    Add  to Cart
+                                                                                </span>
+                                                                             </span>
+                                                                        </button>
+                                                                    </div>
+                                                                @endif
 
                                                             </div>
-
-                                                        }
                                                         @endif
-                                                         {{-- @if (session()->has('status'))
+                                                        {{-- @if (session()->has('status'))
                                                             <p style="color: green;font-size: 20px; font-weight: bold;">
                                                                 {{ session('status') }}
                                                             </p>
@@ -163,19 +174,19 @@
                                                             <p style="color:red">{{ $message }} </p>
                                                         @enderror --}}
 
-                                                            <div class="container">
-                                                                @if (session()->has('success'))
-                                                                    <div class="alert alert-success">
-                                                                        {{-- {{ session('success') }} --}}
-                                                                        {{ session()->get('message') }}
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                            <div class="addit">
-                                                                <div class="alo-social-links clearfix">
-
+                                                        <div class="container">
+                                                            @if (session()->has('success'))
+                                                                <div class="alert alert-success">
+                                                                    {{-- {{ session('success') }} --}}
+                                                                    {{ session()->get('message') }}
                                                                 </div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="addit">
+                                                            <div class="alo-social-links clearfix">
+
                                                             </div>
+                                                        </div>
                                                     </div>
                                                     <!--- .product-shop-content-->
                                                 </div>
@@ -230,46 +241,34 @@
         function quantity(id) {
             var quantity = jQuery('#qty').val();
 
-        //     var change_url=$(this).parent().find('.change').val();
-        //  //   var anchors = document.querySelectorAll('a[href*="google.com"]');
-        //         Array.prototype.forEach.call(anchors, function (element, index) {
-        //             element.href = "http://stackoverflow.com";
-        //         });
-        //         die("test");
+            //     var change_url=$(this).parent().find('.change').val();
+            //  //   var anchors = document.querySelectorAll('a[href*="google.com"]');
+            //         Array.prototype.forEach.call(anchors, function (element, index) {
+            //             element.href = "http://stackoverflow.com";
+            //         });
+            //         die("test");
             jQuery.ajax({
                 url: "/products/addcart",
                 type: "get",
-                datatype: "html",
+                datatype: "json",
                 data: {
                     'id': id,
                     'quantity': quantity
                 },
-                // success: function(data) {
-                //     console.log(data);
-                //     console.log("Status Updated");
-                // },
-                // success: function(data) {
-                //     //$('div.flash-message').html(data);
-                //    // alert("Product Add successfully!");
-                //    //alert( data);
-                //     if(count(data)) {
-                //         alert("Product Add successfully!");
-                //     }
-                //     else
-                //     {
-                //         alert("Product Add failed!");
-                //     }
-
-                // },
                 success: function(data) {
-                    if (data.status == true) {
-                        swal("Product Add successfully!");
-                        // toastr.success(data.message);
-                        // $('body').find('.price-section').append(data.html);
-                    } else {
-                        //oastr.error(data.message);
-                    }
+                    console.log(data);
+                    console.log("Status Updated");
+                    swal("Product Add successfully!");
                 },
+                error: function(e) {
+                    console.log(e.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+
+                    })
+                }
 
             })
         }

@@ -87,6 +87,8 @@
                             <div class="top-links-alo">
                                 <div class="header-top-link">
                                     <ul class="links">
+                                        <li><a href="{{url('/myorder')}}">My Order</a>
+                                        </li>
                                         <li>
                                             @if (Auth::check())
                                                 <a href="{{ route('logout') }}"

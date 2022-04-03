@@ -42,7 +42,7 @@
                         </div>
                         <div class="product-secondary actions-no actions-list clearfix">
                             <p class="action"><button type="button" title="Add to Cart"
-                                    class="button btn-cart pull-left"><span><i class="icon-handbag icons"></i><span>Add
+                                    class="button btn-cart pull-left"onclick="quantity({{ $product->id }})"><span><i class="icon-handbag icons"></i><span>Add
                                             to
                                             Cart</span></span></button></p>
                         </div>

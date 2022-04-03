@@ -47,4 +47,9 @@
       </div>
 
     </body>
+   <script>
+        setTimeout(function () {
+        window.location.href = "{{url('/')}}";
+    },5000);
+    </script>
 </html>
