@@ -7,9 +7,9 @@
     <title> RJ SHOES | @yield('title')</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('dist/img/favicon.ico')}}">
-    @include('admin.css');
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.0/css/font-awesome.css" integrity="sha512-tDTC2Fysq0JMAc//BBwfmSC2pSFlkMVSC5oX4OvBrEr7R0k9t6QGMVeD2cjQQNyhyWrKtamVtWPMJKezLkRKSA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
-</style>
+    @include('admin.css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.0/css/font-awesome.css" integrity="sha512-tDTC2Fysq0JMAc//BBwfmSC2pSFlkMVSC5oX4OvBrEr7R0k9t6QGMVeD2cjQQNyhyWrKtamVtWPMJKezLkRKSA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
     .switch {
       position: relative;

@@ -171,14 +171,13 @@ class FrontendController extends Controller
         $billing_id=array_column($address,'billing_id');
         $shipping_id=array_column($address,'shipping_id');
         $order_id=array_column($address,'order_id');
+        //dd(array_keys($address));
         // $product = Cart::join('products', 'products.id', '=', 'carts.product_id')
         //                 ->where('carts.user_id', Auth::id())
         //                 ->get(['products.*', 'carts.id as cid', 'carts.quantity as quantity']);
-
         $product=orderdetail::join('products','products.id', '=','orderdetails.product_id')
                              -> where('order_id',$order_id)
                              ->get(['products.*','orderdetails.total_price','quantity']);
-        // dd($product);
 
         $billing_address = address::where('user_id', Auth::id())
                         ->where('id',$billing_id)

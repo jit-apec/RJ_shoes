@@ -23,59 +23,49 @@
                 <div class="card card-primary p-1 ">
                     <div class="card-header mt-2 mb-2 p-1">
                         <h3 class="card-title ">Order</h3>
-
-                        {{-- <a class="btn  btn-lg float-right " href="{{ url('/admin/product/addproduct') }}"
-                            role="button">Add<i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp;
-                        <a class="btn float-right btn-lg" href="{{ url('/admin/product/trash') }}" role="button">Trash &nbsp;<i
-                                class="fa fa-trash" aria-hidden="true"></i></a> --}}
                     </div>
                     <table id="myTable" class="display">
                         <thead>
                             <tr>
                                 <th class="text-center"> Sr No.</th>
-                                <th>Name</th>
-                                <th>Product Name</th>
-                                <th>Total Quantity</th>
-                                <th>total Price</th>
-                                <th>Status</th>
-                                <th>action</th>
+                                <th class="text-center">First Name</th>
+                                <th class="text-center">Last Name</th>
+                                <th class="text-center">Total Quantity</th>
+                                <th class="text-center">total Price</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">action</th>
                             </tr>
                         </thead>
-                       <tbody>
-                           {{-- @php  $count=0; @endphp
-                            @foreach ($products as $product)
+                        <tbody>
+                            @php  $count=0; @endphp
+                            @foreach ($order as $order)
                                 <tr>
                                     <td class="text-center">{{ $count += 1 }}</td>
-                                    <td><img src="{{ asset('storage/media/' . $product->image) }}" height="50" width="50">
+                                    <td class="text-center">{{ $order->first_name }}</td>
+                                    <td class="text-center">{{ $order->last_name }}</td>
+                                    <td class="text-center">{{ $order->quantity }}</td>
+                                    <td class="text-center">{{ $order->total_price }}</td>
+                                    <td class="text-center" style="color:gray;">
+                                        <div class="dropdown action-label ">
+                                            <a class="custom-badge status-blue " href="#" name='STATUS' id="STATUS"
+                                                aria-expanded="false">
+                                                @switch ($order->status)
+                                                    @case (1)
+                                                        <span style="background-color:rgb(19, 170, 77); color:rgb(252, 250, 250);">
+                                                            Approved</span>
+                                                    @break
+                                                    @default
+                                                        <span style="background-color:rgb(216, 65, 65); color:rgb(252, 250, 250);">
+                                                            Declined</span>
+                                                @endswitch
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>{{ $product->name }}</td>
-                                    <td>{{ $product->upc }}</td>
-                                    <td><a href="{{ url('/product', $product->url) }}">{{ $product->url }}</a></td>
-
-                                    <td>
-                                        @if ($product->status == 'Y')
-                                        <label class="switch">
-                                            <input type="checkbox" data-id="{{ $product->id }}"  class="toggle-class"{{ $product->status ? 'checked' : '' }}>
-                                            <div class="slider round"></div>
-                                          </label>
-                                          @endif
-
-                                          @if ($product->status == 'N')
-                                        <label class="switch">
-                                            <input type="checkbox" data-id="{{ $product->id }}"  class="toggle-class"{{ $product->status}}>
-                                            <div class="slider round"></div>
-                                          </label>
-                                          @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ url('/admin/product/edit', $product->id) }}"
-                                            class="fas fa-pencil-alt "></a>
-                                        <a href="{{ url('/product', $product->url) }}" class="fas fa-eye "></a>
-                                        <a href="javascript:void(0);" onclick="move_to_trash({{ $product->id }})"
-                                            class="fas fa-trash-alt "></a>
+                                    <td class="text-center">
+                                        <a href="{{ url('/admin/order/order_view',$order->order_id) }}" class="fas fa-eye "></a>
                                     </td>
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -85,39 +75,23 @@
 @endsection
 @section('scripts')
     <script>
-        function move_to_trash(id) {
-            if (confirm('are your sure do you want to delete !!!! ?')) {
-                jQuery.ajax({
-                    url: "{{ url('/admin/product/move_trash') }}",
-                    type: 'GET',
-                    data: {
-                        'id': id
-                    },
-                    success: function(result) {
-                        console.log("Status Updated");
-                        window.location.reload();
-                    }
-                });
-            }
-        }
-        $(function() {
-            $('.toggle-class').change(function() {
-                var status = $(this).prop('checked') == true ? 'Y' : 'N';
-                var id = $(this).data('id');
-               // alert(id);
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url: "{{ url('/admin/product/changestatus') }}",
-                    data: {
-                        'status': status,
-                        'id': id
-                    },
-                    success: function(data) {
-                        console.log(data.success)
-                    }
-                });
-            })
-        })
+        $(document).ready(function() {
+            $("#STATUSTAB").find("a[name='STATUS']").each(function() {
+                var a = $(this).text();
+                a = a.trim();
+                $(this).css("color", "white");
+                if (a == "Approved") {
+                    $(this).css("background", "#06c455");
+                } else if (a == "Declined") {
+                    $(this).css("background", "#ff654a");
+                } else if (a == "New") {
+                    $(this).css("background", "#055be6");
+                } else {
+                    $(this).css("background", "#c4067b");
+                }
+            });
+
+
+        });
     </script>
 @endsection
