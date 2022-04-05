@@ -47,22 +47,31 @@
                                     <td class="text-center">{{ $order->total_price }}</td>
                                     <td class="text-center" style="color:gray;">
                                         <div class="dropdown action-label ">
-                                            <a class="custom-badge status-blue " href="#" name='STATUS' id="STATUS"
-                                                aria-expanded="false">
+                                            <a class="custom-badge status-blue dropdown-toggle" name='STATUS' id="STATUS"
+                                                href="#" data-toggle="dropdown" aria-expanded="false">
                                                 @switch ($order->status)
                                                     @case (1)
-                                                        <span style="background-color:rgb(19, 170, 77); color:rgb(252, 250, 250);">
-                                                            Approved</span>
+                                                        <span>Approved</span>
                                                     @break
+
+                                                    @case (2)
+                                                        <span>Cancel</span>
+                                                    @break
+
                                                     @default
-                                                        <span style="background-color:rgb(216, 65, 65); color:rgb(252, 250, 250);">
-                                                            Declined</span>
+                                                        <span>Pending</span>
                                                 @endswitch
+                                                <div class="dropdown-menu " >
+                                                    <a class="dropdown-item" href="#">Pending</a>
+                                                    <a class="dropdown-item" href="#">Approved</a>
+                                                    <a class="dropdown-item" href="#">Cancel</a>
+                                                </div>
                                             </a>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ url('/admin/order/order_view',$order->order_id) }}" class="fas fa-eye "></a>
+                                        <a href="{{ url('/admin/order/order_view', $order->order_id) }}"
+                                            class="fas fa-eye "></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -76,7 +85,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $("#STATUSTAB").find("a[name='STATUS']").each(function() {
+            $("#STATUS").find("a[name='STATUS']").each(function() {
                 var a = $(this).text();
                 a = a.trim();
                 $(this).css("color", "white");
@@ -90,8 +99,27 @@
                     $(this).css("background", "#c4067b");
                 }
             });
-
-
         });
+        $(function() {
+                    $('#numb').change(function() {
+                        testMessage
+                    });
+                    //     $('.toggle-class').change(function() {
+                    //         var status = $(this).prop('checked') == true ? 'Y' : 'N';
+                    //         var id = $(this).data('id');
+                    //         $.ajax({
+                    //             type: "GET",
+                    //             dataType: "json",
+                    //             url: "{{ url('/admin/color/changeStatus') }}",
+                    //             data: {
+                    //                 'status': status,
+                    //                 'id': id
+                    //             },
+                    //             success: function(data) {
+                    //                 console.log(data.success)
+                    //             }
+                    //         });
+                    //     })
+                    // })
     </script>
 @endsection

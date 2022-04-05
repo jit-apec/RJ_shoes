@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Modules\Frontend\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Modules\Cart\models\Cart;
 use App\Modules\Brand\Models\Brand;
@@ -39,15 +40,15 @@ class FrontendController extends Controller
         $products = Product::where('url', $url)
             ->where('status', array('Y'))->get();
         $get_product_id = Product::where('url', $url)
-                        ->get(['id'])->first();
+            ->get(['id'])->first();
         $product_id = json_decode($get_product_id, true);
         $subimage = Productimage::where('product_id', $product_id)
-                                ->orderBy('sort', 'asc')
-                                ->get();
-        $cart=Cart::where('user_id', Auth::id())
-                    ->where('product_id', $product_id)
-                    ->get('product_id');
-        return view("Frontend::details", compact('products', 'subimage','cart'));
+            ->orderBy('sort', 'asc')
+            ->get();
+        $cart = Cart::where('user_id', Auth::id())
+            ->where('product_id', $product_id)
+            ->get('product_id');
+        return view("Frontend::details", compact('products', 'subimage', 'cart'));
     }
     public function filter(Request $request)
     {
@@ -121,8 +122,7 @@ class FrontendController extends Controller
         $data = Product::where('stock', '>=', $request->quantity)
             ->where('id', $request->id)
             ->get()->toArray();
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             if (count($data)) {
                 Cart::updateOrInsert(
                     [
@@ -134,17 +134,13 @@ class FrontendController extends Controller
                     ]
                 );
 
-               // return redirect('/product/cart')->with('status', 'product added successfully!!');
+                // return redirect('/product/cart')->with('status', 'product added successfully!!');
                 return response()->json(['success' => 'data added successfully']);
-            }
-            else
-             {
-              //  return response()->json('success', 'Invalid Input!');
+            } else {
+                //  return response()->json('success', 'Invalid Input!');
                 echo "invalid data.";
             }
-        }
-        else
-        {
+        } else {
             session::put([
                 'cart' => json_encode([
                     [
@@ -152,44 +148,37 @@ class FrontendController extends Controller
                         'name' => $data[0]['name'],
                         'price' => $data[0]['price'],
                         'quantity' => $request->quantity,
-                        'image'=>$data[0]['image'],
-                        'url'=>$data[0]['url'],
-                        'cid'=>$data[0]['id'],
+                        'image' => $data[0]['image'],
+                        'url' => $data[0]['url'],
+                        'cid' => $data[0]['id'],
                     ]
                 ])
             ]);
             $a = Session::get('cart');
             echo $a;
         }
-
     }
 
-    public function myorder() {
-        $address=order::where('user_id',Auth::id())
-                        ->get()
-                        ->toArray();
-        $billing_id=array_column($address,'billing_id');
-        $shipping_id=array_column($address,'shipping_id');
-        $order_id=array_column($address,'order_id');
-        //dd(array_keys($address));
-        // $product = Cart::join('products', 'products.id', '=', 'carts.product_id')
-        //                 ->where('carts.user_id', Auth::id())
-        //                 ->get(['products.*', 'carts.id as cid', 'carts.quantity as quantity']);
-        $product=orderdetail::join('products','products.id', '=','orderdetails.product_id')
-                             -> where('order_id',$order_id)
-                             ->get(['products.*','orderdetails.total_price','quantity']);
+    public function display_orders()
+    {
 
-        $billing_address = address::where('user_id', Auth::id())
-                        ->where('id',$billing_id)
-                        ->get();
-       // dd($billing_address);
-        $shiping_address = address::where('user_id', Auth::id())
-                        ->where('id',$shipping_id)
-                        ->get();
+        $order=Order::where('user_id', Auth::id())->get();
         return view("Frontend::myorder", compact(
-            "product",
-            "billing_address",
-            "shiping_address"
+            "order"
         ));
+    }
+    public function order_view($id)
+    {
+
+        $address = Order::where('orders.id', $id)
+        ->join('payments', 'payments.id', '=', 'orders.payment_id')
+        ->first();
+    $order = Order::where('orders.id', $id)->first();
+    $order_details = orderdetail::where('order_id', $id)
+        ->join('products', 'products.id', '=', 'orderdetails.product_id')
+        ->join('brands', 'brands.id', '=', 'products.brand_id')
+        ->join('colors', 'colors.id', '=', 'products.color_id')
+        ->get(['products.*', 'orderdetails.*', 'brands.name as brand_name', 'colors.name as color_name']);
+    return view("Frontend::order_details", compact('address', 'order', 'order_details'));
     }
 }

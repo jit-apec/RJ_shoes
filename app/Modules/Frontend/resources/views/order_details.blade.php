@@ -1,29 +1,24 @@
-@extends('admin.master')
+@extends('Frontend::common')
+@section('title')
+    Order View
+@endsection
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Invoice</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url('/admin/dashboard')}}">Home</a></li>
-                            <li class="breadcrumb-item active">order</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
-
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Main content -->
-                        <div class="invoice p-3 mb-3">
+        <div class="breadcrumbs">
+            <div class="container">
+                <ul>
+                    <li class="home"> <a href="{{url('/')}}" title="Go to Home Page">Home</a></li>
+                    <li> <strong>My Orders</strong></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="page">
+                <div class="main-container col1-layout content-color color">
+                    <!-- Main content -->
+                    <div class="woocommerce">
+                            <div class="container">
                             <!-- title row -->
                             <div class="row">
                                 <div class="col-12">
@@ -41,10 +36,10 @@
                                         $b_address_data = getBillingAddress($address->billing_id);
 
                                     @endphp
-                                   <b> Billing Address</b>
-                                   @foreach ($b_address_data as $billing)
+                                    <b> Billing Address</b>
+                                    @foreach ($b_address_data as $billing)
                                     <address>
-                                       {{$billing->first_name }} <br>
+                                        {{$billing->first_name }} <br>
                                         {{$billing->address}}<br>
                                         Pincode {{$billing->pincode}} <br>
                                         Phone: {{$billing->phone_number}}<br>
@@ -57,16 +52,16 @@
                                     @php
                                     $s_address_data = getShippingAddress($address->shipping_id);
                                 @endphp
-                                   <b> Shipping Address</b>
-                                   @foreach ($s_address_data as $billing)
-                                   <address>
-                                      {{$billing->first_name }} {{$billing->last_name}}<br>
-                                       {{$billing->address}}<br>
-                                       Pincode {{$billing->pincode}} <br>
-                                       Phone: {{$billing->phone_number}}<br>
-                                       Email:{{$billing->email}}
-                                   </address>
-                                   @endforeach
+                                    <b> Shipping Address</b>
+                                    @foreach ($s_address_data as $billing)
+                                    <address>
+                                        {{$billing->first_name }} {{$billing->last_name}}<br>
+                                        {{$billing->address}}<br>
+                                        Pincode {{$billing->pincode}} <br>
+                                        Phone: {{$billing->phone_number}}<br>
+                                        Email:{{$billing->email}}
+                                    </address>
+                                    @endforeach
                                 </div>
                                 <div class="col-sm-4 invoice-col">
 
@@ -106,11 +101,17 @@
                                         </tbody>
                                         @endforeach
                                     </table>
+                                <table>
+                                    <div class=" text-right" >
+                                        <div >
+                                        <p ><h3>Amount:₹{{$order->total_price}}</h3></p>
+                                        </div>
+                                    </div>
+                                </table>
                                 </div>
                                 <!-- /.col -->
                             </div>
                             <!-- /.row -->
-
                             <div class="row">
                                 <!-- accepted payments column -->
                                 <div class="col-6">
@@ -119,39 +120,28 @@
 
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-6">
-                                    <p class="lead">Amount Due:
-                                        @php echo date_format($address->created_at,'d/m/Y')@endphp</p>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr>
-                                                <th style="width:60%"><h3><strong>Total:</strong></h3></th>
-                                                <td class="text-left"><b>₹{{$order->total_price}}</b></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
+
                                 <!-- /.col -->
                             </div>
                             <!-- /.row -->
 
                             <!-- this row will not appear when printing -->
-                            <div class="row no-print">
+                            <div class="row no-print text-right">
                                 <div class="col-12">
 
                                     <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"  onclick="window.print()">
-                                        <i class="fas fa-download"></i> Generate PDF
+                                        <i class="fa fa-download"></i> Generate PDF
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.invoice -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </section>
+                    </div>
+                    <!-- /.invoice -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
         <!-- /.content -->
     </div>
 @endsection
-@section('scripts')
+@section('custom_scripts')
 @endsection

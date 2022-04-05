@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Modules\Checkout\Http\Controllers\CheckoutController;
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['User']], function () {
     Route::get('/biling_address', [CheckoutController::class, 'create_biling']);
     Route::post('/store_address',[CheckoutController::class, 'store_billing_address']);
     Route::get('/shiping_address', [CheckoutController::class, 'shiping_address']);

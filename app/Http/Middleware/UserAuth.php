@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-class userauth
+
+class UserAuth
 {
     /**
      * Handle an incoming request.
@@ -16,15 +17,9 @@ class userauth
      */
     public function handle(Request $request, Closure $next)
     {
-        //dd("hello");
-        // if (Auth::user()->roll=='A') {
-        //     return $next($request);
-        // }
-        // else
-        // {
-        //  return redirect()->with('status','access denied');
-        // }
-
-       // return redirect('home');
+        if (Auth::check()) {
+           return $next($request);
+        }
+        return redirect('/');
     }
 }

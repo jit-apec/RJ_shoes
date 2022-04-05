@@ -69,8 +69,8 @@
                                             </tr>
                                         </thead>
                                         @php
-                                            $total = 0;
-                                            $quantity_total = 0;
+                                            $total = 0;   $quantity_total = 0;
+
                                         @endphp
                                         @foreach ($product as $product)
                                             @php $total += $product->quantity *  $product->price @endphp

@@ -24,77 +24,53 @@
                         </div>
 
                             <ul class="row">
-                                <li class="col-md-9 col-padding-right">
+                                <li class="col-md-12 col-padding-right">
                                     <table class="table-order table-order-review">
                                         <thead>
                                             <tr>
-                                                <td width="68">Product Name</td>
-                                                <td width="14">price</td>
-                                                <td width="14">QTY</td>
-                                                <td width="14">Total</td>
+                                                <td  width="14">Sr. No</td>
+                                                <td width="14">Quantity</td>
+                                                <td width="14"> Total price</td>
+                                                <td width="68">Order Date</td>
+                                                <td width="14">Status</td>
+                                                <td width="14">View </td>
                                             </tr>
                                         </thead>
-
-                                        @foreach ($product as $product)
-
+                                        @php  $count=0; @endphp
+                                        @foreach ($order as $key=>$value)
                                             <tbody>
                                                 <tr>
-
-                                                    <td class="name">{{ $product->name }}</td>
-                                                    <td>₹{{ $product->price }}</td>
-                                                    <td>{{ $product->quantity }}</td>
-                                                    <td class="price">₹{{ $product->quantity * $product->price }}
+                                                    <td>{{ $count += 1}}</td>
+                                                    <td>{{ $value->quantity }}</td>
+                                                    <td>₹{{ $value->total_price }}</td>
+                                                    <td >{{ $value->created_at }}</td>
+                                                    {{-- <td>{{ $value->order_status }}</td> --}}
+                                                    <td class="text-center" style="color:gray;">
+                                                        <div class="dropdown action-label ">
+                                                            <a class="custom-badge status-blue " href="#" name='STATUS' id="STATUS"
+                                                                aria-expanded="false">
+                                                                @switch ( $value->order_status)
+                                                                    @case (1)
+                                                                        <span style="background-color:rgb(19, 170, 77); color:rgb(252, 250, 250);">
+                                                                            Success </span>
+                                                                    @break
+                                                                    @default
+                                                                        <span style="background-color:rgb(216, 65, 65); color:rgb(252, 250, 250);">
+                                                                            Cancel</span>
+                                                                @endswitch
+                                                            </a>
+                                                        </div>
                                                     </td>
+                                                    <td class="text-center">
+                                                        <a href="{{ url('/order/order_details',$value->id) }}" class="fa fa-eye fa-1x"></a>
+                                                    </td>
+
                                                 </tr>
                                             </tbody>
                                         @endforeach
                                     </table>
-                                    <table class="table-order table-order-review-bottom">
-                                        <tr>
-                                            <td class="first large" width="80%">Total Payment</td>
-                                            <td class="price large" width="20%">₹</td>
-
-                                        </tr>
-
-                                    </table>
-                                </li>
-                                <li class="col-md-3">
-                                    <ul class="step-list-info">
-                                        <li>
-                                            <div class="title-step">Billing Address
-                                                <!-- <a href="#">CHANGE</a></div> -->
-                                                @foreach ($billing_address as $address)
-                                                @endforeach
-                                                <p><strong>{{ $address->first_name }}
-                                                        {{ $address->last_name }}</strong><br>
-                                                    {{ $address->address }}<br>Pin Code:
-                                                    {{ $address->pincode }}<br>Contect no:
-                                                    {{ $address->phone_number }}
-                                                </p>
-                                        </li>
-                                        <li>
-                                            <div class="title-step">Shipping Address
-                                                <!-- <a href="#">CHANGE</a></div> -->
-                                                @foreach ($shiping_address as $address)
-                                                @endforeach
-                                                <p><strong>{{ $address->first_name }}
-                                                        {{ $address->last_name }}</strong><br>
-                                                    {{ $address->address }}<br>Pin Code:
-                                                    {{ $address->pincode }}<br>Contect no:
-                                                    {{ $address->phone_number }}
-                                                </p>
-                                        </li>
-
-                                        <li>
-                                            <div class="title-step">Payment Method
-                                                <!-- <a href="#">CHANGE</a> -->
-                                            </div>
-                                            <p>Cash On delivary</p>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
-
                         <div class="line-bottom"></div>
                     </div>
                     <!--- .container-->
