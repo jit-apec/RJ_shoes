@@ -57,9 +57,7 @@ class CartController extends Controller
                 'success' => "Data Found",
                 'code' => 200,
             ]);
-            //  session()->flash('success', 'Product Quantity update  successfully');
         } else {
-            //    return response()->json(['success' => 'Invalid Input']);
             return response()->json(['status' => 'success', 'data' => 'data']);
         }
     }

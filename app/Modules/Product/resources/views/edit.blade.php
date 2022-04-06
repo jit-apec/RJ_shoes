@@ -167,6 +167,9 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Main Image</label>
+                                    @error('image')
+                                    <strong>{{ $message }}</strong>
+                                @enderror
                                     <div class="form-group">
                                         <img src="{{ asset('storage/media/' . $product->image) }}" onerror=""
                                             alt="Missing Image"

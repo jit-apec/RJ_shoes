@@ -8,11 +8,11 @@
                         <a href="{{ url('/product', $product->url) }}" title="Configurable Product"
                             class="product-image">
                             <img id="product-collection-image-8" class="img-responsive"
-                                src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355"
-                                width="278">
+                                src="{{ asset('storage/media/' . $product->image) }}" alt="" height="300"
+                                width="300">
                             <span class="product-img-back"> <img class="img-responsive"
-                                    src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355"
-                                    width="278"> </span>
+                                    src="{{ asset('storage/media/' . $product->image) }}" alt="" height="300"
+                                    width="300"> </span>
                         </a>
                     </div>
                     <div class="actions-no hover-box ">
@@ -21,8 +21,6 @@
                                         class="icon-handbag icons"></i><span>Add to
                                         Cart</span></span></button>
                             {{-- <ul class="add-to-links pull-left">
-
-
                                 <li class="link-view pull-left"> <a title="Quick View" href="{{ url('/user', $product->url) }}"
                                         class="link-quickview"><i class="icon-magnifier icons"></i>Quick
                                         View</a></li>
@@ -33,7 +31,6 @@
                 <div class="product-info products-textlink clearfix">
                     <h2 class="product-name"><a href="{{ url('/user', $product->url) }}"
                             title="Configurable Product">{{ $product->name }}</a></h2>
-
                     <div class="price-box"> <span class="regular-price"> <span class="price">
                                 ₹{{ $product->price }}</span></span>
                         </span></div>

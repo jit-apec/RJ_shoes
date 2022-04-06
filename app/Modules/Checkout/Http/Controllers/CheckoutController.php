@@ -46,18 +46,17 @@ class CheckoutController extends Controller
             $checkout = address::create($data);
 
             $billing_id = $checkout->id;
-        }else{
+        } else {
             $billing_id = $request->addresses;
         }
 
-        if(isset($request->shipping_method) && $request->shipping_method == 1){
+        if (isset($request->shipping_method) && $request->shipping_method == 1) {
             $shipping_id = $billing_id;
         }
-        $checkout_arr= [
-            'billing_id'=> $billing_id,
-            'shipping_id'=> $shipping_id,
+        $checkout_arr = [
+            'billing_id' => $billing_id,
+            'shipping_id' => $shipping_id,
         ];
-      //  session()->put('user_details', $data );
         session()->put('checkout', $checkout_arr);
         if ($request->shipping_method == '1') {
             return redirect('/payment')->with('status', 'data successfully added');
@@ -96,16 +95,16 @@ class CheckoutController extends Controller
             ];
             $checkout = address::create($data);
             $shipping_id = $checkout->id;
-        }else{
+        } else {
             $shipping_id = $request->addresses;
         }
 
-        if(isset($request->shipping_method) && $request->shipping_method == 1){
+        if (isset($request->shipping_method) && $request->shipping_method == 1) {
             $shipping_id = $shipping_id;
         }
-        $checkout_arr= [
-            'billing_id'=>(int) $billing_id,
-            'shipping_id'=> $shipping_id,
+        $checkout_arr = [
+            'billing_id' => (int) $billing_id,
+            'shipping_id' => $shipping_id,
         ];
 
         session()->put('checkout', $checkout_arr);
@@ -120,75 +119,74 @@ class CheckoutController extends Controller
     {
         $billing_id = Session::get('checkout');
         $id  = $billing_id['billing_id'];
-        $user_details=address::where('id',$id)->get()->toArray();
+        $user_details = address::where('id', $id)->get()->toArray();
         $data = [
-            'user_id'=>Auth::id(),
-            'first_name'=>$user_details[0]["first_name"],
-            'last_name'=>$user_details[0]["last_name"],
-            'status'=>$request->payment_method,
+            'user_id' => Auth::id(),
+            'first_name' => $user_details[0]["first_name"],
+            'last_name' => $user_details[0]["last_name"],
+            'status' => $request->payment_method,
         ];
-        $payment_data= payment::create($data);
+        $payment_data = payment::create($data);
 
-        $payment=[
-            'payment_id'=>$payment_data->id,
+        $payment = [
+            'payment_id' => $payment_data->id,
         ];
-        session()->put('payment', $payment );
+        session()->put('payment', $payment);
         return redirect('/order_review')->with('status', 'payment method  successfully added');
     }
     public function create_order_review()
-     {
+    {
         $checkout = Session::get('checkout');
-        $billing_id  =(int) $checkout['billing_id'];
-        $shipping_id=(int) $checkout['shipping_id'];
+        $billing_id  = (int) $checkout['billing_id'];
+        $shipping_id = (int) $checkout['shipping_id'];
         $product = Cart::join('products', 'products.id', '=', 'carts.product_id')
             ->where('carts.user_id', Auth::id())
             ->get(['products.*', 'carts.id as cid', 'carts.quantity as quantity']);
         $billing_address = address::where('user_id', Auth::id())
-                        ->where('id',$billing_id)->get();
-        $shiping_address = address::where('user_id', Auth::id())->where('id',$shipping_id)->get();
+            ->where('id', $billing_id)->get();
+        $shiping_address = address::where('user_id', Auth::id())->where('id', $shipping_id)->get();
         return view("Checkout::order_review", compact(
             "product",
             "billing_address",
             "shiping_address"
         ));
     }
-    public function create_order(Request $request){
+    public function create_order(Request $request)
+    {
 
         $session_id = Session::get('checkout');
         $payment_method = Session::get('payment');
 
-        $billing_id  =(int) $session_id['billing_id'];
-        $shipping_id=(int) $session_id['shipping_id'];
-        $payment_id=(int) $payment_method['payment_id'];
+        $billing_id  = (int) $session_id['billing_id'];
+        $shipping_id = (int) $session_id['shipping_id'];
+        $payment_id = (int) $payment_method['payment_id'];
 
-        $data=[
-            'user_id'=>Auth::id(),
-            'billing_id'=>$billing_id,
-            'shipping_id'=>$shipping_id,
-            'payment_id'=>$payment_id,
-            'quantity'=>$request->total_quantity,
-            'total_price'=>$request->total_price,
+        $data = [
+            'user_id' => Auth::id(),
+            'billing_id' => $billing_id,
+            'shipping_id' => $shipping_id,
+            'payment_id' => $payment_id,
+            'quantity' => $request->total_quantity,
+            'total_price' => $request->total_price,
         ];
-       $order= order::create($data);
-      // dd($request->product_id);
-       foreach ($request->product_id as $key=>$value)
-       {
-           $tmp = [
-               'order_id'=> $order->id,
-               'product_id' =>$value,
-               'quantity' =>$request->quantity[$key],
-               'total_price'=>$request->price[$key]
+        $order = order::create($data);
+        foreach ($request->product_id as $key => $value) {
+            $tmp = [
+                'order_id' => $order->id,
+                'product_id' => $value,
+                'quantity' => $request->quantity[$key],
+                'total_price' => $request->price[$key]
             ];
-             orderdetail::create($tmp);
-             Product:: where('id',$value)->
-             decrement('stock',$request->quantity[$key]);
+            orderdetail::create($tmp);
+            Product::where('id', $value)->decrement('stock', $request->quantity[$key]);
         }
-        Cart::where('user_id',Auth::id())->delete();
-        Session::flash('checkout','payment');
-        return redirect('/thanks')->with('success','Order Successfull!!');
+        Cart::where('user_id', Auth::id())->delete();
+        Session::flash('checkout', 'payment');
+        return redirect('/thanks')->with('success', 'Order Successfull!!');
     }
 
-    public function thank_you() {
+    public function thank_you()
+    {
         return view('Checkout::order_success');
     }
 }

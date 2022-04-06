@@ -32,7 +32,7 @@
                                                                     class="gallery-image visible img-responsive"
                                                                     src="{{ asset('storage/media/' . $product->image) }}"
                                                                     alt="Short Sleeve Dress" title="Short Sleeve Dress"
-                                                                    style="height:450px; width:500px" />
+                                                                    style="height:500px; width:500px" />
                                                             </div>
                                                         </div>
 
