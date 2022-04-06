@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Modules\Product\Models\product;
 use Illuminate\Http\Request;
-use App\Modules\Frontend\Http\Controllers;
+use App\Modules\Order\Models\Order;
 use Illuminate\Support\Facades\Auth;
+use App\Modules\Product\Models\product;
+use App\Modules\Frontend\Http\Controllers;
+use App\Models\User;
+
 class HomeController extends Controller
 {
     /**
@@ -23,14 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $products=product::all()->count();
+        $users=User::where('role','=','U')->count();
+        $orders=Order::select('total_price','id')->get();
+      //  dd($products,$users,$orders);
+
+        return view('admin.dashboard',compact('products','orders','users'));
+
+       // return view('admin.dashboard');
     }
-
-    public function index2()
-    {
-        return view('viewnot');
-    }
-
-
 
 }

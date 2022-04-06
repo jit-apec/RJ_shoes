@@ -2,14 +2,10 @@
 
 namespace App\Modules\Order\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Modules\Checkout\Models\order;
-use App\Modules\Product\Models\Product;
-use App\Modules\Checkout\Models\address;
+use Illuminate\Http\Request;
 use App\Modules\Checkout\Models\orderdetail;
-use App\Modules\Checkout\Models\payment;
 
 class OrderController extends Controller
 {
@@ -32,7 +28,7 @@ class OrderController extends Controller
     public function order_view($id)
     {
         $address = Order::where('orders.id', $id)
-           ->join('payments', 'payments.id', '=', 'orders.payment_id')
+            ->join('payments', 'payments.id', '=', 'orders.payment_id')
             ->first();
         $order = Order::where('orders.id', $id)->first();
         $order_details = orderdetail::where('order_id', $id)
@@ -41,5 +37,15 @@ class OrderController extends Controller
             ->join('colors', 'colors.id', '=', 'products.color_id')
             ->get(['products.*', 'orderdetails.*', 'brands.name as brand_name', 'colors.name as color_name']);
         return view("Order::order_view", compact('address', 'order', 'order_details'));
+    }
+    public function create_edit($id)
+    {
+        $status = order::where('id', $id)->first();
+        return view("Order::edit", compact('status'));
+    }
+    public function update(Request $request, $id)
+    {
+        Order::where('id',$id)->update(['order_status'=> $request->status]);
+         return back()->with('status', 'Data Update Successfully');
     }
 }

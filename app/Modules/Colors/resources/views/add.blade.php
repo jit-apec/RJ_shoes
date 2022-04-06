@@ -24,7 +24,7 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Add Colors</h3>
-                        <a class="btn   btn-sm float-right " href="{{ url('/admin/color/') }}"><i class="fa fa-arrow-left"
+                        <a class="float-right " href="{{ url('/admin/color/') }}"><i class="fa fa-arrow-left"
                                 aria-hidden="true"></i> Back</a>&nbsp;
                     </div>
                     <form method="POST" action="addcolor" id="addcolor">

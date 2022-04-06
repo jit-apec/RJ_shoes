@@ -24,7 +24,7 @@
                 <div class="card card-danger p-2 ">
                     <div class="card-header p-2 mt-2 mb-2">
                         <h3 class="card-title">Trash Colors</h3>
-                        <a class=" btn-lg float-right"
+                        <a class="  float-right"
                             href="{{ url('/admin/color/') }}"><i class="fa fa-arrow-left"aria-hidden="true"></i> Back</a>&nbsp;
                     </div>
                     <table id="myTable" class="display ">
@@ -46,8 +46,8 @@
                                     <td>{{ $col->updated_at }}</td>
                                     <td>
                                         <a href="#" onclick="restore_status({{ $col->id }})"
-                                            class="fas fa-trash-restore-alt fa-2x " style='font-size:24px'></a>&nbsp;&nbsp;
-                                        {{-- <a href="{{ url('#') }}" class="fas fa-trash-alt" style='font-size:24px'></a> --}}
+                                            class="fas fa-trash-restore-alt  " style='font-size:20px'></a>&nbsp;&nbsp;
+                                        <a href="#" onclick="destroye({{ $col->id }})" class="fa fa-trash" style='font-size:20px'></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -64,6 +64,21 @@
             if (confirm('are your sure!! do  you want to Restore?')) {
                 jQuery.ajax({
                     url: "{{url('/admin/color/restore')}}",
+                    type: 'GET',
+                    data: {
+                        'id': id
+                    },
+                    success: function(result) {
+                        console.log("Status Changed successfully ");
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+        function destroye(id) {
+            if (confirm('are your sure!! do  you want to Permanetly?')) {
+                jQuery.ajax({
+                    url: "{{url('/admin/color/delete')}}",
                     type: 'GET',
                     data: {
                         'id': id

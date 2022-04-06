@@ -22,12 +22,12 @@
         <div class="d-flex justify-content-center">
             <div class="col-md-12 ">
                 <div class="card card-primary p-1">
-                    <div class="card-header mt-2 mb-2 p-1">
+                    <div class="card-header mt-2 mb-2 p-2">
                         <h3 class="card-title">Brand</h3>
-                        <a class="btn btn-lg float-right "
-                            href="{{ url('/admin/brand/add') }}">Add<i class="fa fa-plus-circle"aria-hidden="true"></i></a>&nbsp;
-                        <a class="btn float-right btn-lg"
-                            href="{{ url('/admin/brand/trashbrand') }}" role="button">Trash&nbsp; <i class="fa fa-trash" aria-hidden="true"></i></a>
+                        {{-- <a class="btn btn-lg float-right "
+                            href="{{ url('/admin/brand/add') }}">Add<i class="fa fa-plus-circle"aria-hidden="true"></i></a>&nbsp; --}}
+                        <a class="float-right "style="width:10%"
+                            href="{{ url('/admin/brand/trashbrand') }}" role="button"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Trash</a>
                     </div>
                     <table id="myTable" class="display">
                         <thead>

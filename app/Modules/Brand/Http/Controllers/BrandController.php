@@ -49,7 +49,7 @@ class BrandController extends Controller
         $brand->user_id = $Aid;
         $brand->name = $req->name;
         $brand->update();
-        return back()->with('status', 'Data Update Successfully');
+        return back()->with('status', 'Order Status updated Update Successfully');
     }
     public function trash()
     {
@@ -66,8 +66,7 @@ class BrandController extends Controller
       brand::where('id',$r->id)->update(['status'=>'Y']);
       return response()->json(['status'=>'Brand restored successfully']);
     }
-    public function destroyed(Request $request){
-        dd($request->id);
+    public function destroye(Request $request){
         brand::where('id',$request->id)->delete();
         return response()->json(['status'=>'Brand delete successfully']);
     }

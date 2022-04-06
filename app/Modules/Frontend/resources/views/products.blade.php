@@ -35,12 +35,12 @@
                                             To
                                             ₹<input type="text" class="range_value range_value_max" target="#price-range"
                                                 name="maximum" id="maximum" /> Max &nbsp; <br><br>
-                                            <div class="text-center">
-                                                <input type="submit" class="btn-submit text-center" value="ok" id="onsubmit"
+                                            <div class="text-right">
+                                                <input type="submit" class="btn-submit text-right" value="ok" id="onsubmit"
                                                     onclick="save();">
 
-                                                <input type="button" class="btn-submit text-center" value="Reset"
-                                                    id="reset">
+                                                {{-- <input type="button" class="btn-submit text-center" value="Reset"
+                                                    id="reset"> --}}
                                             </div>
                                         </form>
                                     </dd>

@@ -13,7 +13,8 @@
                             <div class="header-wrapper-bottom">
                                 <div class="custom-menu col-lg-12">
                                     <div class="header-logo hidden-992">
-                                        <a href="{{ url('/') }}" class="logo"> <img class="img-responsive"
+                                        <a href="{{ url('/') }}" class="logo"> <img
+                                                class="img-responsive"
                                                 src="{{ asset('assets/images/white_logo.png') }}" alt="" /></a>
                                     </div>
                                     <!--- .header-logo -->
@@ -33,6 +34,18 @@
                                                 <a class="level-top" href="{{ url('/products') }}"><span
                                                         class="icon-home fa fa-home"></span><span
                                                         class="icon-text">Product</span></a>
+
+                                            </li>
+                                            <li class="level0 home">
+                                                <a class="level-top" href="{{ url('/product/cart') }}"><span
+                                                        class="icon-home fa fa-home"></span><span
+                                                        class="icon-text">Cart</span></a>
+
+                                            </li>
+                                            <li class="level0 home">
+                                                <a class="level-top" href="{{ url('/myorder') }}"><span
+                                                        class="icon-home fa fa-home"></span><span
+                                                        class="icon-text">My Order</span></a>
 
                                             </li>
                                         </ul>
@@ -87,7 +100,9 @@
                             <div class="top-links-alo">
                                 <div class="header-top-link">
                                     <ul class="links">
-                                        <li><a href="{{url('/myorder')}}">My Order</a>
+                                        <li><a href="{{ url('/product/cart') }}">Cart</a>
+                                        </li>
+                                        <li><a href="{{ url('/myorder') }}">My Order</a>
                                         </li>
                                         <li>
                                             @if (Auth::check())
@@ -132,36 +147,37 @@
 
                                     @php $total = 0 @endphp
                                     @foreach ($cartt as $items)
-                                    @php $total += $items->quantity *  $items->product->price @endphp
+                                        @php $total += $items->quantity *  $items->product->price @endphp
 
-                                 {{-- @php   echo $items->product->image; @endphp --}}
-                                    <li class="item clearfix">
-                                        <div class="cart-content-top">
-                                            <a href="{{ url('/products',$items->product->url)}}"
-                                                title="{{ $items->product->name }}" class="product-image">
-                                                <img src="{{asset('storage/media/'.$items->product->image)}}"
-                                                    width="60" height="77" alt="Brown Arrows Cushion">
-                                            </a>
-                                            <div class="product-details">
-                                                <p class="product-name">
-                                                    <a href="{{ url('/products', $items->product->url)}}"
-                                                        title="{{ $items->product->name }}">{{ $items->product->name }}</a>
-                                                </p>
-                                                <strong>{{ $items->quantity }}</strong> x <span
-                                                    class="price">₹{{$items->product->price}}</span>
-                                                <p class="price"><strong>=
-                                                         ₹{{ $items->quantity * $items->product->price }}
+                                        {{-- @php   echo $items->product->image; @endphp --}}
+                                        <li class="item clearfix">
+                                            <div class="cart-content-top">
+                                                <a href="{{ url('/products', $items->product->url) }}"
+                                                    title="{{ $items->product->name }}" class="product-image">
+                                                    <img src="{{ asset('storage/media/' . $items->product->image) }}"
+                                                        width="60" height="77" alt="Brown Arrows Cushion">
+                                                </a>
+                                                <div class="product-details">
+                                                    <p class="product-name">
+                                                        <a href="{{ url('/products', $items->product->url) }}"
+                                                            title="{{ $items->product->name }}">{{ $items->product->name }}</a>
+                                                    </p>
+                                                    <strong>{{ $items->quantity }}</strong> x <span
+                                                        class="price">₹{{ $items->product->price }}</span>
+                                                    <p class="price"><strong>=
+                                                            ₹{{ $items->quantity * $items->product->price }}
                                                         </strong>
-                                                </p>
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @endforeach
+                                        </li>
+                                    @endforeach
                                 </ol>
                                 <p class="subtotal"> <span class="label">Subtotal:</span> <span
                                         class="price">Total ₹{{ $total }}</span></p>
-                                <div class="actions"> <a href="{{ url("/product/cart") }}" class="view-cart"> View cart </a> <a
-                                        href="{{url('/biling_address')}}">Checkout</a></div>
+                                <div class="actions"> <a href="{{ url('/product/cart') }}"
+                                        class="view-cart"> View cart </a> <a
+                                        href="{{ url('/biling_address') }}">Checkout</a></div>
                             </div>
                         </div>
                         <!--- .mini-contentCart -->

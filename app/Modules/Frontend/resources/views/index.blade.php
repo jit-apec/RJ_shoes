@@ -31,7 +31,7 @@ Welcome
                                         <h3 class="caption2">looks</h3>
                                         <h2 class="caption3">Summer</h2>
 
-                                        <h3 class="caption4"><a href="#" class="btn-shop">Shop Now</a></h3>
+                                        <h3 class="caption4"><a href="{{ url('/products') }}" class="btn-shop">Shop Now</a></h3>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@ Welcome
                                     <div class="text-slide text-slide3">
                                         <h3 class="caption1">Mid-Season</h3>
                                         <h3 class="caption2">Must have for Women 2015</h3>
-                                        <h3 class="caption4"><a href="#" class="btn-shop">Shop Womens</a></h3>
+                                        <h3 class="caption4"><a href="{{ url('/products') }}" class="btn-shop">Shop Womens</a></h3>
                                     </div>
                                 </div>
                             </div>

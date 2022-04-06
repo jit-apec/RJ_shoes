@@ -104,21 +104,10 @@
                                     </ul>
                                     <ul class="nav ">
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">
+                                            <a href="{{ url('/admin/order/') }}" class="nav-link">
                                                 <i class="fa fa-truck nav-icon"></i>
-                                                <p>Orders<i class="fas fa-angle-left right"></i></p>
+                                                <p>Orders<i class=" right"></i></p>
                                             </a>
-                                            <ul class="nav nav-treeview">
-
-                                                <li class="nav-item">
-                                                    <a href="{{ url('/admin/order/') }}" class="nav-link">
-                                                        {{-- <i class="far fa-list-alt nav-icon"></i> --}}
-                                                        <i class="fa fa-list nav-icon"></i>
-                                                        <p>products</p>
-                                                    </a>
-                                                </li>
-                                            </ul>
-
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"

@@ -44,19 +44,30 @@
                                                     <td>{{ $value->quantity }}</td>
                                                     <td>₹{{ $value->total_price }}</td>
                                                     <td >{{ $value->created_at }}</td>
-                                                    {{-- <td>{{ $value->order_status }}</td> --}}
+                                                    {{-- <td >{{ $value->order_status }}</td> --}}
                                                     <td class="text-center" style="color:gray;">
                                                         <div class="dropdown action-label ">
                                                             <a class="custom-badge status-blue " href="#" name='STATUS' id="STATUS"
                                                                 aria-expanded="false">
-                                                                @switch ( $value->order_status)
-                                                                    @case (1)
-                                                                        <span style="background-color:rgb(19, 170, 77); color:rgb(252, 250, 250);">
-                                                                            Success </span>
+                                                                @switch ($value->order_status)
+                                                                    @case ('Success')
+                                                                        <span style="color:rgb(23, 158, 113);">
+                                                                            Success</span>
                                                                     @break
-                                                                    @default
-                                                                        <span style="background-color:rgb(216, 65, 65); color:rgb(252, 250, 250);">
+
+                                                                    @case ('On The Way')
+                                                                        <span style="color:rgb(220, 235, 12);">
+                                                                            On The Way</span>
+                                                                    @break
+
+                                                                    @case ('Cancel')
+                                                                        <span style="color:rgb(235, 21, 21);">
                                                                             Cancel</span>
+                                                                    @break
+
+                                                                    @default
+                                                                        <span style="color:rgb(29, 29, 187);">
+                                                                            Order in Process</span>
                                                                 @endswitch
                                                             </a>
                                                         </div>

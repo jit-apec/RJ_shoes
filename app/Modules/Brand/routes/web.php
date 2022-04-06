@@ -12,7 +12,7 @@ Route::group(['prefix' => '/admin/brand', 'middleware' => ['auth']], function ()
     Route::get('/movetrash', [BrandController::class, 'delete']);
     Route::get('/trashbrand', [BrandController::class, 'trash']);
     Route::get('/restorebrand', [BrandController::class, 'restore']);
-    Route::get('/delete', [BrandController::class, 'destroyed']);
+    Route::get('/delete', [BrandController::class, 'destroye']);
     Route::get('/changebrandstatus', [BrandController::class, 'changestatus']);
     route::get('/uniquename', [BrandController::class, 'checkurl']);
 });

@@ -69,6 +69,12 @@ class ColorsController extends Controller
         Colors::where('id',$r->id)->update(['status'=>'Y']);
         return response()->json(['success' => 'Color  restore successfully.']);
     }
+     public function destroy(Request $r)
+    {
+
+        Colors::where('id',$r->id)->delete();
+        return response()->json(['success' => 'Color  delete successfully.']);
+    }
     public function changeStatus(Request $r)
     {
         $colors = new colors;

@@ -25,10 +25,10 @@
                 @csrf
                 <div class="container-fluid">
                     <div class="card card-primary ">
-                        <div class="card-header mt-0 mb-0 p-1">
+                        <div class="card-header mt-0 mb-0 p-2">
                             <h3 class="card-title">Add Product</h3>
 
-                            <a class="btn  btn-sm float-right "
+                            <a class=" float-right "
                                 href="{{ url('/admin/product/') }}"><i class="fa fa-arrow-left"
                                     aria-hidden="true"></i> Back</a>&nbsp;
                         </div>

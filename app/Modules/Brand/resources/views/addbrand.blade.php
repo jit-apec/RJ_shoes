@@ -25,7 +25,7 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Add Brand</h3>
-                        <a class="btn  btn-lg float-right "
+                        <a class="float-right "
                             href="{{ url('/admin/brand/') }}"><i class="fa fa-arrow-left"
                                 aria-hidden="true"></i>&nbsp;Back</a>&nbsp;
                     </div>

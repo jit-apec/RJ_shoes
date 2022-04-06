@@ -15,6 +15,7 @@ Route::group(['prefix' => '/admin/color', 'middleware' => ['auth']], function ()
     Route::get('/restore', [ColorsController::class, 'restore']);
     Route::get('/trash', [ColorsController::class, 'trash']);
     Route::get('/movetotrash', [ColorsController::class, 'delete']);
+    Route::get('/delete', [ColorsController::class, 'destroy']);
     Route::get('/edit/{id}', [ColorsController::class, 'edit']);
     Route::post('/edit/{id}', [ColorsController::class, 'update']);
 });

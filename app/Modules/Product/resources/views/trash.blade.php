@@ -22,10 +22,10 @@
         <div class="d-flex justify-content-center">
             <div class="col-md-12 ">
                 <div class="card card-danger p-2">
-                    <div class="card-header mt-2 mb-2 p-1">
+                    <div class="card-header mt-2 mb-2 p-2">
                         <h3 class="card-title">Trash Product</h3>
-                    
-                        <a class="btn  btn-lg float-right "
+
+                        <a class=" float-right "
                             href="{{ url('/admin/product/') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>
                             Back</a>&nbsp;
                     </div>

@@ -74,7 +74,7 @@
       color: red;
      /* background-color: rgb(167, 172, 179); */
    }
-    </style>
+</style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

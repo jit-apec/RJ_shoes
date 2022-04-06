@@ -21,14 +21,14 @@
         <div class="d-flex justify-content-center">
             <div class="col-md-12 ">
                 <div class="card card-primary p-2">
-                    <div class="card-header  mt-2 mb-2 p-1">
+                    <div class="card-header  mt-2 mb-2 p-2">
                         <h2 class="card-title">Colors</h2>
 
-                        <a class="btn   btn-lg float-right "
-                            href="{{ url('/admin/color/add') }}">Add<i class="fa fa-plus-circle"aria-hidden="true"></i></a>&nbsp;
-                        <a class="btn  float-right btn-lg"
-                            href="{{ url('/admin/color/trash') }}" role="button">Trash &nbsp;<i class="fa fa-trash"
-                                aria-hidden="true"></i></a>
+                        {{-- <a class=" float-right "
+                            href="{{ url('/admin/color/add') }}">Add<i class="fa fa-plus-circle"aria-hidden="true"></i></a>&nbsp; --}}
+                        <a class="float-right " style="width:10%"
+                            href="{{ url('/admin/color/trash') }}" role="button"> <i class="fa fa-trash"
+                                aria-hidden="true"></i>&nbsp; Trash</a>
                     </div>
                     <table id="myTable" class="display">
                         <thead>

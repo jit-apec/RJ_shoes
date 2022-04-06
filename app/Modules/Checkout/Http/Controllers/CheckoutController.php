@@ -170,6 +170,7 @@ class CheckoutController extends Controller
             'total_price'=>$request->total_price,
         ];
        $order= order::create($data);
+      // dd($request->product_id);
        foreach ($request->product_id as $key=>$value)
        {
            $tmp = [

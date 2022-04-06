@@ -37,6 +37,7 @@ class FrontendController extends Controller
     }
     public function view($url)
     {
+
         $products = Product::where('url', $url)
             ->where('status', array('Y'))->get();
         $get_product_id = Product::where('url', $url)
@@ -52,6 +53,7 @@ class FrontendController extends Controller
     }
     public function filter(Request $request)
     {
+   
         if (isset($request->color) && isset($request->brand) && isset($request->size)) {
             $products = Product::whereIn('color_id', $request->color)
                 ->whereIn('size', $request->size)
@@ -169,7 +171,6 @@ class FrontendController extends Controller
     }
     public function order_view($id)
     {
-
         $address = Order::where('orders.id', $id)
         ->join('payments', 'payments.id', '=', 'orders.payment_id')
         ->first();

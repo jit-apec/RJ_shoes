@@ -22,10 +22,10 @@
         <div class="d-flex justify-content-center">
             <div class="col-md-12">
                 <div class="card card-primary  p-1">
-                    <div class="card-header mt-2 mb-2 p-1">
+                    <div class="card-header mt-2 mb-2 tp-2">
                         <h3 class="card-title">Edit Colors</h3>
-                   
-                        <a class="btn   btn-sm float-right "
+
+                        <a class="float-right "
                             href="{{ url('/admin/color/') }}"><i class="fa fa-arrow-left"aria-hidden="true"></i> Back</a>&nbsp;
                     </div>
                     <form method="POST" action="{{url('/admin/color/edit/'.$colors->id)}}" id="addcolor">
