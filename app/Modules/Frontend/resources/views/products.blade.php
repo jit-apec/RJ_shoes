@@ -147,22 +147,7 @@
                             <div id="content">
 
                             </div>
-                            {{-- <div class="d-flex justify-content-center">
-                                    {!! $products->links() !!}
-                                </div> --}}
-                            {{-- <div class="page-nav-bottom">
-                                <div class="left">Items 13 to 24 of 38 total</div>
-                                <div class="right" id="pagination">
-                                    <ul class="page-nav-category">
-                                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a class="selected" href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-
-                                    </ul>
-                                </div>
-                            </div> --}}
+                           
                         </div>
                         <!--- .category-products-->
                     </div>

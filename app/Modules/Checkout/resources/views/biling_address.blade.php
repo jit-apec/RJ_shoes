@@ -64,41 +64,59 @@
                                         </span><br>
                                     @endforeach
                                     <span class="form-radio">
-                                        <input type="radio" name="addresses" id="show" value="0"><label for="rs1"> Add New
+                                        <input type="radio" name="addresses" class="new_address" id="show"
+                                            value="0"><label for="rs1"> Add New
                                             Address</label>
                                     </span><br>
                                     <div class="woocommerce-billing-fields">
                                         <ul class="row" id="form">
                                             <li class="col-md-6">
                                                 <p class="form-row validate-required" id="first_name_field">
-                                                    <label for="first_name" class="">First Name <abbr
-                                                            class="required" title="required">*</abbr></label>
+                                                    <label for="first_name" class="">First Name
+
+                                                        <abbr class="required" title="required">*</abbr> @error('first_name')
+                                                        <p style="color:red" >{{ $message }} </p>
+                                                    @enderror
+                                                    </label>
                                                     <input type="text" class="input-text " name="first_name"
                                                         id="first_name" placeholder="" value="">
                                                 </p>
+
                                             </li>
                                             <li class="col-md-6">
                                                 <p class="form-row validate-required" id="last_name_field">
                                                     <label for="last_name" class="">Last Name <abbr
                                                             class="required" title="required">*</abbr></label>
-                                                    <input type="text" class="input-text " name="last_name"
-                                                        id="last_name" placeholder="" value="">
+                                                    @error('last_name')
+                                                    <p style="color:red" >{{ $message }} </p>
+                                                @enderror
+                                                <input type="text" class="input-text " name="last_name" id="last_name"
+                                                    placeholder="" value="">
                                                 </p>
+
                                             </li>
                                             <li class="col-md-12  col-left-12">
                                                 <p class="form-row  validate-required validate-email" id="email">
                                                     <label for="email" class="">Email ID <abbr
                                                             class="required" title="required">*</abbr></label>
-                                                    <input type="text" class="input-text " name="email" id="email"
-                                                        placeholder="" value="">
+                                                    @error('email')
+                                                    <p style="color:red" >{{ $message }} </p>
+                                                @enderror
+                                                <input type="text" class="input-text " name="email" id="email"
+                                                    placeholder="" value="">
                                                 </p>
+
                                             </li>
                                             <li class="col-md-12  col-left-12">
                                                 <p class="form-row  validate-required validate-email" id="#">
                                                     <label for="Address" class="">Address <abbr
                                                             class="required" title="required">*</abbr></label>
-                                                    <textarea name="address" cols="102" rows="4" id="address"></textarea>
+                                                    @error('address')
+                                                    <p style="color:red" >{{ $message }} </p>
+                                                @enderror
+                                                <textarea name="address" cols="102" rows="4" id="address"></textarea>
                                                 </p>
+
                                             </li>
 
                                             <li class="col-md-6">
@@ -106,9 +124,13 @@
                                                     id="pincode_field">
                                                     <label for="pincode" class="">Pin code <abbr
                                                             class="required" title="required">*</abbr></label>
-                                                    <input type="text" class="input-text " name="pincode" id="pincode"
-                                                        value="">
+                                                    @error('pincode')
+                                                    <p style="color:red" >{{ $message }} </p>
+                                                @enderror
+                                                <input type="text" class="input-text " name="pincode" id="pincode"
+                                                    value="">
                                                 </p>
+
                                             </li>
 
                                             <li class="col-md-6">
@@ -116,9 +138,13 @@
                                                     id="phone_number_field">
                                                     <label for="phone_number" class="">Phone number <abbr
                                                             class="required" title="required">*</abbr></label>
-                                                    <input type="text" class="input-text " name="phone_number"
-                                                        id="phone_number" placeholder="" value="">
+                                                    @error('phone_number')
+                                                    <p style="color:red" >{{ $message }} </p>
+                                                @enderror
+                                                <input type="text" class="input-text " name="phone_number"
+                                                    id="phone_number" placeholder="" value="">
                                                 </p>
+
                                             </li>
 
                                         </ul>
@@ -133,6 +159,7 @@
                                                         id="rs2" value="0"><label for="rs2">Ship to different
                                                         address</label></span>
                                             </li>
+
                                         </ul>
                                     </div>
                                     <div class="checkout-col-footer">
@@ -159,33 +186,5 @@
                 $('#form').toggle(300);
             });
         });
-        // $('#checkout').validate({
-        //     rules: {
-        //         first_name: 'required',
-        //         last_name: 'required',
-        //         email: {
-        //             required: true,
-        //             email: true,
-        //         },
-        //         address: {
-        //             required: true,
-        //             minlength: 10,
-        //         }
-        //         pincode: {
-        //             required: true,
-        //             minlength: 6,
-        //             maxlength:6,
-        //         }
-        //         phone_number: {
-        //             required: true,
-        //             minlength: 10,
-        //             maxlength:15,
-        //         }
-        //     },
-
-        //     submitHandler: function(form) {
-        //         form.submit();
-        //     }
-        // });
     </script>
 @endsection

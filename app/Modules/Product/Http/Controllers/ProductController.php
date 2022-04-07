@@ -123,7 +123,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            //'image' => 'mimes:jpg,JPG,png,jpeg,gif',
+            //'image' => 'mimes:jpg,png,jpeg,gif',
             'price' => ['required', 'regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
             'stock' => 'required|integer|max:999999',
             'size' => 'required', 'regex:/[A-Za-z0-9_]{1,5}/',

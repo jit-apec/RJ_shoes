@@ -34,19 +34,16 @@
                                                 <a class="level-top" href="{{ url('/products') }}"><span
                                                         class="icon-home fa fa-home"></span><span
                                                         class="icon-text">Product</span></a>
-
                                             </li>
                                             <li class="level0 home">
                                                 <a class="level-top" href="{{ url('/product/cart') }}"><span
                                                         class="icon-home fa fa-home"></span><span
                                                         class="icon-text">Cart</span></a>
-
                                             </li>
                                             <li class="level0 home">
                                                 <a class="level-top" href="{{ url('/myorder') }}"><span
                                                         class="icon-home fa fa-home"></span><span
                                                         class="icon-text">My Order</span></a>
-
                                             </li>
                                         </ul>
                                     </div>
@@ -176,8 +173,9 @@
                                 <p class="subtotal"> <span class="label">Subtotal:</span> <span
                                         class="price">Total ₹{{ $total }}</span></p>
                                 <div class="actions"> <a href="{{ url('/product/cart') }}"
-                                        class="view-cart"> View cart </a> <a
-                                        href="{{ url('/biling_address') }}">Checkout</a></div>
+                                    class="view-cart"> View cart </a> <a
+                                    href="{{ url('/biling_address') }}">Checkout</a></div>
+
                             </div>
                         </div>
                         <!--- .mini-contentCart -->

@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="col-sm-4 invoice-col">
 
-                                    <b>Order ID:{{$order->id}}</b><br>
+                                    {{-- <b>Order ID:{{$order->id}}</b><br> --}}
                                     <b>Order Date:{{$order->created_at}}</b><br>
                                     </div>
                                 </div>

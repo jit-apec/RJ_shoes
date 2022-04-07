@@ -38,9 +38,11 @@ class CartController extends Controller
         $request->validate([
             'quantity' => 'required', 'regex:/[1-5]/',
         ]);
-        $data = Product::where('stock', '>=', $request->quantity)
-            ->where('id', $request->id)
-            ->get();
+        if ($request->quantity != 0) {
+            $data = Product::where('stock', '>=', $request->quantity)
+                ->where('id', $request->id)
+                ->get();
+        }
         $price = $request->price * $request->quantity;
         if (count($data)) {
             Cart::updateOrInsert(

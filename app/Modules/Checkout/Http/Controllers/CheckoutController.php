@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Session;
 use App\Modules\Checkout\Models\address;
 use App\Modules\Checkout\Models\payment;
 use App\Modules\Checkout\Models\orderdetail;
-use App\Modules\Cart\Http\Controllers\CartController;
 
 class CheckoutController extends Controller
 {
@@ -25,12 +24,27 @@ class CheckoutController extends Controller
 
     public function create_biling()
     {
-
-        $billing_address = address::where('user_id', Auth::id())->get();
-        return view("Checkout::biling_address", compact("billing_address"));
+        $cart = Cart::where('user_id', '=', Auth::id())->get();
+        if (count($cart)) {
+            $billing_address = address::where('user_id', Auth::id())->get();
+            return view("Checkout::biling_address", compact("billing_address"));
+        } else {
+            return redirect('/products');
+        }
     }
     public function store_billing_address(Request $request)
     {
+        if ($request->addresses == 0) {
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'status' => 'required',
+                'email' => 'required',
+                'phone_number' => 'required',
+                'address' => 'required',
+                'pincode' => 'required',
+            ]);
+        }
         $billing_id = $shipping_id = '';
         if ($request->addresses == 0) {
             $data = [
@@ -49,7 +63,6 @@ class CheckoutController extends Controller
         } else {
             $billing_id = $request->addresses;
         }
-
         if (isset($request->shipping_method) && $request->shipping_method == 1) {
             $shipping_id = $billing_id;
         }
@@ -71,14 +84,16 @@ class CheckoutController extends Controller
     }
     public function store_shipping_address(Request $request)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'address' => 'required',
-            'pincode' => 'required',
-            'phone_number' => 'required',
-        ]);
+        if ($request->addresses == 0) {
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required',
+                'address' => 'required',
+                'pincode' => 'required',
+                'phone_number' => 'required',
+            ]);
+        }
         $a = Session::get('checkout');
         $billing_id  = $a['billing_id'];
         if ($request->addresses == 0) {

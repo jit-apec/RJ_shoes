@@ -71,12 +71,12 @@
                                         <div class="number-input quantity">
                                             <button type="button" class="minus items"
                                                 value="{{ $item->id }}">-</button>
-                                            <input type="text" value="{{ $item->quantity }}" class="qty"
+                                            <input type="text" min="1" max="5" value="{{ $item->quantity }}" class="qty"
                                                 maxlength="1" name="qty"
                                                 oninput="this.value = this.value.replace(/[^/1-5\s]/g, '').replace(/(\..*)\./g, '$1'); ">
-                                            <button type="button" class="plus items"
+                                            <button type="button" max="5" class="plus items"
                                                 value="{{ $item->id }}">+</button>
-                                            <input type="hidden" name="product_price" id="{{ $item->price }}">
+                                            <input type="hidden" min="1"name="product_price" id="{{ $item->price }}">
 
                                         </div>
                                     </td>
@@ -94,7 +94,6 @@
                                 <h3><strong>Total ₹{{ $total }}</strong></h3>
                                 <span class="Amount"></span>
                             </td>
-
                         </tr>
                         <tr>
                             <td colspan="5" class="text-right">
